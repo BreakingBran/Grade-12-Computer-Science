@@ -21,9 +21,9 @@ public class BMIwithFileIO
     //initializes the input function
 	  
     //Scanner sc = new Scanner(System.in);
-    Scanner sc = new Scanner(new FileReader("BMIinput.txt"));
+    Scanner sc = new Scanner(new FileReader("BMI IO/BMIinput.txt"));
     
-    PrintWriter pw = new PrintWriter(new FileWriter("BMIoutput.txt"));
+    PrintWriter pw = new PrintWriter(new FileWriter("BMI IO/BMIoutput.txt"));
     // Using doubles b/c it is more accurate
     //System.out.print("Enter Weight:");
     double weight = sc.nextFloat();
