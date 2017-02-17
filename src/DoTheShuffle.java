@@ -21,13 +21,13 @@ public class DoTheShuffle {
 		//int someVariable = sc.nextInt();
 		//System.out.print("Hey Cutie");
 	}
-	public static  List button1 (E[] inputArray) {
+	public static void button1(String inputArray[]) {
 		
 	}
-	public static List button2 (String args[]) {
+	public static void button2(String inputArray[]) {
 		
 	}
-	public static void button3 (String args[]) {
+	public static void button3 (String inputArray[])  {
 		
 	}
 	
