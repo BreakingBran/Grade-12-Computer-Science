@@ -10,24 +10,24 @@ import java.io.*;
 
 public class DoTheShuffle {
 	public static void main(String args[]) {
-		// 
+		// create a list with 5 char elements
 		// TO DO
 		// TO DO
 
 		//Scanner sc = new Scanner(System.in);
-		List shuffleList = new ArrayList();
+		shuffleList = new ArrayList();
 		
 		
 		//int someVariable = sc.nextInt();
 		//System.out.print("Hey Cutie");
 	}
-	public static void button1(String inputArray[]) {
+	public static void button1(Character inputArray[]) {
+		//inputArray.add('H');
+	}
+	public static void button2(Character inputArray[]) {
 		
 	}
-	public static void button2(String inputArray[]) {
-		
-	}
-	public static void button3 (String inputArray[])  {
+	public static void button3 (Character inputArray[])  {
 		
 	}
 	

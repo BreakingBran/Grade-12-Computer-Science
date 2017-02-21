@@ -1,0 +1,13 @@
+/bin/
+
+*.class
+
+*.log
+
+*.jar
+
+
+.project
+
+
+.classpath
