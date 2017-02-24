@@ -32,8 +32,10 @@ public class isDistinctYear
 
 			isDistinct = isDistinctYearCheck(Integer.toString(year));
 			//System.out.println("the year: " + year + " is " + isDistinct);
-
-			year += 1;
+			if (!isDistinct)
+			{
+				year += 1;
+			}
 
 
 		}
@@ -66,7 +68,7 @@ public class isDistinctYear
 		for (int i = 0; i < year.length(); i++)
 		{
 			char numberInYear = year.charAt(i);
-			System.out.println(numberInYear);
+			//System.out.println(numberInYear);
 			numbers.put(numberInYear,numbers.get(numberInYear)+1);
 			//System.out.println("The number is " + numberInYear + " : " + numbers.get(numberInYear));
 			if (numbers.get(numberInYear) > 1)
