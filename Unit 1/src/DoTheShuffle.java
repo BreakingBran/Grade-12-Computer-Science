@@ -7,6 +7,7 @@
 
 import java.util.*;
 import java.io.*;
+//import java.util.Arrays.*;
 
 public class DoTheShuffle {
 	public static void main(String args[]) {
@@ -15,12 +16,9 @@ public class DoTheShuffle {
 		// TO DO
 
 		Scanner sc = new Scanner(System.in);
-		int[] shuffleList = new int[5];
+		char[] shuffleList = {'A','B','C','D','E'};
 		
-		for (int i = 0; i < 5; i++)
-		{
-			shuffleList[i] = i;
-		}
+		//System.out.print(shuffleList[0]);
 		
 		int userInput = 0;
 		int numberOfPresses = 0;
@@ -30,31 +28,49 @@ public class DoTheShuffle {
 			userInput = sc.nextInt();
 			numberOfPresses = sc.nextInt();
 			
-			switch(userInput){
-			case 1:
+			if (userInput == 1){
 				button1(shuffleList,numberOfPresses);
-			case 2:
-				button2(shuffleList,numberOfPresses);
-			case 3:
-				button3(shuffleList,numberOfPresses);
-			}
-		
+			}else if (userInput == 2){
+			  button2(shuffleList,numberOfPresses);
+			}else if (userInput == 3){
+			    button3(shuffleList,numberOfPresses);}
 			 
 		}
+		for (int i = 0; i < 5; i++){
+			System.out.print(shuffleList[i]);
+			System.out.print(' ');
+		}
+	}
+	public static void button1(char[] shuffleList,int numberOfPresses ) {
+		for (int j = 0; j < numberOfPresses; j++){
+			char[] tempArray = Arrays.copyOfRange(shuffleList, 1, 5);
+			shuffleList[4] = shuffleList[0];
+			for (int i = 0; i < shuffleList.length-1; i++){
+				shuffleList[i] = tempArray[i];
+			}
+			//System.out.println(shuffleList);
+		}
 		
-		System.out.print(shuffleList);
 	}
-	public static void button1(int[] shuffleList,int numberOfPresses ) {
-		//inputArray.add('H');
+	public static void button2(char[] shuffleList,int numberOfPresses) {
+		for (int j = 0; j < numberOfPresses; j++){
+			char[] tempArray = Arrays.copyOfRange(shuffleList, 0, 4);
+			shuffleList[0] = shuffleList[4];
+			for (int i = 0; i < shuffleList.length-1; i++){
+				shuffleList[i+1] = tempArray[i];
+			}
+			//System.out.println(shuffleList);
+		}
 	}
-	public static void button2(int[] shuffleList,int numberOfPresses) {
-		
+	public static void button3 (char[] shuffleList,int numberOfPresses)  {
+		for (int j = 0; j < numberOfPresses; j++){
+			char first = shuffleList[0];
+			char second = shuffleList[1];
+			shuffleList[0] = second;
+			shuffleList[1] = first;
+			//System.out.println(shuffleList);
+		}
 	}
-	public static void button3 (int[] shuffleList,int numberOfPresses)  {
-		
-	}
-	public static void button4 (int[] shuffleList,int numberOfPresses)  {
-		
-	}
-	
 }
+	
+

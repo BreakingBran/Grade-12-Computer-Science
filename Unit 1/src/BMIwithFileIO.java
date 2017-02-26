@@ -55,6 +55,7 @@ public class BMIwithFileIO
    pw.print(health);
    pw.flush();
    pw.close();
+   sc.close();
      
   }
 }
