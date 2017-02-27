@@ -25,6 +25,7 @@ public class isDistinctYear
 
 		int year = sc.nextInt();
 		int firstYear = year;
+		year++;
 
 
 		while ((isDistinct == false) && (year < 100001))
