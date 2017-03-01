@@ -16,6 +16,7 @@ public class GPS
     //parse string and look at each indivizual character
     //each character corosponds to row and colunm value
     // determine diffirence between row and colunm and add to toal turns
+    
 
     Scanner sc = new Scanner(System.in);
 
@@ -29,6 +30,8 @@ public class GPS
     int counter = 0;
     int moves = 0;
     
+    //poppulates GPS matrix with row, colunm value pairs foe each index 
+    // exmp. 'B'  which is matix[1] gets values [0,1] added to it, as its row 0, colunm 1
     for (int rowValueInex =0; rowValueInex < 5; rowValueInex++ )
     {
       for (int colValueInex =0; colValueInex < 6; colValueInex++ )
@@ -43,10 +46,13 @@ public class GPS
 
     String name = sc.nextLine();
     
+    //Finds diffirence in moves between character A and first character in string
     diffInCols = matrix[charToIndexValue((int) name.charAt(0))][1];
     diffInRows = matrix[charToIndexValue((int) name.charAt(0))][0];
     moves += (diffInCols + diffInRows);
    
+    //Loops through all characters in string, finds character row colunm values, subtracts it from
+    //Last characters row colunm value and adds the diffirence to the moves variable
     for (int i = 1; i < name.length(); i++)
     {
       asciiValue1 = (int) name.charAt(i-1);
@@ -58,6 +64,7 @@ public class GPS
       diffInRows = Math.abs(currentCharRowCol[0] - prevCharRowCol[0]);
       moves += (diffInCols + diffInRows);
       
+      //Finds diffirence between last character of sting and enter button
       if (i == name.length()-1)
       {
         diffInCols =  Math.abs(5 - currentCharRowCol[1]);
@@ -72,18 +79,25 @@ public class GPS
 
   public static int charToIndexValue(int AsciiLetter)
   {
+    //Maps the assci value of a character to its index in the afromentioned character matrix
     int indexValue = -1;
+    
+   
     if ((AsciiLetter >= 65) && (AsciiLetter <= 90))
     {
+      //If A-Z, lands here
       indexValue = AsciiLetter-65;
     }else if (AsciiLetter == 32)
     {
+      //If space character lands here
       indexValue = AsciiLetter-6;
     }else if (AsciiLetter == 45)
     {
+      //If '-' lands here
       indexValue = AsciiLetter-18;
     }else if (AsciiLetter == 46)
     {
+      //if '.' lands here
       indexValue = AsciiLetter-18;
     }
     return indexValue;

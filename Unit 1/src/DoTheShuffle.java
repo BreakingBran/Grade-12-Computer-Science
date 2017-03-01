@@ -13,7 +13,7 @@ public class DoTheShuffle {
 	public static void main(String args[]) {
 		// create a list with 5 int elements
 		// create 4 functions that work with it 
-		// TO DO
+		// return shifted array
 
 		Scanner sc = new Scanner(System.in);
 		char[] shuffleList = {'A','B','C','D','E'};
@@ -23,6 +23,7 @@ public class DoTheShuffle {
 		int userInput = 0;
 		int numberOfPresses = 0;
 		
+		//loop through until they enter 4, the exit character
 		while (userInput != 4)
 		{
 			userInput = sc.nextInt();
@@ -42,6 +43,7 @@ public class DoTheShuffle {
 		}
 	}
 	public static void button1(char[] shuffleList,int numberOfPresses ) {
+	  // puts first element at end 
 		for (int j = 0; j < numberOfPresses; j++){
 			char[] tempArray = Arrays.copyOfRange(shuffleList, 1, 5);
 			shuffleList[4] = shuffleList[0];
@@ -53,6 +55,7 @@ public class DoTheShuffle {
 		
 	}
 	public static void button2(char[] shuffleList,int numberOfPresses) {
+	  //puts last element first
 		for (int j = 0; j < numberOfPresses; j++){
 			char[] tempArray = Arrays.copyOfRange(shuffleList, 0, 4);
 			shuffleList[0] = shuffleList[4];
@@ -63,6 +66,7 @@ public class DoTheShuffle {
 		}
 	}
 	public static void button3 (char[] shuffleList,int numberOfPresses)  {
+	  // switches first and last element with each other
 		for (int j = 0; j < numberOfPresses; j++){
 			char first = shuffleList[0];
 			char second = shuffleList[1];

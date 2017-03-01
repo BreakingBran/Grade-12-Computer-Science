@@ -16,6 +16,13 @@ public class isDistinctYearWithArrays
 		// Get start year
 		// Check if year is distinct
 		// output the next year that is distinct
+	  
+	  
+	  /**
+	   * Same as other Distinct Year
+	   * but this one has file IO, look at other version for comments
+	   */
+	  
 
 		Scanner sc = new Scanner(System.in);
 		
