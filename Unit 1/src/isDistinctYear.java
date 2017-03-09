@@ -6,7 +6,7 @@
  */
 
 import java.util.*;
-import java.io.*;
+//import java.io.*;
 
 public class isDistinctYear
 {
@@ -51,7 +51,8 @@ public class isDistinctYear
     {
       System.out.println("There were no distinct years between " + firstYear + " and 100001" );
     }
-
+    
+    sc.close();
 
   }
 
