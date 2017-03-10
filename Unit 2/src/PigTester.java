@@ -56,9 +56,9 @@ public class PigTester{
   finalOutput = pl.convertSentence(originalInput);
   System.out.println("New Sentence: " + finalOutput);
   
-  // doesn't translate the for the consanant q,r, as didn't print, sd,df fg gh hj jk kl lz zx  didn't print,vb bn nm mq didnt translate
-  System.out.println("Case #");
-  originalInput = "wrym"; //S-Stuff
+  //inputing null, gives false statement as output
+  System.out.println("Case #5");
+  originalInput = null;
   System.out.println("Org Sentence: " + originalInput);
   finalOutput = pl.convertSentence(originalInput);
   System.out.println("New Sentence: " + finalOutput);

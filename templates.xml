@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="java" deleted="false" description="For wheneve a quick project needs to be made" enabled="true" name="Reid's Class">/**&#13;
+ * ${primary_type_name}&#13;
+ * @author: Lance Pereira&#13;
+ * @course: ICS4U1&#13;
+ * @date: ${date}&#13;
+*/&#13;
+&#13;
+import java.util.*;&#13;
+import java.io.*;&#13;
+&#13;
+public class ${primary_type_name}&#13;
+{&#13;
+	public static void main(String args[]){&#13;
+		// TO DO&#13;
+		// TO DO&#13;
+		// TO DO&#13;
+		&#13;
+		Scanner sc = new Scanner(System.in);&#13;
+		&#13;
+		int someVariable = sc.nextInt();&#13;
+		System.out.print("Hey Cutie");&#13;
+	}&#13;
+}</template></templates>
