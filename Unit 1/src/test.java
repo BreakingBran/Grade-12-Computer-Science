@@ -18,7 +18,7 @@ public class test
     // determine diffirence between row and colunm and add to toal turns
     int a = 2;
     int b;
-    b = (int)  a*1.5;
+    b = (int)  a;
      System.out.println(a*1.5);
   }
 }
