@@ -10,7 +10,7 @@ import java.util.*;
 import java.io.*;
 
 public class SudukoSolver {
-  
+
   public static void main(String args[]) {
     // create a n by n matrix
     // populate first row with sorted array of 1-n
@@ -43,31 +43,36 @@ public class SudukoSolver {
     
     //System.out.println(Arrays.deepToString(sudukoMatrix));
     
-//    int eliminationRow = sizeOfMatrix/2;
-//    int eliminationCol = sizeOfMatrix/2;
-//    boolean matrixSolved = false;
-//    
-//    while(!matrixSolved)
-//    {
-//      for (int i = 0; i < sizeOfMatrix; i++)
-//      {
-//        if ((sudukoMatrix[eliminationRow][eliminationCol][i] != 0) && (matrixElementSafeRemove(eliminationRow,eliminationCol,i)))
-//          {
-//            sudukoMatrix[eliminationRow][eliminationCol][i] = 0;
-//          };
-//      }
-//      
-//    }
+    int eliminationRow = sizeOfMatrix/2;
+    int eliminationCol = sizeOfMatrix/2;
+    boolean matrixSolved = false;
+    
+    while(!matrixSolved)
+    {
+      for (int i = 0; i < sizeOfMatrix; i++)
+      {
+        if ((sudukoMatrix[eliminationRow][eliminationCol].getsudukoArrayValue(i) != 0) && (matrixElementSafeRemove(eliminationRow,eliminationCol,i,sizeOfMatrix, sudukoMatrix)))
+          {
+            sudukoMatrix[eliminationRow][eliminationCol].setsudukoArrayValue(i,0);
+          };
+      }
+      
+    }
 
     
     long endTime = System.nanoTime();
     long duration = (endTime - startTime);  //divide by 1000000 to get seconds.
     System.out.println("That took " + duration/(1000000000) + " seconds");
   }
-  
-  public static boolean matrixElementSafeRemove(int row, int col, int value)
-  {
+
+  public static boolean matrixElementSafeRemove(int row, int col, int index, int sizeOfMatrix, SudukoList[][] sudukoMatrix) {
     boolean isSafe = false;
+    
+    //Checks the Row
+    for (int i = 0; i < sizeOfMatrix ; i++){
+      if i 
+      sudukoMatrix[row][i] 
+    }
     
     return isSafe;
   }
@@ -80,12 +85,27 @@ class SudukoList {
   private int row;
   private int col;
   private int sizeOfMatrix;
+  private int nonZeroElements;
+  private boolean primaryAngleTLtoBR;
+  private boolean primaryAngleBLtoTR;
+
 
   public SudukoList(int[] tempArray, int Urow, int Ucol, int userSizeOfMatrix) {
     sudukoArray = tempArray.clone();
     row = Urow;
     col = Ucol;
     sizeOfMatrix = userSizeOfMatrix;
+    nonZeroElements = sizeOfMatrix;
+  }
+
+  public void setsudukoArrayValue(int index, int value) {
+    sudukoArray[index] = value;
+    nonZeroElements--;
+    
+  }
+
+  public int getsudukoArrayValue(int index) {
+    return sudukoArray[index];
   }
 
   public void setArray() {
@@ -93,6 +113,7 @@ class SudukoList {
     if (row == 0) {
       sudukoArray = new int[sizeOfMatrix];
       sudukoArray[col] = col + 1;
+      nonZeroElements = 1;
     } else {
       // If not first row, populates element with copy of 1-n list
 
@@ -100,16 +121,21 @@ class SudukoList {
       if ((row == col)) {
         // This takes care of the primary angle top left to bottom right
         sudukoArray[0] = 0;
+        primaryAngleTLtoBR = true;
+        nonZeroElements --;
       }
 
       // erases last element if on primary diagnol going up
       if (row + col == sizeOfMatrix - 1) {
         // This takes care of primary angle top right to bottom left
         sudukoArray[sizeOfMatrix - 1] = 0;
+        primaryAngleBLtoTR = true;
+        nonZeroElements --;
       }
 
       // erases the element that coresponds to col number
       sudukoArray[col] = 0;
+      nonZeroElements --;
     }
 
 
@@ -119,4 +145,3 @@ class SudukoList {
     return Arrays.toString(sudukoArray);
   }
 }
-
