@@ -21,7 +21,7 @@ public class SudukoSolver {
     Scanner sc = new Scanner(System.in);
     int sizeOfMatrix = sc.nextInt();
 
-    int[][][] sudukoMatrix = new int[sizeOfMatrix][sizeOfMatrix][];
+    SudukoList[][] sudukoMatrix = new SudukoList[sizeOfMatrix][sizeOfMatrix];
 
     // Creates array of numbers from 1 to n, n = 5, tempArray = [1,2,3,4,5]
     int[] tempArray = new int[sizeOfMatrix];
@@ -35,60 +35,34 @@ public class SudukoSolver {
     {
       for (int col = 0; col <sizeOfMatrix; col++)
       {
-        //Populates first row with only value that coresponds to it's colunm
-        if (row == 0)
-        {
-          sudukoMatrix[0][col] = new int[sizeOfMatrix];
-          sudukoMatrix[0][col][col] = col+1;
-          continue;
-        }
-        
-        //If not first row, populates element with copy of 1-n list
-        sudukoMatrix[row][col] =  tempArray.clone();
-        
-        //erases 1st element if on primary diagnol going down
-        if ((row == col))
-        {
-          //This takes care of the primary angle top left to bottom right
-          sudukoMatrix[row][col][0] = 0;
-        }
-        
-        //erases last element if on primary diagnol going up
-        if (row + col == sizeOfMatrix-1)
-        {
-          //This takes care of primary angle top right to bottom left
-          sudukoMatrix[row][col][sizeOfMatrix-1] = 0;
-        }
-        
-        //erases the element that coresponds to col number
-        sudukoMatrix[row][col][col] = 0;
-        
-        //System.out.println(Arrays.deepToString(sudukoMatrix));
+        sudukoMatrix[row][col] = new SudukoList(tempArray,row,col,sizeOfMatrix);
+        sudukoMatrix[row][col].setArray();
+
       }
     }
     
     //System.out.println(Arrays.deepToString(sudukoMatrix));
     
-    int eliminationRow = sizeOfMatrix/2;
-    int eliminationCol = sizeOfMatrix/2;
-    boolean matrixSolved = false;
-    
-    while(!matrixSolved)
-    {
-      for (int i = 0; i < sizeOfMatrix; i++)
-      {
-        if ((sudukoMatrix[eliminationRow][eliminationCol][i] != 0) && (matrixElementSafeRemove(eliminationRow,eliminationCol,i)))
-          {
-            sudukoMatrix[eliminationRow][eliminationCol][i] = 0;
-          };
-      }
-      
-    }
+//    int eliminationRow = sizeOfMatrix/2;
+//    int eliminationCol = sizeOfMatrix/2;
+//    boolean matrixSolved = false;
+//    
+//    while(!matrixSolved)
+//    {
+//      for (int i = 0; i < sizeOfMatrix; i++)
+//      {
+//        if ((sudukoMatrix[eliminationRow][eliminationCol][i] != 0) && (matrixElementSafeRemove(eliminationRow,eliminationCol,i)))
+//          {
+//            sudukoMatrix[eliminationRow][eliminationCol][i] = 0;
+//          };
+//      }
+//      
+//    }
 
     
     long endTime = System.nanoTime();
-    long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
-    System.out.println("That took " + duration + " nanoseconds");
+    long duration = (endTime - startTime);  //divide by 1000000 to get seconds.
+    System.out.println("That took " + duration/(1000000000) + " seconds");
   }
   
   public static boolean matrixElementSafeRemove(int row, int col, int value)
@@ -96,6 +70,53 @@ public class SudukoSolver {
     boolean isSafe = false;
     
     return isSafe;
+  }
+}
+
+
+class SudukoList {
+  private int[] sudukoArray;
+  private boolean lastElementLeft = false;
+  private int row;
+  private int col;
+  private int sizeOfMatrix;
+
+  public SudukoList(int[] tempArray, int Urow, int Ucol, int userSizeOfMatrix) {
+    sudukoArray = tempArray.clone();
+    row = Urow;
+    col = Ucol;
+    sizeOfMatrix = userSizeOfMatrix;
+  }
+
+  public void setArray() {
+    // Populates first row with only value that coresponds to it's colunm
+    if (row == 0) {
+      sudukoArray = new int[sizeOfMatrix];
+      sudukoArray[col] = col + 1;
+    } else {
+      // If not first row, populates element with copy of 1-n list
+
+      // erases 1st element if on primary diagnol going down
+      if ((row == col)) {
+        // This takes care of the primary angle top left to bottom right
+        sudukoArray[0] = 0;
+      }
+
+      // erases last element if on primary diagnol going up
+      if (row + col == sizeOfMatrix - 1) {
+        // This takes care of primary angle top right to bottom left
+        sudukoArray[sizeOfMatrix - 1] = 0;
+      }
+
+      // erases the element that coresponds to col number
+      sudukoArray[col] = 0;
+    }
+
+
+  }
+
+  public String toString() {
+    return Arrays.toString(sudukoArray);
   }
 }
 
