@@ -51,20 +51,19 @@ public class GPS
     diffInRows = matrix[charToIndexValue((int) name.charAt(0))][0];
     moves += (diffInCols + diffInRows);
    
-    //Loops through all characters in string, finds character row colunm values, subtracts it from
-    //Last characters row colunm value and adds the diffirence to the moves variable
-    for (int i = 1; i < name.length(); i++)
-    {
-      asciiValue1 = (int) name.charAt(i-1);
+    // Loops through all characters in string, finds character row colunm values, subtracts it from
+    // Last characters row colunm value and adds the diffirence to the moves variable
+    for (int i = 1; i < name.length(); i++) {
+      asciiValue1 = (int) name.charAt(i - 1);
       prevCharRowCol = matrix[charToIndexValue(asciiValue1)];
       asciiValue2 = (int) name.charAt(i);
       currentCharRowCol = matrix[charToIndexValue(asciiValue2)];
-      
+
       diffInCols = Math.abs(currentCharRowCol[1] - prevCharRowCol[1]);
       diffInRows = Math.abs(currentCharRowCol[0] - prevCharRowCol[0]);
       moves += (diffInCols + diffInRows);
-      
-      //Finds diffirence between last character of sting and enter button
+
+      // Finds diffirence between last character of sting and enter button
       if (i == name.length()-1)
       {
         diffInCols =  Math.abs(5 - currentCharRowCol[1]);
