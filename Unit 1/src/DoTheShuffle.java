@@ -10,19 +10,13 @@ import java.io.*;
 //import java.util.Arrays.*;
 
 public class DoTheShuffle {
-  
-  static char[] shuffleList;
-  
-  public DoTheShuffle(){
-     shuffleList = new char[] {'A','B','C','D','E'};
-  }
-  
 	public static void main(String args[]) {
 		// create a list with 5 int elements
 		// create 4 functions that work with it 
 		// return shifted array
 
 		Scanner sc = new Scanner(System.in);
+		char[] shuffleList = {'A','B','C','D','E'};
 		
 		//System.out.print(shuffleList[0]);
 		
@@ -80,12 +74,8 @@ public class DoTheShuffle {
 			shuffleList[1] = first;
 			//System.out.println(shuffleList);
 		}
-	  
-	}
-	
-	public static char[] getShuffleList(){
-	  return shuffleList;
 	}
 }
 	
+
 

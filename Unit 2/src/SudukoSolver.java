@@ -80,6 +80,7 @@ public class SudukoSolver {
 
 
 class SudukoList {
+  
   private int[] sudukoArray;
   private boolean lastElementLeft = false;
   private int row;

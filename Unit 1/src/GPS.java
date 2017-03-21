@@ -89,15 +89,15 @@ public class GPS
     }else if (AsciiLetter == 32)
     {
       //If space character lands here
-      indexValue = AsciiLetter-6;
+      indexValue = 32-6;
     }else if (AsciiLetter == 45)
     {
       //If '-' lands here
-      indexValue = AsciiLetter-18;
+      indexValue = 45-18;
     }else if (AsciiLetter == 46)
     {
       //if '.' lands here
-      indexValue = AsciiLetter-18;
+      indexValue = 46-18;
     }
     return indexValue;
   }
