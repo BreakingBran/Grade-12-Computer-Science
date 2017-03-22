@@ -7,7 +7,7 @@ public class ProblemJ2_2005Test {
 
   @Test
   public void test() {
-    fail("Not yet implemented");
+    assertEquals(ProblemJ2_2005.findrsa(0, 0),5);
   }
 
 }
