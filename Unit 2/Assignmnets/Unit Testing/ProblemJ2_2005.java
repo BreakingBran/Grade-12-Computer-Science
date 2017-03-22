@@ -54,7 +54,7 @@ public class ProblemJ2_2005 {
 		}
 	}
 
-	public static int findrsa(int currentnuminrange, int countrsa) {
+	private static int findrsa(int currentnuminrange, int countrsa) {
     	//create an int to count the number of factors the number has
 		int countfactors = 0;
     	

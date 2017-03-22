@@ -1,0 +1,76 @@
+Started: 23:48:44
+Running...
+Reached End
+Solution Found
+
+1 2 5 3 4 
+2 4 3 1 5 
+3 5 2 4 1 
+4 3 1 5 2 
+5 1 4 2 3 
+# Solutions Tried 900
+Finished: 23:48:44
+
+
+Started: 23:47:53
+Running...
+Reached End
+Solution Found
+
+1 2 5 4 6 3 
+2 3 4 1 5 6 
+3 1 6 2 4 5 
+4 6 1 5 3 2 
+5 4 3 6 2 1 
+6 5 2 3 1 4 
+# Solutions Tried 9852
+Finished: 23:47:53
+
+
+Started: 23:29:56
+Running...
+Reached End
+Solution Found
+
+1 2 4 7 6 5 3 
+2 3 5 1 7 6 4 
+3 1 6 4 5 2 7 
+4 5 7 2 3 1 6 
+5 7 1 6 4 3 2 
+6 4 3 5 2 7 1 
+7 6 2 3 1 4 5 
+# Solutions Tried 615454
+Finished: 23:29:57
+
+
+** 8 **
+Started: 23:34:39 - Q
+Solution Found
+
+1 2 3 4 8 6 7 5 
+2 3 1 6 5 8 4 7 
+3 1 4 7 6 2 5 8 
+4 5 2 8 3 7 6 1 
+5 4 6 1 7 3 8 2 
+6 8 7 2 1 5 3 4 
+7 6 8 5 4 1 2 3 
+8 7 5 3 2 4 1 6 
+# Solutions Tried 317190600
+Finished: 23:46:51
+
+
+** 9 **
+Thurs May 11
+Started: 23:49:50 - on Q
+9547000000 - so far 7:12am next morning
+73341000000 - by Sunday morning 8am
+85663000000 - by Sunday 5pm
+92352000000 - BY Sunday 11pm
+133855000000 - Tuesday 6:40am
+178622000000 - Wednesday 5:15pm
+**
+on Kong2
+117200000000 - by Sunday 5pm
+138500000000 - by Sunday 11pm
+170876000000 - Monday 6:30am
+killed :(
