@@ -30,6 +30,7 @@ public class Rovarspraket {
    */
   public static String getOutput(String input) {
     String output = "";
+    String mainOutput = "";
     char letter;
 
     for (int i = 0; i < input.length(); i++) {
@@ -91,10 +92,11 @@ public class Rovarspraket {
       } else if (letter == 'z' || letter == 'Z') {
         output = "zuz";
       }
-      System.out.print(output);
+      mainOutput += output;
+      //System.out.print(output);
     }
 
     // Return value
-    return output;
+    return mainOutput;
   }
 }
