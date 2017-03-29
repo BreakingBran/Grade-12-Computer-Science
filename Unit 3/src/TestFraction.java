@@ -15,8 +15,8 @@ public class TestFraction {
 
     Scanner sc = new Scanner(System.in);
 
-    //Fraction f1 = new Fraction(3,4);
+    Fraction f1 = new Fraction(3,4);
     
-    //System.out.println(f1);
+    System.out.println(f1);
   }
 }

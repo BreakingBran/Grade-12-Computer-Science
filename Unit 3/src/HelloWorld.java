@@ -1,22 +1,23 @@
 /**
- * TestFraction
+ * HelloWorld
  * 
  * @author: Lance Pereira
  * @course: ICS4U1
- * @date: Mar 27, 2017
+ * @date: Mar 28, 2017
  */
 
 import java.util.*;
 import java.io.*;
 
-public class TestFraction {
-  
+public class HelloWorld {
   public static void main(String args[]) {
+    // TO DO
+    // TO DO
+    // TO DO
 
     Scanner sc = new Scanner(System.in);
 
-    //Fraction f1 = new Fraction(3,4);
-    
-    //System.out.println(f1);
+    int someVariable = sc.nextInt();
+    System.out.print("Hey Cutie");
   }
 }

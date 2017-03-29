@@ -42,8 +42,9 @@ public class Fraction {
   
   public Fraction multiply (Fraction num2)
   {
-    int newNumerator = this.numerator * 1;
-    Fraction newFraction = new Fraction(newNumerator);
+    int newNumerator = this.numerator * num2.numerator;
+    int newDenominator = this.denominator * num2.denominator;
+    Fraction newFraction = new Fraction(newNumerator,newDenominator);
     return newFraction;
   }
   
