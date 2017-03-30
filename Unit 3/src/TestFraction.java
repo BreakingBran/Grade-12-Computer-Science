@@ -16,7 +16,13 @@ public class TestFraction {
     Scanner sc = new Scanner(System.in);
 
     Fraction f1 = new Fraction(3,4);
-    
     System.out.println(f1);
+    
+    Fraction f2 = new Fraction(1,2);
+    
+    Fraction f3 =  f2.subtract(f1);
+    System.out.println(f3);
+
+
   }
 }

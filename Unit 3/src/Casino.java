@@ -10,20 +10,28 @@ import java.util.*;
 import java.io.*;
 
 public class Casino {
-  
+
   public static void main(String args[]) {
     Scanner sc = new Scanner(System.in);
-    System.out.print("How many quarters");
+    System.out.print("How many quarters: ");
     int intialQuarters = sc.nextInt();
+
+    int times;
     
-    for (int i = 0; i < 3; i++){
+    System.out.println("How many times machine 1 already played: ");
+    times = sc.nextInt();
+    SlotMachine slot1 = new SlotMachine(50, 35, times);
+    System.out.println("How many times machine 2 already played: ");
+    times = sc.nextInt();
+    SlotMachine slot2 = new SlotMachine(9, 10, times);
+    System.out.println("How many times machine 3 already played: ");
+    times = sc.nextInt();
+    SlotMachine slot3 = new SlotMachine(15, 20, times);
     
-    System.out.print("How many times machine 1 already played");
-    SlotMachine slot1 = new SlotMachine(50,35,5);
-    }
-    SlotMachine[] arrayOfSlotMachines;
-    int numberOfSlots;
-    
-    Player Martha = new Player(intialQuarters, arrayOfSlotMachines,numberOfSlots);
+    SlotMachine[] arrayOfSlotMachines =  {slot1,slot2,slot3};
+    int numberOfSlots = arrayOfSlotMachines.length;
+
+    Player Martha = new Player(intialQuarters, arrayOfSlotMachines, numberOfSlots);
+    System.out.println(Martha.play());
   }
 }

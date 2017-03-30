@@ -36,13 +36,11 @@ public class Player {
     int index = 0;
     
     while (quartersLeft > 0){
+      index = index % this.numberOfSlots;
+      //System.out.println(index);
       this.quartersLeft += arrayOfSlotMachines[index].playSlotMachine();
-      if (index < this.numberOfSlots){
-        index++;
-      }
-      else{
-        index = 0;
-      }
+      index++;
+      this.numberOfTimesPlayed++;
     }
     return this.numberOfTimesPlayed;
   }
