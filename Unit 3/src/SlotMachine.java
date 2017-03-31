@@ -19,16 +19,21 @@ public class SlotMachine {
     this.payoutValue = payoutValue;
     this.numberOfTimesTillPayout = numberOfTimesTillPayout;
     this.timesPlayed = numberOfTimesAlreadyPlayed;
+    if (this.timesPlayed > this.numberOfTimesTillPayout){
+      this.timesPlayed = this.numberOfTimesTillPayout % this.timesPlayed;
+    }
   }
   
   public int playSlotMachine(){
     int valueChange = 0;
-    if (timesPlayed == numberOfTimesTillPayout)
+    if (this.timesPlayed == this.numberOfTimesTillPayout)
     {
-      valueChange = payoutValue;
+      valueChange = this.payoutValue - 1;
+      this.timesPlayed = 0;
     }
     else{
       valueChange = -1;
+      this.timesPlayed ++;
     }
     return valueChange;
   }
