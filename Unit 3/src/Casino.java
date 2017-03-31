@@ -20,13 +20,13 @@ public class Casino {
     
     System.out.println("How many times machine 1 already played: ");
     times = sc.nextInt();
-    SlotMachine slot1 = new SlotMachine(50, 35, times);
+    SlotMachine slot1 = new SlotMachine(30, 35, times);
     System.out.println("How many times machine 2 already played: ");
     times = sc.nextInt();
-    SlotMachine slot2 = new SlotMachine(9, 10, times);
+    SlotMachine slot2 = new SlotMachine(60, 100, times);
     System.out.println("How many times machine 3 already played: ");
     times = sc.nextInt();
-    SlotMachine slot3 = new SlotMachine(15, 20, times);
+    SlotMachine slot3 = new SlotMachine(9, 10, times);
     
     SlotMachine[] arrayOfSlotMachines =  {slot1,slot2,slot3};
     int numberOfSlots = arrayOfSlotMachines.length;

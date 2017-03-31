@@ -28,7 +28,7 @@ public class Player {
     return quartersLeft;
   }
 
-  public void setQuartersLeft(int quartersLeft) {
+  private void setQuartersLeft(int quartersLeft) {
     this.quartersLeft = quartersLeft;
   }
   
