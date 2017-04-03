@@ -36,8 +36,9 @@ public class SudukoSolverTest {
 
       }
       for (int col = 0; col < sizeOfMatrix; col++) {
-        assertEquals(SudukoSolver.matrixElementSafeRemove(0, col, 0, sizeOfMatrix, sudukoMatrix),
+        assertEquals(SudukoSolver.matrixElementSafeToRemove(0, col, 0, sizeOfMatrix, sudukoMatrix),
             false);
+        
 
         assertEquals(SudukoSolver.isSolved(sudukoMatrix, sizeOfMatrixCounter), false);
       }

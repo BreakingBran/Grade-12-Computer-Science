@@ -20,9 +20,10 @@ class SudukoList {
   private boolean primaryAngleTLtoBR;
   private boolean primaryAngleBLtoTR;
   private int[] tempArray;
+  private int indexOfLastElement;
   
   public SudukoList(int[] tempArray ,int Urow, int Ucol, int SizeOfMatrix) {
-    this.sudukoArray = tempArray;
+    this.sudukoArray = tempArray.clone();
     this.row = Urow;
     this.col = Ucol;
     this.sizeOfMatrix = SizeOfMatrix;
@@ -33,10 +34,23 @@ class SudukoList {
   public void setsudukoArrayValue(int index, int value) {
     this.sudukoArray[index] = value;
     setNonZeroElements(getNonZeroElements() - 1);
-    if (getNonZeroElements() == 1)
-    {
-      this.setLastElementLeft(true);
+    if (getNonZeroElements() <= 0){
+      throw new IllegalStateException("There should never be an array with no numbers");
     }
+    else if (getNonZeroElements() == 1)
+    {
+      for (int i = 0; i < this.sizeOfMatrix; i++)
+      {
+        if (sudukoArray[i] != 0){
+          setIndexOfLastElement(i);
+          break;
+        }
+      }
+    }
+    /*if (getNonZeroElements() == 1)
+    {
+      this.setLastElementLeft();
+    }*/
     
   }
 
@@ -51,6 +65,8 @@ class SudukoList {
   public void setArray() {
     // Populates first row with only value that coresponds to it's colunm
     if (row == 0) {
+      if (col == 0){this.primaryAngleTLtoBR = true;}
+      if (col == sizeOfMatrix-1){this.primaryAngleBLtoTR = true;}
       this.sudukoArray = new int[sizeOfMatrix];
       this.sudukoArray[col] = col + 1;
       setNonZeroElements(1);
@@ -113,8 +129,16 @@ class SudukoList {
     return lastElementLeft;
   }
 
-  public void setLastElementLeft(boolean lastElementLeft) {
-    this.lastElementLeft = lastElementLeft;
+  public void setLastElementLeft() {
+    this.lastElementLeft = true;
+  }
+
+  public int getIndexOfLastElement() {
+    return indexOfLastElement;
+  }
+
+  public void setIndexOfLastElement(int indexOfLastElement) {
+    this.indexOfLastElement = indexOfLastElement;
   }
   
 }
