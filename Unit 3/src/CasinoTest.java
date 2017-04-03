@@ -17,6 +17,6 @@ public class CasinoTest {
 
   @Test
   public void testMain() {
-    assertnewGame.main();
+    //assertEquals(newGame.main();
 }
 }
