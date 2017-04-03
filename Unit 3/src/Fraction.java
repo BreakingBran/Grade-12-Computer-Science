@@ -26,6 +26,7 @@ public class Fraction {
   }
 
   public String toString() {
+    //prints out the numerator / denominator
     return ("(" + this.numerator + "/" + this.denominator + ")");
   }
 

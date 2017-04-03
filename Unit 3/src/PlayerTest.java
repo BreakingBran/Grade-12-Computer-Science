@@ -22,6 +22,8 @@ public class PlayerTest {
   
   @Test
   public void testGetQuartersLeft() {
+    //makes sure that the amount of quarters left
+    //is the same as what is placed in the object
     assertEquals(Martha.getQuartersLeft(), 48);
   }
 

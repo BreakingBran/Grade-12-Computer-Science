@@ -51,6 +51,7 @@ public class SudukoSolver {
     int eliminationCol;
     boolean safeToRemove;
     int hardLimit = 100;
+    boolean isNonZeroIndex;
 
     // System.out.println(Arrays.deepToString(sudukoMatrix));
 
@@ -62,9 +63,13 @@ public class SudukoSolver {
       for (int i = 0; i < sizeOfMatrix; i++) {
         safeToRemove =
             matrixElementSafeToRemove(eliminationRow, eliminationCol, i, sizeOfMatrix, sudukoMatrix);
+        isNonZeroIndex = sudukoMatrix[eliminationRow][eliminationCol].getsudukoArrayValue(i) != 0;
+        if (!isNonZeroIndex){continue;}
         System.out.println("Safe to remove: " + safeToRemove);
         System.out.println("Non-zero Elements: "
             + sudukoMatrix[eliminationRow][eliminationCol].getNonZeroElements());
+        System.out.println("row: " + eliminationRow);
+        System.out.println("col: " + eliminationCol);
         System.out.println("index: " + i);
         System.out.println("index value: "
             + sudukoMatrix[eliminationRow][eliminationCol].getsudukoArrayValue(i) + "\n");
@@ -113,22 +118,22 @@ public class SudukoSolver {
     if (sudukoMatrix[row][col].getNonZeroElements() > 1) {
       while ((checkColOrRow < sizeOfMatrix) && !isSafe) {
 
-        if (sudukoMatrix[row][checkColOrRow].getsudukoArrayValue(indexInArray) == indexInArray
+        if (sudukoMatrix[row][checkColOrRow].getsudukoArrayValue(indexInArray) == indexInArray+1
             && checkColOrRow != col) {
           isSafeRow = true;
         }
-        if (sudukoMatrix[checkColOrRow][col].getsudukoArrayValue(indexInArray) == indexInArray) {
+        if (sudukoMatrix[checkColOrRow][col].getsudukoArrayValue(indexInArray) == indexInArray+1) {
           isSafeCol = true;
         }
 
-        if ((sudukoMatrix[checkColOrRow][checkColOrRow].getsudukoArrayValue(indexInArray) == indexInArray)
+        if ((sudukoMatrix[checkColOrRow][checkColOrRow].getsudukoArrayValue(indexInArray) == indexInArray+1)
             && checkColOrRow != row) {
           isSafeDiagTLBR = true;
         }
 
 
         if ((sudukoMatrix[checkColOrRow][sizeOfMatrix - 1 - checkColOrRow]
-            .getsudukoArrayValue(indexInArray) == indexInArray) && checkColOrRow != row) {
+            .getsudukoArrayValue(indexInArray) == indexInArray+1) && checkColOrRow != row) {
           isSafeDiagBLTR = true;
 
         }

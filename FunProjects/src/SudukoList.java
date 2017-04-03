@@ -34,7 +34,7 @@ class SudukoList {
   public void setsudukoArrayValue(int index, int value) {
     this.sudukoArray[index] = value;
     setNonZeroElements(getNonZeroElements() - 1);
-    if (getNonZeroElements() <= 0){
+    if (getNonZeroElements() < 0){
       throw new IllegalStateException("There should never be an array with no numbers");
     }
     else if (getNonZeroElements() == 1)

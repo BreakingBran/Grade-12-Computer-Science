@@ -13,6 +13,7 @@ import org.junit.Test;
 
 public class CasinoTest {
 
+  //Can't really test this can I
   Casino newGame = new Casino();
 
   @Test
