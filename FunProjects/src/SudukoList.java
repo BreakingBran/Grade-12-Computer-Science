@@ -70,6 +70,7 @@ class SudukoList {
       this.sudukoArray = new int[sizeOfMatrix];
       this.sudukoArray[col] = col + 1;
       setNonZeroElements(1);
+      setLastElementLeft();
     } else {
       // If not first row, populates element with copy of 1-n list
 

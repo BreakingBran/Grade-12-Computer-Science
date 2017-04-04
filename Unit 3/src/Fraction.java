@@ -101,6 +101,7 @@ public class Fraction {
 
   private int GCF(int a, int b) {
     //Finds the greatest common factor of both numbers
+    //Copied from Stack Overflow User: BreakingBran
     if (b == 0)
       return Math.abs(a);
     else

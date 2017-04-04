@@ -77,6 +77,7 @@ public class SudukoSolver {
           System.out.println("I ran");
           sudukoMatrix[eliminationRow][eliminationCol].setsudukoArrayValue(i, 0);
         } else if (sudukoMatrix[eliminationRow][eliminationCol].getNonZeroElements() == 1) {
+          System.out.println("I deleted");
           removeFromMatrix(eliminationRow, eliminationCol, i, sudukoMatrix, sizeOfMatrix);
         }
       }
@@ -174,6 +175,7 @@ public class SudukoSolver {
         }
         col++;
       }
+      col = 0;
       row++;
     }
     return isSolved;
@@ -191,7 +193,8 @@ public class SudukoSolver {
         // yet
         nonZeroElements = sudukoMatrix[row][col].getNonZeroElements();
         if (nonZeroElements < minLowestNonZeroElements
-            && !sudukoMatrix[row][col].isLastElementLeft() && nonZeroElements > 1) {
+            && !sudukoMatrix[row][col].isLastElementLeft()) {
+          minLowestNonZeroElements = sudukoMatrix[row][col].getNonZeroElements();
           rowCol[0] = row;
           rowCol[1] = col;
         }

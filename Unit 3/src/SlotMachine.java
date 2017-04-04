@@ -43,12 +43,15 @@ public class SlotMachine {
    */
   public int playSlotMachine(){
     int valueChange = 0;
+    //Checks if you won
     if (this.timesPlayed == this.numberOfTimesTillPayout)
     {
+      //you won!!, pays you payout value
       valueChange = this.payoutValue - 1;
       this.timesPlayed = 0;
     }
     else{
+      //you lost :( , subtracts 1 quarter from your bank
       valueChange = -1;
       this.timesPlayed ++;
     }
