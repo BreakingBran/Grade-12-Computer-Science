@@ -16,7 +16,7 @@ public class Student
    public Student(String name)
    {
      this.name = name;
-     this.myLocker = new Locker()
+     this.myLocker = new Locker();
    }
    
    public void sentToOffice(String reason)
