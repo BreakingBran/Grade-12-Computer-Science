@@ -1,5 +1,7 @@
 package School;
 
+import  Room.ClassRoom; 
+
 /**
  * The "VirtualSchool" class for the CrazyObjects problem.
  * @author Mr. Reid
