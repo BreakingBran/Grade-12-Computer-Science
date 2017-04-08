@@ -4,4 +4,6 @@
 - Add the School_Classes folder to the Unit 3 project build path as class folder
 - Put the ClassRoom.class file in the Room package/folder
 - Go to all the School package .java files and do "import Room.ClassRoom;"
+- also need to add the .class file to the bin under the school folder
+-- Why? I don't know, ask satan.
 - Easy win

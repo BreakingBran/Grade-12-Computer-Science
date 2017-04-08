@@ -1,4 +1,4 @@
-package School;
+
 
 /**
  * HelloWorld2
@@ -15,7 +15,7 @@ public class HelloWorld2 {
   public static void main(String args[]) {
     // TO DO
     // TO DO
-    // TO DO .0
+    // TO DO
 
     Scanner sc = new Scanner(System.in);
 

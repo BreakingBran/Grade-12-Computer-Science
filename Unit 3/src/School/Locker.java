@@ -4,12 +4,20 @@ package School;
  * The "Locker" class for the CrazyObjects problem.
  * @author
  * @date
- * @version 2
+ * @version 2.0
  */
 public class Locker
 {
+  private Student owner;
+  private Jacket studentJacket;
+  private Book books[];
+  
   public Locker(Student me)
   {
+    this.owner = me;
+    this.studentJacket = me.getJacket();
+    //this.books[] = null;
+    
   }
   
   public Book getABook(String course)

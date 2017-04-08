@@ -4,7 +4,7 @@ package School;
  * The "Student" class for the CrazyObjects problem.
  * @author 
  * @date 
- * @version 2
+ * @version 2.0
  */
 public class Student
 {
@@ -16,7 +16,7 @@ public class Student
    public Student(String name)
    {
      this.name = name;
-     this.myLocker = new Locker();
+     this.myLocker = new Locker(this);
    }
    
    public void sentToOffice(String reason)
