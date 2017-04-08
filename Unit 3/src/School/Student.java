@@ -4,7 +4,7 @@ package School;
  * The "Student" class for the CrazyObjects problem.
  * @author 
  * @date 
- * @version 2.0
+ * @version 2.000
  */
 public class Student
 {
@@ -26,17 +26,17 @@ public class Student
    
    public Locker getLocker()
    {
-     return null;
+     return myLocker;
    }
    
    public Jacket getJacket()
    {
-     return null;
+     return myJacket;
    }
    
    public Book[] getBooks()
    {
-     return null;
+     return books;
    }
 
    public void doLunch()
