@@ -1,10 +1,10 @@
-package School;
+
 
 /**
  * The "Book" class for the CrazyObjects problem.
  * @author 
  * @date 
- * @version 2.00
+ * @version 2.0
  */
 
 public class Book

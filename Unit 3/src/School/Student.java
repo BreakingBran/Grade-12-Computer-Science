@@ -4,7 +4,7 @@
  * The "Student" class for the CrazyObjects problem.
  * @author 
  * @date 
- * @version 2
+ * @version 2.000
  */
 public class Student
 {
@@ -16,7 +16,8 @@ public class Student
    public Student(String name)
    {
      this.name = name;
-     this.myLocker = new Locker() 
+
+     this.myLocker = new Locker(this);
    }
    
    public void sentToOffice(String reason)
@@ -26,17 +27,17 @@ public class Student
    
    public Locker getLocker()
    {
-     return null;
+     return myLocker;
    }
    
    public Jacket getJacket()
    {
-     return null;
+     return myJacket;
    }
    
    public Book[] getBooks()
    {
-     return null;
+     return books;
    }
 
    public void doLunch()

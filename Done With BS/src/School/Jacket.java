@@ -4,21 +4,26 @@ package School;
  * The "Jacket" class for the CrazyObjects problem.
  * @author 
  * @date 
- * @version 2
+ * @version 2.0
  */
 public class Jacket
 {
+  
+  private Student owner;
+  
   public Jacket(Student me)
   {
+    this.owner = me;
   }
   
   public Student getOwner()
   {
-    return null;
+    return this.owner;
   }
   
   public String toString()
   {
-    return null;
+    String sentence = "This is a jacket";
+    return sentence;
   }
 } // Jacket class
