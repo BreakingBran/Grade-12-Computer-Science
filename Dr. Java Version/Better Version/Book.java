@@ -1,18 +1,14 @@
-
-
 /**
  * The "Book" class for the CrazyObjects problem.
  * @author 
  * @date 
- * @version 2.0
+ * @version 2
  */
-
 public class Book
 {
   private String title;
   private String course;
-  private boolean inLocker = false;
-  
+
   public Book(String aCourse, String aTitle)
   {
     this.title = aTitle;
@@ -21,33 +17,16 @@ public class Book
 
   public String getTitle()
   {
-    return this.title;
+    return null;
   }
   
   public String getCourse()
   {     
-    return this.course;
+    return null;
   }
    
   public String toString()
   {
-    String sentence = String.format("The book is called %s and is a part of the %s course",this.title,this.course);
-    return sentence;
+    return null;
   }
-  
-  public boolean isInLocker()
-  {
-    return this.inLocker;
-  }
-  
-  public void putInLocker()
-  {
-    this.inLocker = true;
-  }
-  
-  public void takeOutOfLocker()
-  {
-    this.inLocker = false;
-  }
-
 } // Book class

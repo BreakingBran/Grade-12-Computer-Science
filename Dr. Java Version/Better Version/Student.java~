@@ -6,35 +6,27 @@
  */
 public class Student
 {
-    private String name;
-    private Locker myLocker;
-    private Jacket myJacket;
-    private Book books[];
-
    public Student(String name)
    {
-     this.name = name;
-     this.myLocker = new Locker(this);
    }
    
    public void sentToOffice(String reason)
    {
-     System.out.println(this.name + " " + reason);
    }
    
    public Locker getLocker()
    {
-     return this.myLocker;
+     return null;
    }
    
    public Jacket getJacket()
    {
-     return this.myJacket;
+     return null;
    }
    
    public Book[] getBooks()
    {
-     return this.books;
+     return null;
    }
 
    public void doLunch()
@@ -43,6 +35,6 @@ public class Student
 
    public String toString()
    {
-     return this.name;
+     return null;
    }
 } // Student class
