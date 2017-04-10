@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="java" deleted="false" description="" enabled="true" name="Reid IO">Scanner sc = new Scanner(new FileReader("SomeFile.txt"));&#13;
-PrintWriter pw = new PrintWriter(new FileWriter("Somefile.txt"));</template></templates>
