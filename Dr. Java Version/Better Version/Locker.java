@@ -27,6 +27,14 @@ public class Locker
   
   public void putABook(Book book)
   {
+    try 
+    {
+
+    }
+    finally
+    {
+      
+    }
   }
   
   public Jacket getJacket()
