@@ -9,12 +9,16 @@ public class Student
     private String name;
     private Locker myLocker;
     private Jacket myJacket;
-    private Book books[];
+    private Book books[] = new Book[2];
 
    public Student(String name)
    {
      this.name = name;
      this.myLocker = new Locker(this);
+     this.myJacket = new Jacket(this);
+     this.myLocker.putJacket(this.myJacket);
+     this.myJacket = null;
+     
    }
    
    public void sentToOffice(String reason)
@@ -28,8 +32,8 @@ public class Student
    }
    
    public Jacket getJacket()
-   {
-     return this.myJacket;
+   {     
+     return this.myJacket;     
    }
    
    public Book[] getBooks()
@@ -39,6 +43,13 @@ public class Student
 
    public void doLunch()
    {
+     int counter = 0;     
+     this.getLocker().putABook(this.books[0]);
+     this.getLocker().putABook(this.books[1]);
+     this.books[0] = null;
+     this.books[1] = null;
+     this.books[0] = this.myLocker.getABook("ICS4U1");
+     this.books[1] = this.myLocker.getABook("HRE4M1");
    }
 
    public String toString()

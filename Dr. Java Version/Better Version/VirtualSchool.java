@@ -26,7 +26,9 @@ public class VirtualSchool
     {
       if (i == 0)
       {
-        me.myLocker.putJacket();
+        
+        me.getBooks()[0] = me.getLocker().getABook("MCV4U1");
+        me.getBooks()[1] = me.getLocker().getABook("SPH4U1");
       }
       // Go to class
       if (schedule[i].enter(me) == true)

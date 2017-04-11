@@ -11,7 +11,7 @@ public class VirtualSchool
    */
   public static void main (String[] args)
   {   // Create a student and display
-    Student me = new Student("Arthur");
+    Student me = new Student("Lance");
     System.out.println("Student: "+me+"\n"); 
     
     // Here is your **dream** schedule
@@ -24,6 +24,10 @@ public class VirtualSchool
     // Follow your schedule
     for (int i=0; i<4; i++)
     {
+      if (i == 0)
+      {
+        me.myLocker.putJacket();
+      }
       // Go to class
       if (schedule[i].enter(me) == true)
       {

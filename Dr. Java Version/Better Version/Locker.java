@@ -20,27 +20,76 @@ public class Locker
     books[3] = new Book("HRE4M1", "Ms. Lombardi");
   }
   
+  //Looks through book array for book with same name
   public Book getABook(String course)
   {
-    return null;
+    int counter = 0;
+    boolean found = false;
+    Book result = null;
+    //looks to see if the book exists
+    try
+    {      
+      while (!found && counter < books.length)
+    {
+      if (books[counter].getCourse() == course)
+      {
+        System.out.println(course);
+        System.out.println("Found " + books[counter].getCourse());
+        System.out.println("Found at " +counter);
+        result = books[counter];
+        found = true;
+      }
+      counter++;
+    }
+    return result;
+    }
+    //Always sets it to null after it was found
+    finally
+    {
+      if (found)
+      {
+        books[counter] = null;
+      }
+      //System.out.println(result);
+     // System.out.println(counter);
+    }
   }
   
+  //Puts book into first empty space found
   public void putABook(Book book)
   {
+    boolean foundEmptySpace = false;
+    int counter = 0;
+    while (counter < this.books.length && !foundEmptySpace)
+    {
+      if (books[counter] == null)
+      {
+        books[counter] = book;
+      }
+    }
   }
   
   public Jacket getJacket()
   {
-    return null;
+    return this.studentJacket;
   }
   
   public Jacket removeJacket()
   {
-    return null;
+    try
+    {
+      return this.studentJacket;
+    }
+    finally
+    {
+      this.studentJacket = null;
+    }
   }
   
   public void putJacket(Jacket thisJacket)
   {
+    this.studentJacket = thisJacket;
+    //this.studentJacket.getOwner().myJacket = null;
   }
   
   public String toString()
