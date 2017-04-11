@@ -1,7 +1,10 @@
+package betterSchool;
+
 /**
  * The "Book" class for the CrazyObjects problem.
- * @author 
- * @date 
+ * @author: Lance Pereira
+ * @course: ICS4U1
+ * @date: Apr 11, 2017
  * @version 2
  */
 public class Book

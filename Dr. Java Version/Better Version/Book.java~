@@ -17,16 +17,16 @@ public class Book
 
   public String getTitle()
   {
-    return this.title;
+    return null;
   }
   
   public String getCourse()
   {     
-    return this.course;
+    return null;
   }
    
   public String toString()
   {
-    return this.course;
+    return null;
   }
 } // Book class

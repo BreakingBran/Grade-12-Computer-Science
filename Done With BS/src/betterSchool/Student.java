@@ -1,9 +1,13 @@
+package betterSchool;
+
 /**
  * The "Student" class for the CrazyObjects problem.
- * @author 
- * @date 
+ * @author: Lance Pereira
+ * @course: ICS4U1
+ * @date: Apr 11, 2017
  * @version 2
  */
+
 public class Student
 {
     private String name;
@@ -20,7 +24,11 @@ public class Student
      this.myJacket = null;
      
    }
-   
+
+   /**
+    * Prints our reason for being sent to office
+    * @param reason
+    */
    public void sentToOffice(String reason)
    {
      System.out.println(this.name + " " + reason);
@@ -41,13 +49,14 @@ public class Student
      return this.books;
    }
 
+   /**
+    * Puts two (1st and 2nd period) books from hand into locker
+    * Takes out other two books from locker
+    */
    public void doLunch()
    {
-     int counter = 0;     
      this.getLocker().putABook(this.books[0]);
-     this.getLocker().putABook(this.books[1]);
-     this.books[0] = null;
-     this.books[1] = null;
+     this.getLocker().putABook(this.books[1]);     
      this.books[0] = this.myLocker.getABook("ICS4U1");
      this.books[1] = this.myLocker.getABook("HRE4M1");
    }

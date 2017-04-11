@@ -6,16 +6,13 @@
  */
 public class Jacket
 {
-  private Student owner;
-  
   public Jacket(Student me)
   {
-    this.owner = me;
   }
   
   public Student getOwner()
   {
-    return owner;
+    return null;
   }
   
   public String toString()
