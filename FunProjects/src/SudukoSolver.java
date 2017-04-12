@@ -19,10 +19,12 @@ public class SudukoSolver {
     // Go through the matrix and find the smallest matrix greater than 1 and discard the 1st non 0
     // element in it
 
+    //Just for timing
     long startTime = System.nanoTime();
     Scanner sc = new Scanner(System.in);
+    
+    //Gets size of matrix and creates a n by n matrix
     int sizeOfMatrix = sc.nextInt();
-
     SudukoList[][] sudukoMatrix = new SudukoList[sizeOfMatrix][sizeOfMatrix];
 
 
@@ -46,6 +48,7 @@ public class SudukoSolver {
 
     // System.out.println(Arrays.deepToString(sudukoMatrix));
 
+    
     int[] rowCol = new int[2];
     int eliminationRow;
     int eliminationCol;
@@ -55,7 +58,9 @@ public class SudukoSolver {
 
     // System.out.println(Arrays.deepToString(sudukoMatrix));
 
+    //While the matrix is not solved and the hardlimit of 100 moves is not reached
     while (!isSolved(sudukoMatrix, sizeOfMatrix) && hardLimit > 0) {
+      //array of two ints [row,col] with best row and col to remove
       rowCol = bestPosition(sudukoMatrix, sizeOfMatrix);
       eliminationRow = rowCol[0];
       eliminationCol = rowCol[1];
@@ -187,7 +192,8 @@ public class SudukoSolver {
     int nonZeroElements;
     int index;
 
-    for (int row = 0; row < sizeOfMatrix; row++) {
+    //Row starts at 1 because nothing from row 1 should ever be removed
+    for (int row = 1; row < sizeOfMatrix; row++) {
       for (int col = 0; col < sizeOfMatrix; col++) {
         // Checks to see if it is the lowest number of possible elements and that it is not solved
         // yet
