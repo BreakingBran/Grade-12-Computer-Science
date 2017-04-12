@@ -6,6 +6,11 @@ package betterSchool;
  * @date Oct 2011
  * @version 2.1
  */
+
+import java.util.*;
+//import java.io.*;
+//import java.lang.reflect.Array;
+
 public class VirtualSchool
 {
   /**
@@ -41,7 +46,9 @@ public class VirtualSchool
       {
         System.out.println(me+" was sent to the office.");        
       }
+      //System.out.println(Arrays.toString(me.getLocker().getBooks()));
       System.out.println();
+      
       
       // End of period 2
       if (i == 1)

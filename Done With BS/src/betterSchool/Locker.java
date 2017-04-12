@@ -120,4 +120,10 @@ public class Locker
   {
     return this.owner;
   }
+  
+ /* public Book[] getBooks()
+  {
+    return this.books;
+  }*/
+  
 } // Locker class
