@@ -18,6 +18,12 @@ public class Student
    {
      this.name = name;
      this.myLocker = new Locker(this);
+     //Kinda redundant to initialze the this.myJacket variable
+     //with the Jacket object if it was just going to be reassigned
+     //but it was done to show that the Student had the jacket first and 
+     //then when he came to school he put it away
+     //with no setter for the myJacket variable, the only place to take off the jaccket without adding more functions 
+     //was within the constructor
      this.myJacket = new Jacket(this);
      this.myLocker.putJacket(this.myJacket);
      this.myJacket = null;
@@ -51,6 +57,7 @@ public class Student
    /**
     * Puts two (1st and 2nd period) books from hand into locker
     * Takes out other two books from locker
+    * Called when end of 1st period
     */
    public void doLunch()
    {

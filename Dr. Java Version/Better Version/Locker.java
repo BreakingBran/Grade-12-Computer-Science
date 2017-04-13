@@ -1,4 +1,4 @@
-package betterSchool;
+
 
 /**
  * The "Locker" class for the CrazyObjects problem.
@@ -33,12 +33,13 @@ public class Locker {
     int counter = 0;
     boolean found = false;
     Book result = null;
+    
     // looks to see if the book exists
-
     while (!found && counter < books.length) {
       // Makes sure that the value of the array is not null
       // and then checks if it has same name
       // checking that it is null FIRST is crucial as the other arrangment causes an error
+      //if the element in the array happens to be null (NullPointerException)
       if (books[counter] != null && books[counter].getCourse() == course) {
         result = books[counter];
         found = true;
@@ -46,7 +47,9 @@ public class Locker {
       counter++;
     }
 
-    // Always sets books that was found to null after it was found
+    // Always sets books that was found to null if it was found
+    //To signify that the student is now carrying it and that
+    // it is no longer within the locker
     if (found) {
       books[counter - 1] = null;
     }
@@ -55,8 +58,8 @@ public class Locker {
   }
 
   /**
-   * Puts book into first empty space found empty space being a null in the array
-   * 
+   * Puts book entred though params into first empty space found in the locker book array
+   * empty space being a null in the array
    * @param book: book object passed in from the student book array
    */
   public void putABook(Book book) {
@@ -80,7 +83,7 @@ public class Locker {
   /**
    * Returns the jacket object but after doing so always sets it to null within the Locker object
    * 
-   * @return
+   * @return: returns the Jacket object
    */
   public Jacket removeJacket() {
 
@@ -103,10 +106,10 @@ public class Locker {
     return this.owner;
   }
 
-
+/* This was just for testing to see that the books were moved properly
   public Book[] getBooks() {
     return this.books;
   }
-
+*/
 
 } // Locker class

@@ -213,7 +213,7 @@ public class SudukoSolver {
   public static void removeFromMatrix(int row, int col, int index, SudukoList[][] sudukoMatrix,
       int sizeOfMatrix) {
     // Removes values in rows and colunms and diagnols
-    for (int i = 0; i < sizeOfMatrix; i++) {
+    for (int i = 0; i < sizeOfMatrix; i++) { //FIXX THIS IT IS BROOKEN AS FUCK
       if (i != row && i != col) {
         sudukoMatrix[i][col].setsudukoArrayValue(index, 0);
       }

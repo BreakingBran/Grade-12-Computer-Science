@@ -17,6 +17,7 @@ public class Book
     this.course = aCourse;
   }
 
+  //Next few functions are just getters and setter
   public String getTitle()
   {
     return this.title;

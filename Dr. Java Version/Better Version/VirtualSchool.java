@@ -6,9 +6,9 @@
  * @version 2.1
  */
 
-import java.util.*;
-//import java.io.*;
-//import java.lang.reflect.Array;
+//Only use import when testing, for printing arrays
+//import java.util.*;
+
 
 public class VirtualSchool
 {
@@ -16,7 +16,7 @@ public class VirtualSchool
    *  Demo test driver for the Crazy Objects problem
    */
   public static void main (String[] args)
-  {   // Create a student and display
+  {  // Create a student and display
     Student me = new Student("Lance");
     System.out.println("Student: "+me+"\n"); 
     
@@ -32,7 +32,7 @@ public class VirtualSchool
     {
       if (i == 0)
       {
-        
+        //Just got into school, pick up first and second period books
         me.getBooks()[0] = me.getLocker().getABook("MCV4U1");
         me.getBooks()[1] = me.getLocker().getABook("SPH4U1");
       }
