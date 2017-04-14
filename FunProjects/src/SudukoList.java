@@ -7,7 +7,7 @@
  */
 
 import java.util.*;
-import java.io.*;
+//import java.io.*;
 
 class SudukoList {
   
@@ -19,7 +19,7 @@ class SudukoList {
   private int nonZeroElements;
   private boolean primaryAngleTLtoBR;
   private boolean primaryAngleBLtoTR;
-  private int[] tempArray;
+  //private int[] tempArray;
   private int indexOfLastElement;
   
   public SudukoList(int[] tempArray ,int Urow, int Ucol, int SizeOfMatrix) {
@@ -31,9 +31,15 @@ class SudukoList {
     setNonZeroElements(sizeOfMatrix);
   }
 
+ 
   public void setsudukoArrayValue(int index, int value) {
+    //Only subtracts 1 from nonzero elements if element set to 0 was not already 0
+    if (this.sudukoArray[index] != 0){
+      setNonZeroElements(getNonZeroElements() - 1);
+    }
+    //Sets element to 0
     this.sudukoArray[index] = value;
-    setNonZeroElements(getNonZeroElements() - 1);
+    //Makes sure that this never happens
     if (getNonZeroElements() < 0){
       throw new IllegalStateException("There should never be an array with no numbers");
     }
@@ -62,6 +68,14 @@ class SudukoList {
     return sudukoArray;
   }
   
+  /**
+   *  
+   * When arrays in Suduko matrix are being initialized, this determines which 
+   * numbers in the 3rd level array to switch off.
+   * Example: SizeOfMatrix = 4, sets the row 0, col 0 matrix to [1,0,0,0]
+   * and sets row 1, col 0 to [0,2,3,4] \n
+   * ->Also
+   */
   public void setArray() {
     // Populates first row with only value that coresponds to it's colunm
     if (row == 0) {
@@ -134,8 +148,8 @@ class SudukoList {
     this.lastElementLeft = true;
   }
 
-  public int getIndexOfLastElement() {
-    return indexOfLastElement;
+  public int getValueOfLastElement() {
+    return sudukoArray[indexOfLastElement];
   }
 
   public void setIndexOfLastElement(int indexOfLastElement) {

@@ -7,8 +7,7 @@
  */
 
 import java.util.*;
-import java.io.*;
-import java.lang.reflect.Array;
+
 
 public class SudukoSolver {
 
@@ -19,12 +18,13 @@ public class SudukoSolver {
     // Go through the matrix and find the smallest matrix greater than 1 and discard the 1st non 0
     // element in it
 
-    //Just for timing
+    // Just for timing
     long startTime = System.nanoTime();
     Scanner sc = new Scanner(System.in);
-    
-    //Gets size of matrix and creates a n by n matrix
+
+    // Gets size of matrix and creates a n by n matrix
     int sizeOfMatrix = sc.nextInt();
+    sc.close();
     SudukoList[][] sudukoMatrix = new SudukoList[sizeOfMatrix][sizeOfMatrix];
 
 
@@ -41,26 +41,22 @@ public class SudukoSolver {
       for (int col = 0; col < sizeOfMatrix; col++) {
         sudukoMatrix[row][col] = new SudukoList(tempArray, row, col, sizeOfMatrix);
         sudukoMatrix[row][col].setArray();
-        // System.out.println(sudukoMatrix[row][col].toString());
-
       }
     }
 
-    // System.out.println(Arrays.deepToString(sudukoMatrix));
-
-    
     int[] rowCol = new int[2];
     int eliminationRow;
     int eliminationCol;
     boolean safeToRemove;
-    int hardLimit = 100;
+    long hardLimit = 10000;
     boolean isNonZeroIndex;
 
-    // System.out.println(Arrays.deepToString(sudukoMatrix));
-
-    //While the matrix is not solved and the hardlimit of 100 moves is not reached
+    /*
+     * While the matrix is not solved and the hardlimit of 100 moves is not reached main loop for
+     * removing matrix and solving matrix
+     */
     while (!isSolved(sudukoMatrix, sizeOfMatrix) && hardLimit > 0) {
-      //array of two ints [row,col] with best row and col to remove
+      // array of two ints [row,col] with best row and col to remove
       rowCol = bestPosition(sudukoMatrix, sizeOfMatrix);
       eliminationRow = rowCol[0];
       eliminationCol = rowCol[1];
@@ -69,27 +65,36 @@ public class SudukoSolver {
         safeToRemove =
             matrixElementSafeToRemove(eliminationRow, eliminationCol, i, sizeOfMatrix, sudukoMatrix);
         isNonZeroIndex = sudukoMatrix[eliminationRow][eliminationCol].getsudukoArrayValue(i) != 0;
-        if (!isNonZeroIndex){continue;}
-        System.out.println("Safe to remove: " + safeToRemove);
+        if (!isNonZeroIndex) {
+          continue;
+        }
+        /*System.out.println("Safe to remove: " + safeToRemove);
         System.out.println("Non-zero Elements: "
             + sudukoMatrix[eliminationRow][eliminationCol].getNonZeroElements());
         System.out.println("row: " + eliminationRow);
         System.out.println("col: " + eliminationCol);
         System.out.println("index: " + i);
         System.out.println("index value: "
-            + sudukoMatrix[eliminationRow][eliminationCol].getsudukoArrayValue(i) + "\n");
+            + sudukoMatrix[eliminationRow][eliminationCol].getsudukoArrayValue(i) + "\n");*/
         if (safeToRemove && sudukoMatrix[eliminationRow][eliminationCol].getNonZeroElements() > 1) {
-          System.out.println("I ran");
+          //System.out.println("I ran");
           sudukoMatrix[eliminationRow][eliminationCol].setsudukoArrayValue(i, 0);
         } else if (sudukoMatrix[eliminationRow][eliminationCol].getNonZeroElements() == 1) {
-          System.out.println("I deleted");
+          //System.out.println("I deleted");
           removeFromMatrix(eliminationRow, eliminationCol, i, sudukoMatrix, sizeOfMatrix);
         }
       }
       hardLimit--;
     }
 
-    System.out.println(Arrays.deepToString(sudukoMatrix));
+    //System.out.println(Arrays.deepToString(sudukoMatrix));
+    
+    for (int row = 0; row < sizeOfMatrix; row++){
+      for (int col = 0; col < sizeOfMatrix; col++){
+        System.out.print(sudukoMatrix[row][col].getValueOfLastElement() + " ");
+      }
+      System.out.println("");
+    }
 
     long endTime = System.nanoTime();
     long duration = (endTime - startTime); // divide by 1000000 to get seconds.
@@ -99,14 +104,16 @@ public class SudukoSolver {
 
 
   /**
-   * This is nice
+   * This determines if the chosen index in the (row,col) of the suduko matrix is safe to remove by
+   * checking if another value that is equal to it exists in the row and colunm that it exists in if
+   * on primary diagnols, it also checks those
    * 
-   * @param row
-   * @param col
-   * @param indexInArray
+   * @param row int row index that is being considred to remove
+   * @param col int col index that is being considred to remove
+   * @param indexInArray int of the index in the array being considred to be removed
    * @param sizeOfMatrix
    * @param sudukoMatrix
-   * @return
+   * @return if it is safe or not to remove the variable
    */
 
   public static boolean matrixElementSafeToRemove(int row, int col, int indexInArray,
@@ -124,22 +131,22 @@ public class SudukoSolver {
     if (sudukoMatrix[row][col].getNonZeroElements() > 1) {
       while ((checkColOrRow < sizeOfMatrix) && !isSafe) {
 
-        if (sudukoMatrix[row][checkColOrRow].getsudukoArrayValue(indexInArray) == indexInArray+1
+        if (sudukoMatrix[row][checkColOrRow].getsudukoArrayValue(indexInArray) == indexInArray + 1
             && checkColOrRow != col) {
           isSafeRow = true;
         }
-        if (sudukoMatrix[checkColOrRow][col].getsudukoArrayValue(indexInArray) == indexInArray+1) {
+        if (sudukoMatrix[checkColOrRow][col].getsudukoArrayValue(indexInArray) == indexInArray + 1) {
           isSafeCol = true;
         }
 
-        if ((sudukoMatrix[checkColOrRow][checkColOrRow].getsudukoArrayValue(indexInArray) == indexInArray+1)
+        if ((sudukoMatrix[checkColOrRow][checkColOrRow].getsudukoArrayValue(indexInArray) == indexInArray + 1)
             && checkColOrRow != row) {
           isSafeDiagTLBR = true;
         }
 
 
         if ((sudukoMatrix[checkColOrRow][sizeOfMatrix - 1 - checkColOrRow]
-            .getsudukoArrayValue(indexInArray) == indexInArray+1) && checkColOrRow != row) {
+            .getsudukoArrayValue(indexInArray) == indexInArray + 1) && checkColOrRow != row) {
           isSafeDiagBLTR = true;
 
         }
@@ -167,6 +174,14 @@ public class SudukoSolver {
     return isSafe;
   }
 
+  /**
+   * Checks to see if the matrix is solved by looping through all the elements in the array looking
+   * for an element that has more than 1 non-zero element in it.
+   * 
+   * @param sudukoMatrix is the nxn matrix where all the values are stored
+   * @param sizeOfMatrix is the size of n
+   * @return if the matrix is solved or not
+   */
   public static boolean isSolved(SudukoList[][] sudukoMatrix, int sizeOfMatrix) {
     // Checks to see if any element in the array has more than one element
     boolean isSolved = true;
@@ -186,13 +201,22 @@ public class SudukoSolver {
     return isSolved;
   }
 
+  /**
+   * Finds best position in nxn matrix to remove. Does this by finding element in matrix with
+   * shortest amount of elements that is not the last possible element possible in the array
+   * 
+   * @param sudukoMatrix is the nxn matrix where all the values are stored
+   * @param sizeOfMatrix is the size of n
+   * @return returns an array of two ints where the first element is the row to remove and second
+   *         element is the colunm to remove
+   */
   public static int[] bestPosition(SudukoList[][] sudukoMatrix, int sizeOfMatrix) {
     int[] rowCol = new int[2];
     int minLowestNonZeroElements = sizeOfMatrix + 1;
     int nonZeroElements;
-    int index;
+    // int index;
 
-    //Row starts at 1 because nothing from row 1 should ever be removed
+    // Row starts at 1 because nothing from row 1 should ever be removed
     for (int row = 1; row < sizeOfMatrix; row++) {
       for (int col = 0; col < sizeOfMatrix; col++) {
         // Checks to see if it is the lowest number of possible elements and that it is not solved
@@ -210,10 +234,19 @@ public class SudukoSolver {
     return rowCol;
   }
 
+  /**
+   * Deletes selected index from all arrays in same colunm, row and diagnol if on primary diagnol
+   * 
+   * @param row
+   * @param col
+   * @param index
+   * @param sudukoMatrix
+   * @param sizeOfMatrix
+   */
   public static void removeFromMatrix(int row, int col, int index, SudukoList[][] sudukoMatrix,
       int sizeOfMatrix) {
     // Removes values in rows and colunms and diagnols
-    for (int i = 0; i < sizeOfMatrix; i++) { //FIXX THIS IT IS BROOKEN AS FUCK
+    for (int i = 0; i < sizeOfMatrix; i++) { // FIXX THIS IT IS BROOKEN AS FUCK
       if (i != row && i != col) {
         sudukoMatrix[i][col].setsudukoArrayValue(index, 0);
       }
@@ -228,5 +261,15 @@ public class SudukoSolver {
       }
     }
     sudukoMatrix[row][col].setLastElementLeft();
+  }
+  
+  public static boolean checkIfCorrect(SudukoList[][] sudukoMatrix, int sizeOfMatrix){
+    boolean isCorrect = true;
+    for (int row = 0; row < sizeOfMatrix; row++) {
+      for (int col = 0; col < sizeOfMatrix; col++) {
+        continue;
+      }
+    }
+    return isCorrect;
   }
 }
