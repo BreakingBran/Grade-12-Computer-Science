@@ -7,82 +7,82 @@
  */
 
 import java.util.*;
-//import java.io.*;
+
+// import java.io.*;
 
 class SudukoList {
-  
+
   private int[] sudukoArray;
   private boolean lastElementLeft = false;
   private int row;
   private int col;
-  private  int sizeOfMatrix;
+  private int sizeOfMatrix;
   private int nonZeroElements;
   private boolean primaryAngleTLtoBR;
   private boolean primaryAngleBLtoTR;
-  //private int[] tempArray;
-  private int indexOfLastElement;
-  
-  public SudukoList(int[] tempArray ,int Urow, int Ucol, int SizeOfMatrix) {
+  // private int[] tempArray;
+  private int indexOfLastElement = -1;
+
+  public SudukoList(int[] tempArray, int Urow, int Ucol, int SizeOfMatrix) {
     this.sudukoArray = tempArray.clone();
     this.row = Urow;
     this.col = Ucol;
     this.sizeOfMatrix = SizeOfMatrix;
-    //this.sizeOfMatrix = SizeOfMatrix;
+    // this.sizeOfMatrix = SizeOfMatrix;
     setNonZeroElements(sizeOfMatrix);
   }
 
- 
+
   public void setsudukoArrayValue(int index, int value) {
-    //Only subtracts 1 from nonzero elements if element set to 0 was not already 0
-    if (this.sudukoArray[index] != 0){
+    // Only subtracts 1 from nonzero elements if element set to 0 was not already 0
+    if (this.sudukoArray[index] != 0) {
       setNonZeroElements(getNonZeroElements() - 1);
     }
-    //Sets element to 0
+    // Sets element to 0
     this.sudukoArray[index] = value;
-    //Makes sure that this never happens
-    if (getNonZeroElements() < 0){
+    // Makes sure that this never happens
+    if (getNonZeroElements() < 0) {
       throw new IllegalStateException("There should never be an array with no numbers");
-    }
-    else if (getNonZeroElements() == 1)
-    {
-      for (int i = 0; i < this.sizeOfMatrix; i++)
-      {
-        if (sudukoArray[i] != 0){
+    } else if (getNonZeroElements() == 1) {
+      for (int i = 0; i < this.sizeOfMatrix; i++) {
+        if (sudukoArray[i] != 0) {
           setIndexOfLastElement(i);
           break;
         }
       }
     }
-    /*if (getNonZeroElements() == 1)
-    {
-      this.setLastElementLeft();
-    }*/
-    
+    /*
+     * if (getNonZeroElements() == 1) { this.setLastElementLeft(); }
+     */
+
   }
 
   public int getsudukoArrayValue(int index) {
     return sudukoArray[index];
   }
-  
+
   public int[] getsudukoArray() {
     return sudukoArray;
   }
-  
+
   /**
-   *  
-   * When arrays in Suduko matrix are being initialized, this determines which 
-   * numbers in the 3rd level array to switch off.
-   * Example: SizeOfMatrix = 4, sets the row 0, col 0 matrix to [1,0,0,0]
-   * and sets row 1, col 0 to [0,2,3,4] \n
-   * ->Also
+   * 
+   * When arrays in Suduko matrix are being initialized, this determines which numbers in the 3rd
+   * level array to switch off. Example: SizeOfMatrix = 4, sets the row 0, col 0 matrix to [1,0,0,0]
+   * and sets row 1, col 0 to [0,2,3,4] \n ->Also
    */
   public void setArray() {
     // Populates first row with only value that coresponds to it's colunm
     if (row == 0) {
-      if (col == 0){this.primaryAngleTLtoBR = true;}
-      if (col == sizeOfMatrix-1){this.primaryAngleBLtoTR = true;}
+      if (col == 0) {
+        this.primaryAngleTLtoBR = true;
+      }
+      if (col == sizeOfMatrix - 1) {
+        this.primaryAngleBLtoTR = true;
+      }
       this.sudukoArray = new int[sizeOfMatrix];
       this.sudukoArray[col] = col + 1;
+      setIndexOfLastElement(col);
       setNonZeroElements(1);
       setLastElementLeft();
     } else {
@@ -149,11 +149,27 @@ class SudukoList {
   }
 
   public int getValueOfLastElement() {
-    return sudukoArray[indexOfLastElement];
+    //returns garbage number if the matrix is not solved and the index of last element is still at default -1
+    if (this.indexOfLastElement == -1) {
+      return (sizeOfMatrix + 1);
+    } else {
+      return sudukoArray[indexOfLastElement];
+    }
   }
 
   public void setIndexOfLastElement(int indexOfLastElement) {
     this.indexOfLastElement = indexOfLastElement;
   }
-  
+
+
+  public int getValueOfLastIndex() {
+    // TODO Auto-generated method stub
+    // Makes sure that the -1 default doesn't crash the check function
+    if (this.indexOfLastElement == -1) {
+      return (this.indexOfLastElement + 1);
+    } else {
+      return this.indexOfLastElement;
+    }
+  }
+
 }

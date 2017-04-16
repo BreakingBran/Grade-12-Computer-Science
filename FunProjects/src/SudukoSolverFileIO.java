@@ -6,12 +6,17 @@
  * @date: Mar 10, 2017
  */
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 
 
-public class SudukoSolver { // BEGINING OF MAIN FUNCTION
+public class SudukoSolverFileIO extends SudukoSolver{
 
-  public static void main(String args[]) {
+  public static void main2 (String args[]) throws IOException {
     // create a n by n matrix
     // populate first row with sorted array of 1-n
     // populate rest of matrix with numbers that can go there
@@ -19,111 +24,109 @@ public class SudukoSolver { // BEGINING OF MAIN FUNCTION
     // element in it
 
     // Just for timing
-    long startTime = System.nanoTime();
-    Scanner sc = new Scanner(System.in);
+
+    Scanner sc = new Scanner(new FileReader("Suduko IO/SudukoInput.txt"));
+    PrintWriter pw = new PrintWriter(new FileWriter("Suduko IO/SudukoOutput.txt"));
 
     // Gets size of matrix and creates a n by n matrix
-    int sizeOfMatrix = sc.nextInt();
-    sc.close();
-    SudukoList[][] sudukoMatrix = new SudukoList[sizeOfMatrix][sizeOfMatrix];
+    int lines = sc.nextInt();
+
+    for (int interval = 0; interval < lines; interval++) {
+
+      long startTime = System.nanoTime();
+
+      int sizeOfMatrix = sc.nextInt();
+      SudukoList[][] sudukoMatrix = new SudukoList[sizeOfMatrix][sizeOfMatrix];
 
 
-    // Creates array of numbers from 1 to n, n = 5, tempArray = [1,2,3,4,5]
-    int[] tempArray = new int[sizeOfMatrix];
-
-    for (int i = 0; i < sizeOfMatrix; i++) {
-      tempArray[i] = i + 1;
-    }
-
-
-    // Populates the matrix with all the variables that can go in a certain space
-    for (int row = 0; row < sizeOfMatrix; row++) {
-      for (int col = 0; col < sizeOfMatrix; col++) {
-        sudukoMatrix[row][col] = new SudukoList(tempArray, row, col, sizeOfMatrix);
-        sudukoMatrix[row][col].setArray();
-      }
-    }
-
-    int[] rowCol = new int[2];
-    int eliminationRow;
-    int eliminationCol;
-    boolean safeToRemove;
-    long hardLimit = 100000;
-    boolean isNonZeroIndex;
-
-    /*
-     * While the matrix is not solved and the hardlimit of 100 moves is not reached main loop for
-     * removing matrix and solving matrix
-     */
-    while (!isSolved(sudukoMatrix, sizeOfMatrix) && hardLimit > 0) {
-
-      /**
-       * So we need to find a way to delete the single list elements before linearlly doing anything
-       * else
-       */
-
-      // array of two ints [row,col] with best row and col to remove
-      rowCol = bestPosition(sudukoMatrix, sizeOfMatrix);
-      eliminationRow = rowCol[0];
-      eliminationCol = rowCol[1];
+      // Creates array of numbers from 1 to n, n = 5, tempArray = [1,2,3,4,5]
+      int[] tempArray = new int[sizeOfMatrix];
 
       for (int i = 0; i < sizeOfMatrix; i++) {
-        safeToRemove =
-            matrixElementSafeToRemove(eliminationRow, eliminationCol, i, sizeOfMatrix, sudukoMatrix);
-        isNonZeroIndex = sudukoMatrix[eliminationRow][eliminationCol].getsudukoArrayValue(i) != 0;
-        if (!isNonZeroIndex) {
-          continue;
+        tempArray[i] = i + 1;
+      }
+
+
+      // Populates the matrix with all the variables that can go in a certain space
+      for (int row = 0; row < sizeOfMatrix; row++) {
+        for (int col = 0; col < sizeOfMatrix; col++) {
+          sudukoMatrix[row][col] = new SudukoList(tempArray, row, col, sizeOfMatrix);
+          sudukoMatrix[row][col].setArray();
         }
-        /*
-         * System.out.println("Safe to remove: " + safeToRemove);
-         * System.out.println("Non-zero Elements: " +
-         * sudukoMatrix[eliminationRow][eliminationCol].getNonZeroElements());
-         * System.out.println("row: " + eliminationRow); System.out.println("col: " +
-         * eliminationCol); System.out.println("index: " + i); System.out.println("index value: " +
-         * sudukoMatrix[eliminationRow][eliminationCol].getsudukoArrayValue(i) + "\n");
+      }
+
+      int[] rowCol = new int[2];
+      int eliminationRow;
+      int eliminationCol;
+      boolean safeToRemove;
+      long hardLimit = 10000;
+      boolean isNonZeroIndex;
+
+      /*
+       * While the matrix is not solved and the hardlimit of 100 moves is not reached main loop for
+       * removing matrix and solving matrix
+       */
+      while (!isSolved(sudukoMatrix, sizeOfMatrix) && hardLimit > 0) {
+
+        /**
+         * So we need to find a way to delete the single list elements before linearlly doing
+         * anything else
          */
-        if (safeToRemove && sudukoMatrix[eliminationRow][eliminationCol].getNonZeroElements() > 1) {
-          // System.out.println("I ran");
-          sudukoMatrix[eliminationRow][eliminationCol].setsudukoArrayValue(i, 0);
-        } else if (sudukoMatrix[eliminationRow][eliminationCol].getNonZeroElements() == 1) {
-          // System.out.println("I deleted");
-          removeFromMatrix(eliminationRow, eliminationCol, i, sudukoMatrix, sizeOfMatrix);
+
+        // array of two ints [row,col] with best row and col to remove
+        rowCol = bestPosition(sudukoMatrix, sizeOfMatrix);
+        eliminationRow = rowCol[0];
+        eliminationCol = rowCol[1];
+
+        for (int i = 0; i < sizeOfMatrix; i++) {
+          safeToRemove =
+              matrixElementSafeToRemove(eliminationRow, eliminationCol, i, sizeOfMatrix,
+                  sudukoMatrix);
+          isNonZeroIndex = sudukoMatrix[eliminationRow][eliminationCol].getsudukoArrayValue(i) != 0;
+          if (!isNonZeroIndex) {
+            continue;
+          }
+          /*
+           * System.out.println("Safe to remove: " + safeToRemove);
+           * System.out.println("Non-zero Elements: " +
+           * sudukoMatrix[eliminationRow][eliminationCol].getNonZeroElements());
+           * System.out.println("row: " + eliminationRow); System.out.println("col: " +
+           * eliminationCol); System.out.println("index: " + i); System.out.println("index value: "
+           * + sudukoMatrix[eliminationRow][eliminationCol].getsudukoArrayValue(i) + "\n");
+           */
+          if (safeToRemove && sudukoMatrix[eliminationRow][eliminationCol].getNonZeroElements() > 1) {
+            // System.out.println("I ran");
+            sudukoMatrix[eliminationRow][eliminationCol].setsudukoArrayValue(i, 0);
+          } else if (sudukoMatrix[eliminationRow][eliminationCol].getNonZeroElements() == 1) {
+            // System.out.println("I deleted");
+            removeFromMatrix(eliminationRow, eliminationCol, i, sudukoMatrix, sizeOfMatrix);
+          }
         }
+        hardLimit--;
       }
-      hardLimit--;
-      // printSusukoMatrix(sizeOfMatrix,sudukoMatrix);
+
+      // System.out.println(Arrays.deepToString(sudukoMatrix));
+
+      for (int row = 0; row < sizeOfMatrix; row++) {
+        for (int col = 0; col < sizeOfMatrix; col++) {
+          pw.print(sudukoMatrix[row][col].getValueOfLastElement() + " ");
+          // pw.flush();
+        }
+        pw.println("");
+        // pw.flush();
+      }
+
+      long endTime = System.nanoTime();
+      long duration = (endTime - startTime); // divide by 1000000 to get seconds.
+      pw.println("That took " + duration / (1000000000) + " seconds for a " + sizeOfMatrix + " x " + sizeOfMatrix + " matrix.");
+      pw.println("");
+
     }
 
-    // System.out.println(Arrays.deepToString(sudukoMatrix));
 
-    printSusukoMatrix(sizeOfMatrix, sudukoMatrix);
-    boolean isSolved = checkIfCorrect(sudukoMatrix, sizeOfMatrix);
-
-    long endTime = System.nanoTime();
-    long duration = (endTime - startTime); // divide by 1000000 to get seconds.
-    System.out.println("That took " + duration / (1000000000)
-        + " seconds and the matrix is Solved: " + isSolved);
-
-    // END OF THE MAIN FUNCTION
+    sc.close();
+    pw.close();
   }
-
-
-  private static void printSusukoMatrix(int sizeOfMatrix, SudukoList[][] sudukoMatrix) {
-    // TODO Auto-generated method stub
-    for (int row = 0; row < sizeOfMatrix; row++) {
-      for (int col = 0; col < sizeOfMatrix; col++) {
-        if (sudukoMatrix[row][col].getValueOfLastIndex() != -1) {
-          System.out.print(sudukoMatrix[row][col].getValueOfLastElement() + " ");
-        } else {
-          System.out.print(sizeOfMatrix + 1 + " ");
-        }
-      }
-      System.out.println("");
-    }
-    System.out.println("");
-
-  }
-
 
 
   /**
@@ -270,7 +273,7 @@ public class SudukoSolver { // BEGINING OF MAIN FUNCTION
       int sizeOfMatrix) {
     // Removes values in rows and colunms and diagnols
     for (int i = 0; i < sizeOfMatrix; i++) { // FIXX THIS IT IS BROOKEN AS FUCK
-      if (i != row) {
+      if (i != row && i != col) {
         sudukoMatrix[i][col].setsudukoArrayValue(index, 0);
       }
       if (i != col) {
@@ -287,50 +290,12 @@ public class SudukoSolver { // BEGINING OF MAIN FUNCTION
   }
 
   public static boolean checkIfCorrect(SudukoList[][] sudukoMatrix, int sizeOfMatrix) {
-    /*
-     * boolean isRowCorrect = true; boolean isColCorrect = true; boolean isDiagUDCorrect = true;
-     * boolean isDiagDUCorrect = true;
-     */
     boolean isCorrect = true;
-    int[] rowFrequency = new int[sizeOfMatrix];
-    int[] colFrequency = new int[sizeOfMatrix];
-    int[] DiagUPFrequency = new int[sizeOfMatrix];
-    int[] DiagDUFrequency = new int[sizeOfMatrix];
     for (int row = 0; row < sizeOfMatrix; row++) {
       for (int col = 0; col < sizeOfMatrix; col++) {
-        // This checks row by row for proper frequency
-        rowFrequency[sudukoMatrix[row][col].getValueOfLastIndex()] += 1;
-
-        // this checks col by colunm for proper frequency
-        colFrequency[sudukoMatrix[col][row].getValueOfLastIndex()] += 1;
-
-        // Checks if any value frequency greater than 1, if true, returns matrix is false
-        if (rowFrequency[sudukoMatrix[row][col].getValueOfLastIndex()] > 1
-            || colFrequency[sudukoMatrix[col][row].getValueOfLastIndex()] > 1) {
-          isCorrect = false;
-          break;
-        }
-
-      }
-      // does frequency anlaysis on primary angle top left to bottom right
-      for (int i = 0; i < sizeOfMatrix; i++) {
-        if (rowFrequency[i] != 1 || colFrequency[i] != 1) {
-          isCorrect = false;
-          break;
-        }
-      }
-      rowFrequency = new int[sizeOfMatrix];
-      colFrequency = new int[sizeOfMatrix];
-      DiagUPFrequency[sudukoMatrix[row][row].getValueOfLastIndex()] += 1;
-      DiagDUFrequency[sudukoMatrix[row][sizeOfMatrix - 1 - row].getValueOfLastIndex()] += 1;
-
-    }
-    for (int i = 0; i < sizeOfMatrix; i++) {
-      if (DiagUPFrequency[i] != 1 || DiagDUFrequency[i] != 1) {
-        isCorrect = false;
+        continue;
       }
     }
-
     return isCorrect;
   }
 }
