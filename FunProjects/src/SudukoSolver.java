@@ -6,12 +6,14 @@
  * @date: Mar 10, 2017
  */
 
+import java.io.IOException;
 import java.util.*;
 
 
 public class SudukoSolver { // BEGINING OF MAIN FUNCTION
+  
 
-  public static void main(String args[]) {
+  public static void main(String args[]) throws IOException{
     // create a n by n matrix
     // populate first row with sorted array of 1-n
     // populate rest of matrix with numbers that can go there
@@ -19,12 +21,23 @@ public class SudukoSolver { // BEGINING OF MAIN FUNCTION
     // element in it
 
     // Just for timing
-    long startTime = System.nanoTime();
+
+    // Stuff not necessary for solve class
     Scanner sc = new Scanner(System.in);
+    int sizeOfMatrix = sc.nextInt();
+    SudukoList[][] sudukoMatrix = solve(sc,sizeOfMatrix);
+
+    // Stuff Necessary For solve class
+    long startTime = System.nanoTime();
+    
+    printSusukoMatrix(sizeOfMatrix, sudukoMatrix);
+    concludingPrintsToConsole(sudukoMatrix, sizeOfMatrix, startTime);
+    sc.close();
+  }
+  
+  public static SudukoList[][] solve(Scanner sc, int sizeOfMatrix) {
 
     // Gets size of matrix and creates a n by n matrix
-    int sizeOfMatrix = sc.nextInt();
-    sc.close();
     SudukoList[][] sudukoMatrix = new SudukoList[sizeOfMatrix][sizeOfMatrix];
 
 
@@ -48,7 +61,7 @@ public class SudukoSolver { // BEGINING OF MAIN FUNCTION
     int eliminationRow;
     int eliminationCol;
     boolean safeToRemove;
-    long hardLimit = 100000;
+    long hardLimit = 10000000;
     boolean isNonZeroIndex;
 
     /*
@@ -95,20 +108,23 @@ public class SudukoSolver { // BEGINING OF MAIN FUNCTION
     }
 
     // System.out.println(Arrays.deepToString(sudukoMatrix));
+    return sudukoMatrix;
+  }
 
-    printSusukoMatrix(sizeOfMatrix, sudukoMatrix);
+  public static void concludingPrintsToConsole(SudukoList[][] sudukoMatrix, int sizeOfMatrix,
+      long startTime) {
     boolean isSolved = checkIfCorrect(sudukoMatrix, sizeOfMatrix);
-
     long endTime = System.nanoTime();
     long duration = (endTime - startTime); // divide by 1000000 to get seconds.
     System.out.println("That took " + duration / (1000000000)
         + " seconds and the matrix is Solved: " + isSolved);
 
     // END OF THE MAIN FUNCTION
+    // TODO Auto-generated method stub
+
   }
 
-
-  private static void printSusukoMatrix(int sizeOfMatrix, SudukoList[][] sudukoMatrix) {
+  public static void printSusukoMatrix(int sizeOfMatrix, SudukoList[][] sudukoMatrix) {
     // TODO Auto-generated method stub
     for (int row = 0; row < sizeOfMatrix; row++) {
       for (int col = 0; col < sizeOfMatrix; col++) {
