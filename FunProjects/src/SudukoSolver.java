@@ -61,7 +61,7 @@ public class SudukoSolver { // BEGINING OF MAIN FUNCTION
     int eliminationRow;
     int eliminationCol;
     boolean safeToRemove;
-    long hardLimit = 10000000;
+    long hardLimit = 100;
     boolean isNonZeroIndex;
 
     /*
@@ -104,7 +104,7 @@ public class SudukoSolver { // BEGINING OF MAIN FUNCTION
         }
       }
       hardLimit--;
-      // printSusukoMatrix(sizeOfMatrix,sudukoMatrix);
+      printSusukoMatrix(sizeOfMatrix,sudukoMatrix);
     }
 
     // System.out.println(Arrays.deepToString(sudukoMatrix));
