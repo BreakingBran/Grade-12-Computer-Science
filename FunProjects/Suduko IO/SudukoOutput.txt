@@ -87,4 +87,3 @@ That took 0 seconds for a 8x8 and the matrix is Solved: false
 That took 0 seconds for a 9x9 and the matrix is Solved: false
 
 #########################################
-
