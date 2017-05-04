@@ -1,5 +1,10 @@
 package dataBase;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 //ctrl + F11 to compile
 //ctl + shift + o = auto import
 //syserr = like sysout but red
@@ -11,8 +16,17 @@ class StudentDataBase {
   
   boolean sorted;
 
-  public StudentDataBase(){
+  public StudentDataBase(String filename) throws FileNotFoundException{
+    Scanner sc = new Scanner(new FileReader(filename));
+    ArrayList<Student> studentDatabase;
     
+    //while there are lines to read from the file
+    while (sc.hasNext()) {
+      //gets entire line with name, number, etc
+      String studentInfoPackage = sc.nextLine();
+      
+      
+    }
   }
   
   public void readStudentDataBase(String filename){
