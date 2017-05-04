@@ -62,7 +62,9 @@ public class SudukoSolver { // BEGINING OF MAIN FUNCTION
     int eliminationCol;
     boolean safeToRemove;
 
+
     long hardLimit = 10000;
+
 
     boolean isNonZeroIndex;
 

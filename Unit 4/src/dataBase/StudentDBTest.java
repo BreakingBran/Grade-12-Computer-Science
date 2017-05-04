@@ -1,12 +1,18 @@
 package dataBase;
 
 import static org.junit.Assert.*;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import org.junit.Test;
 
-class StudentDBTest {
-
-  public static void main(String[] args) {
-    
-  }
+public class StudentDBTest {
   
+  StudentDataBase testDataBase = new StudentDataBase();
+  
+  @Test
+  public void testReadStudentDataBase() throws IOException {
+    testDataBase.readStudentDataBase("StudentData.txt");
+  }
 }
