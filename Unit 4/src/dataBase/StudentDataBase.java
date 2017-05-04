@@ -14,6 +14,10 @@ import java.util.Scanner;
 // syserr = like sysout but red
 // ctrl + alt = copy line down
 //
+
+/**
+ * 
+ */
 public class StudentDataBase {
 
   Student students[];
@@ -22,33 +26,52 @@ public class StudentDataBase {
 
   public StudentDataBase() {
 
-    ArrayList<Student> studentsArrayList;
-
   }
 
+  /**
+   * Reads database from file and stores each line as an object in students[].
+   * @param filename
+   * @throws IOException
+   */
   public void readStudentDataBase(String filename) throws IOException 
   {
     numberOfStudents = getLinesInFile("StudentData.txt");
     readStudentDataBase("StudentData.txt",numberOfStudents);
   }
 
-  public void readStudentDataBase(String filename, int testingCounter) throws FileNotFoundException {
+  /**
+   * Finds the number of lines in a file
+   * @param filename
+   * @param testingCounter
+   * @throws FileNotFoundException
+   */
+  public void readStudentDataBase(String filename, int numOfLines_Students) throws FileNotFoundException {
     Scanner sc = new Scanner(new FileReader(filename));
 
     // TODO remove the testing counter after testing
-
+    
     int i = 0;
-
-    while (sc.hasNext() && i < testingCounter) {
-      // gets entire line with name, number, etc
+    students = new Student[numOfLines_Students];
+    
+    while (sc.hasNext() && i < numOfLines_Students) {
+      // gets entire line with name, number, etc      
       String studentInfoPackage = sc.nextLine();
       String[] studentInfoPackageArray = new String[6];
       studentInfoPackageArray = studentInfoPackage.split(",", 7);
-      System.out.println(Arrays.toString(studentInfoPackageArray));
+      students[i] = new Student(studentInfoPackageArray);
       i++;
+      
+      //System.out.println(Arrays.toString(studentInfoPackageArray));
+      
     }
   }
 
+  /**
+   * 
+   * @param filename
+   * @return
+   * @throws IOException
+   */
   private int getLinesInFile(String filename) throws IOException {
     // Credit: er.vikas,Telmo Marques
     // :http://stackoverflow.com/questions/453018/number-of-lines-in-a-file-in-java
