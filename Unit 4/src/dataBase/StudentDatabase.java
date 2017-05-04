@@ -1,5 +1,0 @@
-package dataBase;
-
-class StudentDatabase {
-
-}
