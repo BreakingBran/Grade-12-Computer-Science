@@ -9,12 +9,7 @@ import org.junit.Test;
 
 public class StudentDBTest {
   
-  static StudentDataBase testDataBase;
-
-  public static void main(String[] args) throws FileNotFoundException {
-    testDataBase = new StudentDataBase();
-    assertNotEquals(testDataBase, null);
-  }
+  StudentDataBase testDataBase = new StudentDataBase();
   
   @Test
   public void testReadStudentDataBase() throws IOException {
