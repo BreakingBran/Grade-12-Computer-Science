@@ -24,8 +24,16 @@ public class StudentDataBase {
 
   Student students[];
   int numberOfStudents;
-  boolean sorted;
+  boolean sorted = false;
 
+  public StudentDataBase(String filename) throws IOException{
+    readStudentDataBase(filename);
+  }
+  
+  public StudentDataBase(){
+    //Only here so other code doesn't break, that intiailizes with no params
+  }
+  
   /**
    * Reads database from file and stores each line as an object in students[].
    * @param filename
@@ -33,8 +41,8 @@ public class StudentDataBase {
    */
   public void readStudentDataBase(String filename) throws IOException 
   {
-    numberOfStudents = getLinesInFile("StudentData.txt");
-    readStudentDataBase("StudentData.txt",numberOfStudents);
+    numberOfStudents = getLinesInFile(filename);
+    readStudentDataBase(filename,numberOfStudents);
   }
 
   /**
@@ -100,8 +108,11 @@ public class StudentDataBase {
    * @throws IOException 
    */
   public void bubbleSort() throws IOException {
-    saveStudentDataBase("StudentDataOutput/SortingOutput.txt");
-    
+    boolean performedSwap = true;
+    for (int i = 1; i < students.length; i++) {
+      
+    }
+    saveStudentDataBase("StudentDataOutput/SortingOutput.txt");    
   }
 
   public void selectSort() {}
@@ -123,6 +134,21 @@ public class StudentDataBase {
     return "To Do";
   }
 
-
+  private boolean compareWords(String firstName, String secondName){
+    boolean ordred = true;
+    int numOfChars = firstName.length();
+    
+    if (firstName.length() > secondName.length()){
+      numOfChars = secondName.length();
+    }
+    for (int i = 0; i < numOfChars; i++) {
+      if ((int)secondName.charAt(i) < (int)firstName.charAt(i) )
+      {
+        ordred = false;
+        break;
+      }
+    }
+    return ordred;
+  }
 
 }
