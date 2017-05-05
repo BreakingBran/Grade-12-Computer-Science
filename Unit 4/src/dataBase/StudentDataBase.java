@@ -18,7 +18,7 @@ import java.util.Scanner;
 //
 
 /**
- * 
+ * StudentDataBase class represents a database that you want to read and work with
  */
 public class StudentDataBase {
 
@@ -26,54 +26,57 @@ public class StudentDataBase {
   int numberOfStudents;
   boolean sorted = false;
 
-  public StudentDataBase(String filename) throws IOException{
+  public StudentDataBase(String filename) throws IOException {
     readStudentDataBase(filename);
   }
-  
-  public StudentDataBase(){
-    //Only here so other code doesn't break, that intiailizes with no params
+
+  public StudentDataBase() {
+    // Only here so other code doesn't break, that intiailizes with no params
   }
-  
+
   /**
    * Reads database from file and stores each line as an object in students[].
+   * 
    * @param filename
    * @throws IOException
    */
-  public void readStudentDataBase(String filename) throws IOException 
-  {
+  public void readStudentDataBase(String filename) throws IOException {
     numberOfStudents = getLinesInFile(filename);
-    readStudentDataBase(filename,numberOfStudents);
+    readStudentDataBase(filename, numberOfStudents);
   }
 
   /**
    * Finds the number of lines in a file
+   * 
    * @param filename
    * @param testingCounter
    * @throws FileNotFoundException
    */
-  public void readStudentDataBase(String filename, int numOfLines_Students) throws FileNotFoundException {
+  public void readStudentDataBase(String filename, int numOfLines_Students)
+      throws FileNotFoundException {
     Scanner sc = new Scanner(new FileReader(filename));
 
     // TODO remove the testing counter after testing
-    
+
     int i = 0;
     students = new Student[numOfLines_Students];
-    
+
     while (sc.hasNext() && i < numOfLines_Students) {
-      // gets entire line with name, number, etc      
+      // gets entire line with name, number, etc
       String studentInfoPackage = sc.nextLine();
       String[] studentInfoPackageArray = new String[6];
       studentInfoPackageArray = studentInfoPackage.split(",", 7);
       students[i] = new Student(studentInfoPackageArray);
       i++;
-      
-      //System.out.println(Arrays.toString(studentInfoPackageArray));      
+
+      // System.out.println(Arrays.toString(studentInfoPackageArray));
     }
     sc.close();
   }
 
   /**
    * Finds the number of lines in a file
+   * 
    * @param filename
    * @return
    * @throws IOException
@@ -91,8 +94,9 @@ public class StudentDataBase {
 
   /**
    * Writes sorted list into desired file
+   * 
    * @param filename
-   * @throws IOException 
+   * @throws IOException
    */
   public void saveStudentDataBase(String filename) throws IOException {
     PrintWriter pw = new PrintWriter(new FileWriter(filename));
@@ -102,17 +106,28 @@ public class StudentDataBase {
     pw.close();
   }
 
-  
+
   /**
    * sorts using bubble sort for last name
-   * @throws IOException 
+   * 
+   * @throws IOException
    */
   public void bubbleSort() throws IOException {
     boolean performedSwap = true;
-    for (int i = 1; i < students.length; i++) {
-      
+    while (performedSwap) {
+      performedSwap = false;
+      for (int i = 1; i < students.length; i++) {
+        if (!compareWords(students[i-1].getLastname(), students[i].getLastname())) {
+          Student firstStudent = students[i - 1];
+          Student secondStudent = students[i];
+          students[i] = firstStudent;
+          students[i - 1] = secondStudent;
+          performedSwap = true;
+        }
+      }
     }
-    saveStudentDataBase("StudentDataOutput/SortingOutput.txt");    
+    //System.out.println(Arrays.toString(students));
+    saveStudentDataBase("StudentDataOutput/SortingOutput.txt");
   }
 
   public void selectSort() {}
@@ -134,17 +149,27 @@ public class StudentDataBase {
     return "To Do";
   }
 
-  private boolean compareWords(String firstName, String secondName){
+  /**
+   * Returns true if the first string is albabetically lower than the second string for example
+   * {compareWords("Aa","Ba") : true, compareWords("Ab","AaC"): false}
+   * 
+   * @param firstName
+   * @param secondName
+   */
+  private boolean compareWords(String firstName, String secondName) {
     boolean ordred = true;
     int numOfChars = firstName.length();
-    
-    if (firstName.length() > secondName.length()){
+
+    if (firstName.length() > secondName.length()) {
       numOfChars = secondName.length();
     }
     for (int i = 0; i < numOfChars; i++) {
-      if ((int)secondName.charAt(i) < (int)firstName.charAt(i) )
-      {
+      if ((int) secondName.charAt(i) < (int) firstName.charAt(i)) {
         ordred = false;
+        break;
+      }
+      else if ((int) secondName.charAt(i) > (int) firstName.charAt(i)) {
+        ordred = true;
         break;
       }
     }
