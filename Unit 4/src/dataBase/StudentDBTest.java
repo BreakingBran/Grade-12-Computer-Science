@@ -1,15 +1,15 @@
 package dataBase;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.junit.Test;
 
 public class StudentDBTest {
   
-  StudentDataBase testDataBase = new StudentDataBase();
+  public StudentDataBase testDataBase = new StudentDataBase();
   
   @Test
   public void testReadStudentDataBase() throws IOException {
@@ -22,6 +22,13 @@ public class StudentDBTest {
     assertEquals(testDataBase.students[0].getDob(),"19890402" );
     assertEquals(testDataBase.students[4].getLastname(),"Rizzuto" );
     assertEquals(testDataBase.students[4].getCourses(),"ADA1O104 ENG1D112 MPM1D107 SNC1D112" );
-    
+    //System.out.println(testDataBase.students[0]);   
+  }
+  
+  @Test
+  public void testSaveStudentDataBase() throws IOException {
+    testDataBase.readStudentDataBase("StudentData.txt",5);
+    System.out.println(testDataBase.students[0]);   
+    testDataBase.saveStudentDataBase("StudentDataOutput/SortingOutput.txt");
   }
 }

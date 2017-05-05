@@ -3,8 +3,10 @@ package dataBase;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.LineNumberReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -23,10 +25,6 @@ public class StudentDataBase {
   Student students[];
   int numberOfStudents;
   boolean sorted;
-
-  public StudentDataBase() {
-
-  }
 
   /**
    * Reads database from file and stores each line as an object in students[].
@@ -61,13 +59,13 @@ public class StudentDataBase {
       students[i] = new Student(studentInfoPackageArray);
       i++;
       
-      //System.out.println(Arrays.toString(studentInfoPackageArray));
-      
+      //System.out.println(Arrays.toString(studentInfoPackageArray));      
     }
+    sc.close();
   }
 
   /**
-   * 
+   * Finds the number of lines in a file
    * @param filename
    * @return
    * @throws IOException
@@ -83,9 +81,28 @@ public class StudentDataBase {
     return (lnr.getLineNumber() + 1);
   }
 
-  public void saveStudentDataBase(String filename) {}
+  /**
+   * Writes sorted list into desired file
+   * @param filename
+   * @throws IOException 
+   */
+  public void saveStudentDataBase(String filename) throws IOException {
+    PrintWriter pw = new PrintWriter(new FileWriter(filename));
+    for (int j = 0; j < students.length; j++) {
+      pw.println(students[j]);
+    }
+    pw.close();
+  }
 
-  public void bubbleSort() {}
+  
+  /**
+   * sorts using bubble sort for last name
+   * @throws IOException 
+   */
+  public void bubbleSort() throws IOException {
+    saveStudentDataBase("StudentDataOutput/SortingOutput.txt");
+    
+  }
 
   public void selectSort() {}
 

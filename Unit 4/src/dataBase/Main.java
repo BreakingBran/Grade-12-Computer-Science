@@ -8,6 +8,7 @@ public class Main {
   public static void main(String[] args) throws IOException {
     StudentDataBase test = new StudentDataBase();
     test.readStudentDataBase("StudentData.txt",5);
+    test.saveStudentDataBase("StudentDataOutput/SortingOutput.txt");
   }
   
 }

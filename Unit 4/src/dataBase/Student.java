@@ -39,6 +39,9 @@ public class Student {
     this.courses = params[5];
   }
 
+  public String toString() {
+    return (lastname + "," + firstname + "," + gender + "," + studentId + "," + dob + "," + courses);
+  }
   public String getLastname() {
     return lastname;
   }
