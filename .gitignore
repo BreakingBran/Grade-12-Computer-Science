@@ -8,6 +8,10 @@
 
 *.jar
 
+*.doc
+
+.recommenders/
+
 
 .project
 
