@@ -50,7 +50,7 @@ public class StudentDBTest extends TestCase {
   public void testBubbleSortSample() throws IOException {
     testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 5);
     StudentDataBase bubblesorted =
-        new StudentDataBase("StudentDataInput/StudentDataBubbleSorted.txt");
+        new StudentDataBase("StudentDataInput/StudentDataSorted.txt");
     testDataBase.bubbleSort();
     assertEquals(Arrays.toString(testDataBase.students), Arrays.toString(bubblesorted.students));
 
@@ -60,12 +60,17 @@ public class StudentDBTest extends TestCase {
   public void testBubbleSortEntire() throws IOException {
     testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt");
     testDataBase.bubbleSort();
-    assertEquals(new File("StudentDataInput/StudentDataBubbleSorted.txt"), new File(
-        "StudentDataInput/StudentDataBubbleSorted.txt"));
+    assertEquals(new File("StudentDataInput/StudentDataSorted.txt"), new File(
+        "StudentDataInput/StudentDataSorted.txt"));
   }
-
+  
+  @Test
+  public void testStudd() throws IOException {
+    
   // TODO Find out what this piece of code does
   /*
    * @Rule public TemporaryFolder folder = new TemporaryFolder();
    */
+  }
+  
 }

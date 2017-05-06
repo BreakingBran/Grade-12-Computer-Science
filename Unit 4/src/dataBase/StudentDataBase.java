@@ -112,7 +112,7 @@ public class StudentDataBase {
 
 
   /**
-   * sorts using bubble sort for last name
+   * sorts using bubble sort by last name
    * 
    * @throws IOException
    */
@@ -134,7 +134,51 @@ public class StudentDataBase {
     saveStudentDataBase("StudentDataOutput/SortingOutput.txt");
   }
 
-  public void selectSort() {}
+  
+  /**
+   * Sorts using selection sort by last name
+   */
+  public void selectSort() {
+    
+    //Initializes the two tracking values with the value of the first student in students array
+    String lowestName;
+    int indexOfLowestName;
+    
+    System.out.println("I ran");
+    
+    //loop that is used to replace elements in sorted list
+    for (int i = 0; i < students.length; i++) {
+      
+      lowestName = students[i].getLastname();
+      indexOfLowestName = i;
+      
+      //loop that finds the best element in the list from the ith variable to it's end     
+      for (int j = i+1; j < students.length; j++) {
+        
+        // if students[j] has a lower alphbetical name than students[indexOfLowestName]        
+        if (compareWords(students[j].getLastname(), students[indexOfLowestName].getLastname())){
+          lowestName = students[j].getLastname();
+          indexOfLowestName = j;
+          //System.out.println("I ran again");
+        }
+      }
+        
+       //switches the ith element with the indexOfLowestName element
+       
+       //if no need to switch, just skips over iteration
+       if (i == indexOfLowestName){continue;}
+       
+       Student newLower = students[indexOfLowestName];
+       Student newHigher = students[i];
+       
+       //switches the two elements, so that the list is closer to being sorted
+       students[i] = newLower;
+       students[indexOfLowestName] = newHigher;
+       
+       System.out.println();
+      
+    }
+  }
 
   // TODO fix returns of functions in StudentDataBase
   public String displayStudents() {
@@ -156,9 +200,10 @@ public class StudentDataBase {
   /**
    * Returns true if the first string is albabetically lower than the second string for example
    * {compareWords("Aa","Ba") : true, compareWords("Ab","AaC"): false}
-   * 
+   * Note: Turns all strings to lowercase before comparing
    * @param firstName
    * @param secondName
+   * @return true if first string and second string in alphabetical order, false if not
    */
   private boolean compareWords(String firstName, String secondName) {
     boolean ordred = true;
