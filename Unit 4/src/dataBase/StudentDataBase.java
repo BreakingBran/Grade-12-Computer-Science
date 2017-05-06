@@ -56,14 +56,18 @@ public class StudentDataBase {
       throws FileNotFoundException {
     Scanner sc = new Scanner(new FileReader(filename));
 
-    // TODO remove the testing counter after testing
-
     int i = 0;
     students = new Student[numOfLines_Students];
 
     while (sc.hasNext() && i < numOfLines_Students) {
       // gets entire line with name, number, etc
       String studentInfoPackage = sc.nextLine();
+
+      // avoids making null variables for
+      if (studentInfoPackage == "") {
+        System.err.println("Student Data input has blank lines in file which may crash server during operation");
+        continue;
+      }
       String[] studentInfoPackageArray = new String[6];
       studentInfoPackageArray = studentInfoPackage.split(",", 7);
       students[i] = new Student(studentInfoPackageArray);
@@ -117,7 +121,7 @@ public class StudentDataBase {
     while (performedSwap) {
       performedSwap = false;
       for (int i = 1; i < students.length; i++) {
-        if (!compareWords(students[i-1].getLastname(), students[i].getLastname())) {
+        if (!compareWords(students[i - 1].getLastname(), students[i].getLastname())) {
           Student firstStudent = students[i - 1];
           Student secondStudent = students[i];
           students[i] = firstStudent;
@@ -126,7 +130,7 @@ public class StudentDataBase {
         }
       }
     }
-    //System.out.println(Arrays.toString(students));
+    // System.out.println(Arrays.toString(students));
     saveStudentDataBase("StudentDataOutput/SortingOutput.txt");
   }
 
@@ -159,16 +163,16 @@ public class StudentDataBase {
   private boolean compareWords(String firstName, String secondName) {
     boolean ordred = true;
     int numOfChars = firstName.length();
-
+    firstName = firstName.toLowerCase();
+    secondName = secondName.toLowerCase();
     if (firstName.length() > secondName.length()) {
       numOfChars = secondName.length();
     }
     for (int i = 0; i < numOfChars; i++) {
-      if ((int) secondName.charAt(i) < (int) firstName.charAt(i)) {
+      if ((int) (secondName.charAt(i)) < (int) firstName.charAt(i)) {
         ordred = false;
         break;
-      }
-      else if ((int) secondName.charAt(i) > (int) firstName.charAt(i)) {
+      } else if ((int) secondName.charAt(i) > (int) firstName.charAt(i)) {
         ordred = true;
         break;
       }
@@ -176,7 +180,7 @@ public class StudentDataBase {
     return ordred;
   }
 
-  public LanceSorting(){
-    
+  public void LanceSorting() {
+    System.err.println("Not implemented yet");
   }
 }

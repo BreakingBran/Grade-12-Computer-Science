@@ -1,16 +1,17 @@
 package dataBase;
 
-//import static org.junit.Assert.assertEquals;
+// import static org.junit.Assert.assertEquals;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import junit.framework.TestCase;
-import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class StudentDBTest extends TestCase{
+public class StudentDBTest extends TestCase {
 
   public StudentDataBase testDataBase = new StudentDataBase();
 
@@ -46,12 +47,25 @@ public class StudentDBTest extends TestCase{
   }
 
   @Test
-  public void testBubbleSort() throws IOException {
+  public void testBubbleSortSample() throws IOException {
     testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 5);
-    StudentDataBase bubblesorted = new StudentDataBase("StudentDataInput/StudentDataBubbleSorted.txt");
+    StudentDataBase bubblesorted =
+        new StudentDataBase("StudentDataInput/StudentDataBubbleSorted.txt");
     testDataBase.bubbleSort();
-    //System.out.println(Arrays.toString(testDataBase.students));
-    //System.out.println(Arrays.toString(bubblesorted.students));
-    assertArrayEquals(testDataBase.students,bubblesorted.students);
+    assertEquals(Arrays.toString(testDataBase.students), Arrays.toString(bubblesorted.students));
+
   }
+
+  @Test
+  public void testBubbleSortEntire() throws IOException {
+    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt");
+    testDataBase.bubbleSort();
+    assertEquals(new File("StudentDataInput/StudentDataBubbleSorted.txt"), new File(
+        "StudentDataInput/StudentDataBubbleSorted.txt"));
+  }
+
+  // TODO Find out what this piece of code does
+  /*
+   * @Rule public TemporaryFolder folder = new TemporaryFolder();
+   */
 }
