@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
+import junitx.framework.FileAssert;
 
 import junit.framework.TestCase;
 
@@ -49,28 +50,44 @@ public class StudentDBTest extends TestCase {
   @Test
   public void testBubbleSortSample() throws IOException {
     testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 5);
-    StudentDataBase bubblesorted =
-        new StudentDataBase("StudentDataInput/StudentDataSorted.txt");
+    StudentDataBase bubblesorted = new StudentDataBase("StudentDataInput/StudentDataSorted.txt");
     testDataBase.bubbleSort();
     assertEquals(Arrays.toString(testDataBase.students), Arrays.toString(bubblesorted.students));
-
+    FileAssert.assertEquals(
+        new File("SortedDataSets/StudentDataSorted.txt"), 
+        new File("StudentDataOutput/SortingOutput.txt"));
   }
 
   @Test
   public void testBubbleSortEntire() throws IOException {
     testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt");
     testDataBase.bubbleSort();
-    assertEquals(new File("StudentDataInput/StudentDataSorted.txt"), new File(
-        "StudentDataInput/StudentDataSorted.txt"));
+    FileAssert.assertEquals(
+        new File("StudentDataOutput/SortingOutput.txt"), 
+        new File("SortedDataSets/CompleteSort.txt"));
   }
-  
+
   @Test
-  public void testStudd() throws IOException {
-    
+  public void testSelectSort() throws IOException {
+    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 5);
+    testDataBase.selectSort();
+    FileAssert.assertEquals(
+        new File("SortedDataSets/StudentDataSorted.txt"), 
+        new File("StudentDataOutput/SortingOutput.txt"));
+  }
+
+
+  @Test
+  public void testSelectSortEntire() throws IOException {
+    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt");
+    testDataBase.selectSort();
+    FileAssert.assertEquals(
+        new File("StudentDataOutput/SortingOutput.txt"), 
+        new File("SortedDataSets/CompleteSort.txt"));
+  }
+
   // TODO Find out what this piece of code does
   /*
    * @Rule public TemporaryFolder folder = new TemporaryFolder();
    */
-  }
-  
 }

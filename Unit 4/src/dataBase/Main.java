@@ -16,8 +16,8 @@ public class Main {
     //Testing with sample of name
     //test.readStudentDataBase("StudentDataInput/StudentDataSample.txt");
     
-    test.saveStudentDataBase("StudentDataOutput/SortingOutput.txt");
-    test.selectSort();
+    //test.saveStudentDataBase("StudentDataOutput/SortingOutput.txt");
+    test.bubbleSort();
   }
   
 }

@@ -113,10 +113,10 @@ public class StudentDataBase {
 
   /**
    * sorts using bubble sort by last name
-   * 
+   * and stores in desired file
    * @throws IOException
    */
-  public void bubbleSort() throws IOException {
+  public void bubbleSort(String filename) throws IOException {
     boolean performedSwap = true;
     while (performedSwap) {
       performedSwap = false;
@@ -131,20 +131,25 @@ public class StudentDataBase {
       }
     }
     // System.out.println(Arrays.toString(students));
-    saveStudentDataBase("StudentDataOutput/SortingOutput.txt");
+    saveStudentDataBase(filename);
   }
 
+ //other way of calling bubblesort
+  public void bubbleSort() throws IOException{
+    bubbleSort("StudentDataOutput/SortingOutput.txt");
+  }
   
   /**
    * Sorts using selection sort by last name
+   * @throws IOException 
    */
-  public void selectSort() {
+  public void selectSort(String filename) throws IOException {
     
     //Initializes the two tracking values with the value of the first student in students array
     String lowestName;
     int indexOfLowestName;
     
-    System.out.println("I ran");
+    //System.out.println("I ran");
     
     //loop that is used to replace elements in sorted list
     for (int i = 0; i < students.length; i++) {
@@ -173,11 +178,15 @@ public class StudentDataBase {
        
        //switches the two elements, so that the list is closer to being sorted
        students[i] = newLower;
-       students[indexOfLowestName] = newHigher;
-       
-       System.out.println();
+       students[indexOfLowestName] = newHigher;       
       
     }
+    
+    saveStudentDataBase(filename);
+  }
+  
+  public void selectSort() throws IOException {
+    selectSort("StudentDataOutput/SortingOutput.txt");
   }
 
   // TODO fix returns of functions in StudentDataBase
