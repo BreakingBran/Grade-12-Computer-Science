@@ -151,4 +151,7 @@ public class StudentDataBase {
     return ordred;
   }
 
+  public LanceSorting(){
+    
+  }
 }
