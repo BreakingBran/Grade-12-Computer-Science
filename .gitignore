@@ -10,6 +10,7 @@
 
 *.doc
 
+.recommenders/
 
 .project
 

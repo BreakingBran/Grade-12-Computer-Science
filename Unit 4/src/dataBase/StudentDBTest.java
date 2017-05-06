@@ -1,15 +1,16 @@
 package dataBase;
 
-import static org.junit.Assert.assertEquals;
-
+//import static org.junit.Assert.assertEquals;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Scanner;
+
+import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class StudentDBTest {
+public class StudentDBTest extends TestCase{
 
   public StudentDataBase testDataBase = new StudentDataBase();
 
@@ -49,6 +50,8 @@ public class StudentDBTest {
     testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 5);
     StudentDataBase bubblesorted = new StudentDataBase("StudentDataInput/StudentDataBubbleSorted.txt");
     testDataBase.bubbleSort();
-    assertEquals(testDataBase.students,bubblesorted.students);
+    //System.out.println(Arrays.toString(testDataBase.students));
+    //System.out.println(Arrays.toString(bubblesorted.students));
+    assertArrayEquals(testDataBase.students,bubblesorted.students);
   }
 }
