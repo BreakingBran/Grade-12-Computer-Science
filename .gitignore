@@ -10,6 +10,8 @@
 
 *.doc
 
+Unit 4/vendor/
+
 .recommenders/
 
 .project
