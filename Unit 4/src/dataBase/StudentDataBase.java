@@ -55,14 +55,15 @@ public class StudentDataBase {
   public void readStudentDataBase(String filename, int numOfLines_Students)
       throws FileNotFoundException {
     Scanner sc = new Scanner(new FileReader(filename));
-
+    numberOfStudents = numOfLines_Students;
+    
     int i = 0;
     students = new Student[numOfLines_Students];
 
     while (sc.hasNext() && i < numOfLines_Students) {
       // gets entire line with name, number, etc
       String studentInfoPackage = sc.nextLine();
-
+      
       // avoids making null variables for
       if (studentInfoPackage == "") {
         System.err.println("Student Data input has blank lines in file which may crash server during operation");
@@ -104,9 +105,12 @@ public class StudentDataBase {
    */
   public void saveStudentDataBase(String filename) throws IOException {
     PrintWriter pw = new PrintWriter(new FileWriter(filename));
+    
     for (int j = 0; j < students.length; j++) {
-      pw.println(students[j]);
+      String student = students[j].toString();      
+      pw.println(student);
     }
+    
     pw.close();
   }
 
