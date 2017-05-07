@@ -18,6 +18,7 @@ public class Main {
     
     //test.saveStudentDataBase("StudentDataOutput/SortingOutput.txt");
     test.selectSort();
+    
   }
   
 }
