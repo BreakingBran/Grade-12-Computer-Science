@@ -126,6 +126,7 @@ public class StudentDataBase {
       for (int i = 1; i < students.length; i++) {
         Student firstStudent = students[i - 1];
         Student secondStudent = students[i];
+        //if two names are not ordred switch them
         if (!compareWords(students[i - 1].getLastname(), students[i].getLastname(),firstStudent,secondStudent)) {
           students[i] = firstStudent;
           students[i - 1] = secondStudent;
@@ -149,11 +150,11 @@ public class StudentDataBase {
    */
   public void selectSort(String filename) throws IOException {
 
+    //FIXME there is a problem in this code
+    
     // Initializes the two tracking values with the value of the first student in students array
     String lowestName;
     int indexOfLowestName;
-
-    // System.out.println("I ran");
 
     // loop that is used to replace elements in sorted list
     for (int i = 0; i < students.length; i++) {

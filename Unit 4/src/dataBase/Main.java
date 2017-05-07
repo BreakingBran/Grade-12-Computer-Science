@@ -17,8 +17,7 @@ public class Main {
     //test.readStudentDataBase("StudentDataInput/StudentDataSample.txt");
     
     //test.saveStudentDataBase("StudentDataOutput/SortingOutput.txt");
-    test.selectSort();
-    
+    test.selectSort();    
   }
   
 }
