@@ -15,6 +15,7 @@ import org.junit.Test;
 public class StudentDBTest extends TestCase {
 
   public StudentDataBase testDataBase = new StudentDataBase();
+  String completeSortFileName = "SortedDataSets/SortingSelectSortGood.txt";
 
 
   @Test
@@ -50,7 +51,7 @@ public class StudentDBTest extends TestCase {
   @Test
   public void testBubbleSortSample() throws IOException {
     testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 5);
-    StudentDataBase bubblesorted = new StudentDataBase("SortedDataSets/StudentDataSorted.txt");
+    //StudentDataBase bubblesorted = new StudentDataBase("SortedDataSets/StudentDataSorted.txt");
     testDataBase.bubbleSort();
     //assertEquals(Arrays.toString(testDataBase.students), Arrays.toString(bubblesorted.students));
     FileAssert.assertEquals(
@@ -64,7 +65,7 @@ public class StudentDBTest extends TestCase {
     testDataBase.bubbleSort();
     FileAssert.assertEquals(
         new File("StudentDataOutput/SortingOutput.txt"), 
-        new File("SortedDataSets/CompleteSort.txt"));
+        new File(completeSortFileName));
   }
 
   @Test
@@ -79,11 +80,13 @@ public class StudentDBTest extends TestCase {
 
   @Test
   public void testSelectSortEntire() throws IOException {
-    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt");
-    testDataBase.selectSort();
+    //testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt");
+    StudentDataBase selectSorted = new StudentDataBase("StudentDataInput/StudentData.txt");
+    selectSorted.selectSort();
+    //testDataBase.selectSort();
     FileAssert.assertEquals(
         new File("StudentDataOutput/SortingOutput.txt"), 
-        new File("SortedDataSets/CompleteSort.txt"));
+        new File(completeSortFileName));
   }
 
   // TODO Find out what this piece of code does

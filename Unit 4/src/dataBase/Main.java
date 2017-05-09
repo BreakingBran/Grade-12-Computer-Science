@@ -8,7 +8,7 @@ public class Main {
   public static void main(String[] args) throws IOException {
     StudentDataBase test = new StudentDataBase();
     //Testing with only 5 elements
-    test.readStudentDataBase("StudentDataInput/StudentData.txt");
+    test.readStudentDataBase("StudentDataInput/StudentData.txt",5);
     
     //Testing with entire file
     //test.readStudentDataBase("StudentDataInput/StudentData.txt");
@@ -17,7 +17,7 @@ public class Main {
     //test.readStudentDataBase("StudentDataInput/StudentDataSample.txt");
     
     //test.saveStudentDataBase("StudentDataOutput/SortingOutput.txt");
-    test.selectSort();    
+    test.testingBubbleSort("StudentDataOutput/SortingOutput.txt");
   }
   
 }
