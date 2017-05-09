@@ -138,33 +138,6 @@ public class StudentDataBase {
     // System.out.println(Arrays.toString(students));
     saveStudentDataBase(filename);
   }
-  
-  /**
-   * sorts using bubble sort by last name and stores in desired file
-   * 
-   * @throws IOException
-   */
-  public void testingBubbleSort(String filename) throws IOException {
-    boolean performedSwap = true;
-    while (performedSwap) {
-      performedSwap = false;
-      for (int i = 1; i < students.length; i++) {
-        System.out.println(Arrays.toString(students));
-        Student firstStudent = students[i - 1];
-        Student secondStudent = students[i];
-        //if two names are not ordred switch them
-        
-        if (!compareWords(students[i - 1].getLastname(), students[i].getLastname(),firstStudent,secondStudent)) {
-          students[i] = firstStudent;
-          students[i - 1] = secondStudent;
-          performedSwap = true;
-          
-        }
-      }
-    }
-     
-    //saveStudentDataBase(filename);
-  }
 
   // other way of calling bubblesort
   public void bubbleSort() throws IOException {
