@@ -283,25 +283,27 @@ public class StudentDataBase {
      * if it reaches here, then both strings were equal up until the length of the shortest
      * string Now we need to say that the shorter string comes first and that the longer comes
      * second but we also need to check if they are the same
+     * ordred already set to true, so don't need a case for checking if
+     * firstname.length() > secondName.length()
      */
-    if(firstName.length() < secondName.length() && !switched){
-      ordred = true;
+    if(firstName.length() > secondName.length() && !switched){
+      ordred = false;
     }
     
     return ordred;
   }
 
   private boolean compareWords(String firstName, String secondName, Student firstStudent, Student secondStudent) {
-    //FIXME delete new versions of compare to function
+    //FIXME FIXED
     boolean ordered = true;
     if (firstStudent.getLastname().equals(secondStudent.getLastname())) {
       if (!firstStudent.getFirstname().equals(secondStudent.getFirstname())) {
-        //ordered = compareWords(firstStudent.getFirstname(), secondStudent.getFirstname());
-        ordered = (firstStudent.getFirstname().compareToIgnoreCase(secondStudent.getFirstname()) < 0);
+        ordered = compareWords(firstStudent.getFirstname(), secondStudent.getFirstname());
+        //ordered = (firstStudent.getFirstname().compareToIgnoreCase(secondStudent.getFirstname()) < 0);
       }
     } else{
-      //ordered = compareWords(firstStudent.getLastname(), secondStudent.getLastname());
-      ordered = (firstStudent.getLastname().compareToIgnoreCase(secondStudent.getLastname()) < 0);
+      ordered = compareWords(firstStudent.getLastname(), secondStudent.getLastname());
+      //ordered = (firstStudent.getLastname().compareToIgnoreCase(secondStudent.getLastname()) < 0);
     }
     return ordered;
   }

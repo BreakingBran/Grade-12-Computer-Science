@@ -8,6 +8,11 @@
 
 *.jar
 
+Unit 4/External Junit Lib/
+
+.recommenders/
+
+Unit\ 4/External\ Junit\ Lib/
 
 .project
 

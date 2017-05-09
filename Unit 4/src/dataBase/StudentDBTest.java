@@ -15,7 +15,7 @@ import org.junit.Test;
 public class StudentDBTest extends TestCase {
 
   public StudentDataBase testDataBase = new StudentDataBase();
-  String completeSortFileName = "SortedDataSets/SortingSelectSortGood.txt";
+  String completeSortFileName = "SortedDataSets/CompleteSort.txt";
 
 
   @Test
