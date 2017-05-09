@@ -12,6 +12,12 @@
 
 Unit 4/vendor/
 
+/Unit 4/External_Junit_Lib/
+Unit 4/External_Junit_Lib/
+
+/Unit\ 4/External_Junit_Lib/
+Unit\ 4/External_Junit_Lib/
+
 .recommenders/
 
 .project
