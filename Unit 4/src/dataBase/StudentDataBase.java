@@ -21,12 +21,16 @@ import java.util.Scanner;
  * StudentDataBase class represents a database that you want to read and work with
  */
 public class StudentDataBase {
-
-  Student students[];
-  int numberOfStudents;
-  boolean sorted = false;
+  
+  private Student students[];
+  private int numberOfStudents;
+  private int numOfFemales;
+  private int numOfMales;
+  private boolean sorted = false;
+  private boolean updated = false;
 
   public StudentDataBase(String filename) throws IOException {
+    this();
     readStudentDataBase(filename);
   }
 
@@ -203,7 +207,38 @@ public class StudentDataBase {
   }
 
   public int getNumFemaleStudents() {
-    return 5;
+    this.numOfFemales = searchForFrequency(",F,");
+    return this.numOfFemales;
+  }
+
+  private int searchForFrequency(String string) {
+    // TODO create this function
+    int counter = 0;
+    if (this.sorted){
+      counter = binarySearchCount(string);
+    }else{
+      counter = lineaerSearchCount(string);
+    }
+    return counter;
+  }
+
+  private int lineaerSearchCount(String string2) {
+    
+    CharSequence string = string2;
+    int linearCounter = 0;
+    for (int i = 0; i < students.length; i++) {
+      String studentInfoPackage = this.students.toString();
+      if(studentInfoPackage.contains(string)){
+        linearCounter += 1;
+      }
+    }
+    System.out.println(linearCounter);
+    return linearCounter;
+  }
+
+  private int binarySearchCount(String string) {
+    // TODO Auto-generated method stub
+    return 0;
   }
 
   public int getNumStudentsByCourse(String course) {
@@ -214,6 +249,15 @@ public class StudentDataBase {
     return "To Do";
   }
 
+  public void updateDatabase(){
+    //TODO create a function that updates values after the database has been updated
+    if (this.updated){
+      System.err.println("Still need to implement");
+    }
+    this.updated = false;
+  }
+  
+  
   /**
    * Returns true if the first string is albabetically lower than the second string for example
    * {compareWords("Aa","Ba") : true, compareWords("Ab","AaC"): false} Note: Turns all strings to
@@ -289,5 +333,22 @@ public class StudentDataBase {
 
   public void LanceSorting() {
     System.err.println("Not implemented yet");
+  }
+  
+  public Student[] getStudents() {
+    return students;
+  }
+
+  public int getNumberOfStudents() {
+    return numberOfStudents;
+  }
+
+
+  public int getNumOfMales() {
+    return numOfMales;
+  }
+
+  public boolean isSorted() {
+    return sorted;
   }
 }

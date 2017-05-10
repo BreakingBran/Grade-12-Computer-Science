@@ -15,19 +15,25 @@ public class StudentDBTest extends TestCase {
 
   public StudentDataBase testDataBase = new StudentDataBase();
   String completeSortFileName = "SortedDataSets/CompleteSort.txt";
+  
+  //TODO use these names soon
+  String sampleData = "SortedDataSets/CompleteSort.txt";
+  String completeDatabase = "SortedDataSets/CompleteSort.txt";
+  String sampleDataSorted = "SortedDataSets/CompleteSort.txt";
+  
 
 
   @Test
   public void testReadStudentDataBase() throws IOException {
     testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 5);
-    assertEquals(testDataBase.students[0].getFirstname(), "Moshira");
-    assertEquals(testDataBase.students[0].getLastname(), "Fernando");
-    assertEquals(testDataBase.students[0].getCourses(), "BDI3C102 ENG3C103 PAD3O101 TTJ2O102");
-    assertEquals(testDataBase.students[0].getGender(), "M");
-    assertEquals(testDataBase.students[0].getStudentId(), "730177");
-    assertEquals(testDataBase.students[0].getDob(), "19890402");
-    assertEquals(testDataBase.students[4].getLastname(), "Rizzuto");
-    assertEquals(testDataBase.students[4].getCourses(), "ADA1O104 ENG1D112 MPM1D107 SNC1D112");
+    assertEquals(testDataBase.getStudents()[0].getFirstname(), "Moshira");
+    assertEquals(testDataBase.getStudents()[0].getLastname(), "Fernando");
+    assertEquals(testDataBase.getStudents()[0].getCourses(), "BDI3C102 ENG3C103 PAD3O101 TTJ2O102");
+    assertEquals(testDataBase.getStudents()[0].getGender(), "M");
+    assertEquals(testDataBase.getStudents()[0].getStudentId(), "730177");
+    assertEquals(testDataBase.getStudents()[0].getDob(), "19890402");
+    assertEquals(testDataBase.getStudents()[4].getLastname(), "Rizzuto");
+    assertEquals(testDataBase.getStudents()[4].getCourses(), "ADA1O104 ENG1D112 MPM1D107 SNC1D112");
     // System.out.println(testDataBase.students[0]);
   }
 
@@ -82,6 +88,25 @@ public class StudentDBTest extends TestCase {
     FileAssert.assertEquals(
         new File("StudentDataOutput/SortingOutput.txt"), 
         new File(completeSortFileName));
+  }
+  
+  @Test
+  public void testGetNumFemaleStudentsSample() throws IOException {
+    //first 10 elements
+    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 10);
+    assertEquals(testDataBase.getNumFemaleStudents(), 7);
+    //testDataBase.selectSort();
+    //assertEquals(testDataBase.getNumFemaleStudents(), 7);
+    
+  }
+  
+  @Test
+  public void testGetNumFemaleStudentsEntire() throws IOException {
+    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 10);
+    assertEquals(testDataBase.getNumFemaleStudents(), 1016);
+    testDataBase.selectSort();
+    assertEquals(testDataBase.getNumFemaleStudents(), 1016);
+    //Males are 1088
   }
 
   // TODO Find out what this piece of code does
