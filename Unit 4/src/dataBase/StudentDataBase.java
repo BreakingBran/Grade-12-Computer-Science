@@ -162,12 +162,12 @@ public class StudentDataBase {
 
       lowestName = students[i].getLastname();
       indexOfLowestName = i;
-
+      
       // loop that finds the best element in the list from the ith variable to it's end
       for (int j = i + 1; j < students.length; j++) {
 
         // if students[j] has a lower alphbetical name than students[indexOfLowestName]
-        if (compareWords(students[j].getLastname(), students[indexOfLowestName].getLastname(),students[j],students[indexOfLowestName])) {
+        if (!compareWords(students[indexOfLowestName].getLastname(), students[j].getLastname(),students[indexOfLowestName],students[j])) {
           lowestName = students[j].getLastname();
           indexOfLowestName = j;
           // System.out.println("I ran again");
@@ -245,7 +245,7 @@ public class StudentDataBase {
         ordred = false;
         switched = true;
         break;
-      } else if ((int) secondName.charAt(i) > (int) firstName.charAt(i)) {
+       } else if ((int) secondName.charAt(i) > (int) firstName.charAt(i)) {
         ordred = true;
         switched = true;
         break;
@@ -273,6 +273,12 @@ public class StudentDataBase {
       if (!firstStudent.getFirstname().equals(secondStudent.getFirstname())) {
         ordered = compareWords(firstStudent.getFirstname(), secondStudent.getFirstname());
         //ordered = (firstStudent.getFirstname().compareToIgnoreCase(secondStudent.getFirstname()) < 0);
+      }
+      else{
+        //If first name and last name same, seperate by student number
+        if ( ( Integer.parseInt(firstStudent.getStudentId()) <  Integer.parseInt(secondStudent.getStudentId()) ) ){ordered = true;}
+        else if ( ( Integer.parseInt(firstStudent.getStudentId()) >  Integer.parseInt(secondStudent.getStudentId()) ) ){ordered = false;}
+        else {System.err.println("There are two students with the same student number of: " + secondStudent.getStudentId());}
       }
     } else{
       ordered = compareWords(firstStudent.getLastname(), secondStudent.getLastname());

@@ -12,10 +12,10 @@ public class Main {
     
     
     //Testing with entire file
-    test.readStudentDataBase("StudentDataInput/StudentData.txt");
+    //test.readStudentDataBase("StudentDataInput/StudentData.txt");
     
     //Testing with sample of name
-    //test.readStudentDataBase("StudentDataInput/StudentDataSample.txt");
+    test.readStudentDataBase("StudentDataInput/StudentDataSample.txt");
     
     //test.saveStudentDataBase("StudentDataOutput/SortingOutput.txt");
     test.selectSort();
