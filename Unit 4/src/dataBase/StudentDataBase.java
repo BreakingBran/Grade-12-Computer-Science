@@ -150,8 +150,6 @@ public class StudentDataBase {
    * @throws IOException
    */
   public void selectSort(String filename) throws IOException {
-
-    //FIXME there is a problem in this code
     
     // Initializes the two tracking values with the value of the first student in students array
     String lowestName;
@@ -267,7 +265,7 @@ public class StudentDataBase {
   }
 
   private boolean compareWords(String firstName, String secondName, Student firstStudent, Student secondStudent) {
-    //FIXME FIXED
+    
     boolean ordered = true;
     if (firstStudent.getLastname().equals(secondStudent.getLastname())) {
       if (!firstStudent.getFirstname().equals(secondStudent.getFirstname())) {
