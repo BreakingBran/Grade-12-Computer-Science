@@ -1,6 +1,5 @@
 package dataBase;
 
-// import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -51,9 +50,7 @@ public class StudentDBTest extends TestCase {
   @Test
   public void testBubbleSortSample() throws IOException {
     testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 5);
-    //StudentDataBase bubblesorted = new StudentDataBase("SortedDataSets/StudentDataSorted.txt");
     testDataBase.bubbleSort();
-    //assertEquals(Arrays.toString(testDataBase.students), Arrays.toString(bubblesorted.students));
     FileAssert.assertEquals(
         new File("SortedDataSets/StudentDataSorted.txt"), 
         new File("StudentDataOutput/SortingOutput.txt"));
@@ -80,10 +77,8 @@ public class StudentDBTest extends TestCase {
 
   @Test
   public void testSelectSortEntire() throws IOException {
-    //testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt");
     StudentDataBase selectSorted = new StudentDataBase("StudentDataInput/StudentData.txt");
     selectSorted.selectSort();
-    //testDataBase.selectSort();
     FileAssert.assertEquals(
         new File("StudentDataOutput/SortingOutput.txt"), 
         new File(completeSortFileName));
