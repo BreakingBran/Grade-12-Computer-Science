@@ -42,6 +42,11 @@ public class Student {
   public String toString() {
     return (lastname + "," + firstname + "," + gender + "," + studentId + "," + dob + "," + courses);
   }
+  
+  public String toTestingString() {
+    return (lastname + "," + firstname + "," + gender + "," + studentId + "," + dob + "," + courses + "\n");
+  }
+  
   public String getLastname() {
     return lastname;
   }

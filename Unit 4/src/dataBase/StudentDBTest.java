@@ -1,18 +1,20 @@
 package dataBase;
 
-//import static org.junit.Assert.assertEquals;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
+import junitx.framework.FileAssert;
 
 import junit.framework.TestCase;
-import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class StudentDBTest extends TestCase{
+public class StudentDBTest extends TestCase {
 
   public StudentDataBase testDataBase = new StudentDataBase();
+  String completeSortFileName = "SortedDataSets/CompleteSort.txt";
 
 
   @Test
@@ -46,12 +48,44 @@ public class StudentDBTest extends TestCase{
   }
 
   @Test
-  public void testBubbleSort() throws IOException {
+  public void testBubbleSortSample() throws IOException {
     testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 5);
-    StudentDataBase bubblesorted = new StudentDataBase("StudentDataInput/StudentDataBubbleSorted.txt");
     testDataBase.bubbleSort();
-    //System.out.println(Arrays.toString(testDataBase.students));
-    //System.out.println(Arrays.toString(bubblesorted.students));
-    assertArrayEquals(testDataBase.students,bubblesorted.students);
+    FileAssert.assertEquals(
+        new File("SortedDataSets/StudentDataSorted.txt"), 
+        new File("StudentDataOutput/SortingOutput.txt"));
   }
+
+  @Test
+  public void testBubbleSortEntire() throws IOException {
+    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt");
+    testDataBase.bubbleSort();
+    FileAssert.assertEquals(
+        new File("StudentDataOutput/SortingOutput.txt"), 
+        new File(completeSortFileName));
+  }
+
+  @Test
+  public void testSelectSort() throws IOException {
+    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 5);
+    testDataBase.selectSort();
+    FileAssert.assertEquals(
+        new File("SortedDataSets/StudentDataSorted.txt"), 
+        new File("StudentDataOutput/SortingOutput.txt"));
+  }
+
+
+  @Test
+  public void testSelectSortEntire() throws IOException {
+    StudentDataBase selectSorted = new StudentDataBase("StudentDataInput/StudentData.txt");
+    selectSorted.selectSort();
+    FileAssert.assertEquals(
+        new File("StudentDataOutput/SortingOutput.txt"), 
+        new File(completeSortFileName));
+  }
+
+  // TODO Find out what this piece of code does
+  /*
+   * @Rule public TemporaryFolder folder = new TemporaryFolder();
+   */
 }
