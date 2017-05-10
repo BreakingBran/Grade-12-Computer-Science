@@ -137,6 +137,7 @@ public class StudentDataBase {
     }
     // System.out.println(Arrays.toString(students));
     saveStudentDataBase(filename);
+    sorted = true;
   }
 
   // other way of calling bubblesort
@@ -189,6 +190,7 @@ public class StudentDataBase {
     }
 
     saveStudentDataBase(filename);
+    sorted = true;
   }
 
   public void selectSort() throws IOException {
