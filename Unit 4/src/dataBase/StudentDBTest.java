@@ -110,6 +110,15 @@ public class StudentDBTest extends TestCase {
     //Males are 1088
   }
 
+  @Test
+  public void testGetNumStudentsByCourse() throws IOException {
+    //first 10 elements
+    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 10);
+    assertEquals(3,testDataBase.getNumStudentsByCourse("ENG"));
+    //TODO sorting changes value of sort
+    testDataBase.selectSort();
+    assertEquals(3,testDataBase.getNumStudentsByCourse("ENG"));
+  }
   // TODO Find out what this piece of code does
   /*
    * @Rule public TemporaryFolder folder = new TemporaryFolder();
