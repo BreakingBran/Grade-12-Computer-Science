@@ -19,6 +19,7 @@ public class Main {
     
     //test.saveStudentDataBase("StudentDataOutput/SortingOutput.txt");
     test.selectSort();
+    System.out.println(test.getNumFemaleStudents());
   }
   
 }

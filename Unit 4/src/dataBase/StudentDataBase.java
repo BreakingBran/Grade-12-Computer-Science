@@ -21,7 +21,7 @@ import java.util.Scanner;
  * StudentDataBase class represents a database that you want to read and work with
  */
 public class StudentDataBase {
-  
+
   private Student students[];
   private int numberOfStudents;
   private int numOfFemales;
@@ -56,7 +56,8 @@ public class StudentDataBase {
    * @param testingCounter
    * @throws FileNotFoundException
    */
-  public void readStudentDataBase(String filename, int numOfLines_Students) throws FileNotFoundException {
+  public void readStudentDataBase(String filename, int numOfLines_Students)
+      throws FileNotFoundException {
     Scanner sc = new Scanner(new FileReader(filename));
     numberOfStudents = numOfLines_Students;
 
@@ -69,7 +70,8 @@ public class StudentDataBase {
 
       // avoids making null variables for
       if (studentInfoPackage == "") {
-        System.err.println("Student Data input has blank lines in file which may crash server during operation");
+        System.err
+            .println("Student Data input has blank lines in file which may crash server during operation");
         continue;
       }
       String[] studentInfoPackageArray = new String[6];
@@ -130,9 +132,10 @@ public class StudentDataBase {
       for (int i = 1; i < students.length; i++) {
         Student firstStudent = students[i - 1];
         Student secondStudent = students[i];
-        //if two names are not ordred switch them
-        
-        if (!compareWords(students[i - 1].getLastname(), students[i].getLastname(),firstStudent,secondStudent)) {
+        // if two names are not ordred switch them
+
+        if (!compareWords(students[i - 1].getLastname(), students[i].getLastname(), firstStudent,
+            secondStudent)) {
           students[i] = firstStudent;
           students[i - 1] = secondStudent;
           performedSwap = true;
@@ -155,7 +158,7 @@ public class StudentDataBase {
    * @throws IOException
    */
   public void selectSort(String filename) throws IOException {
-    
+
     // Initializes the two tracking values with the value of the first student in students array
     String lowestName;
     int indexOfLowestName;
@@ -165,12 +168,13 @@ public class StudentDataBase {
 
       lowestName = students[i].getLastname();
       indexOfLowestName = i;
-      
+
       // loop that finds the best element in the list from the ith variable to it's end
       for (int j = i + 1; j < students.length; j++) {
 
         // if students[j] has a lower alphbetical name than students[indexOfLowestName]
-        if (!compareWords(students[indexOfLowestName].getLastname(), students[j].getLastname(),students[indexOfLowestName],students[j])) {
+        if (!compareWords(students[indexOfLowestName].getLastname(), students[j].getLastname(),
+            students[indexOfLowestName], students[j])) {
           lowestName = students[j].getLastname();
           indexOfLowestName = j;
           // System.out.println("I ran again");
@@ -207,38 +211,55 @@ public class StudentDataBase {
   }
 
   public int getNumFemaleStudents() {
-    this.numOfFemales = searchForFrequency(",F,");
+    //Do not call 
+    this.numOfFemales = lineaerSearchCount(",F,");
     return this.numOfFemales;
   }
 
-  private int searchForFrequency(String string) {
+  private int searchFor(String string) {
     // TODO create this function
     int counter = 0;
-    if (this.sorted){
-      counter = binarySearchCount(string);
-    }else{
+    if (this.sorted) {
+      counter = binarySearch(string, this.students);
+    } else {
       counter = lineaerSearchCount(string);
     }
+    System.out.println(counter);
     return counter;
   }
 
-  private int lineaerSearchCount(String string2) {
-    
-    CharSequence string = string2;
+  private int lineaerSearchCount(String string) {
+
     int linearCounter = 0;
+
     for (int i = 0; i < students.length; i++) {
-      String studentInfoPackage = this.students.toString();
-      if(studentInfoPackage.contains(string)){
+      String studentInfoPackage = this.students[i].toString();
+      // System.out.println(studentInfoPackage);
+      if (studentInfoPackage.contains(string)) {
+        // System.out.println("True");
         linearCounter += 1;
       }
     }
-    System.out.println(linearCounter);
+    // System.out.println(linearCounter);
     return linearCounter;
   }
 
-  private int binarySearchCount(String string) {
-    // TODO Auto-generated method stub
-    return 0;
+  private int binarySearch(String string, Student[] halvedStudentArray) {
+    //TODO finish binary search
+    int counter = 0;
+    Student[] newHalvedArray;
+    int index = halvedStudentArray.length/2;
+    
+    //Check if the search string is greater or less than middle element of halvedStudentArray
+    if ()
+    
+    if (halvedStudentArray.length == 1){
+      return counter;
+    }
+    else{
+      binarySearchCount(string,newHalvedArray);
+    }
+    
   }
 
   public int getNumStudentsByCourse(String course) {
@@ -249,15 +270,15 @@ public class StudentDataBase {
     return "To Do";
   }
 
-  public void updateDatabase(){
-    //TODO create a function that updates values after the database has been updated
-    if (this.updated){
+  public void updateDatabase() {
+    // TODO create a function that updates values after the database has been updated
+    if (this.updated) {
       System.err.println("Still need to implement");
     }
     this.updated = false;
   }
-  
-  
+
+
   /**
    * Returns true if the first string is albabetically lower than the second string for example
    * {compareWords("Aa","Ba") : true, compareWords("Ab","AaC"): false} Note: Turns all strings to
@@ -289,7 +310,7 @@ public class StudentDataBase {
         ordred = false;
         switched = true;
         break;
-       } else if ((int) secondName.charAt(i) > (int) firstName.charAt(i)) {
+      } else if ((int) secondName.charAt(i) > (int) firstName.charAt(i)) {
         ordred = true;
         switched = true;
         break;
@@ -297,36 +318,44 @@ public class StudentDataBase {
     }
 
     /*
-     * if it reaches here, then both strings were equal up until the length of the shortest
-     * string Now we need to say that the shorter string comes first and that the longer comes
-     * second but we also need to check if they are the same
-     * ordred already set to true, so don't need a case for checking if
-     * firstname.length() > secondName.length()
+     * if it reaches here, then both strings were equal up until the length of the shortest string
+     * Now we need to say that the shorter string comes first and that the longer comes second but
+     * we also need to check if they are the same ordred already set to true, so don't need a case
+     * for checking if firstname.length() > secondName.length()
      */
-    if(firstName.length() > secondName.length() && !switched){
+    if (firstName.length() > secondName.length() && !switched) {
       ordred = false;
     }
-    
+
     return ordred;
   }
 
-  private boolean compareWords(String firstName, String secondName, Student firstStudent, Student secondStudent) {
-    
+  private boolean compareWords(String firstName, String secondName, Student firstStudent,
+      Student secondStudent) {
+
     boolean ordered = true;
     if (firstStudent.getLastname().equals(secondStudent.getLastname())) {
       if (!firstStudent.getFirstname().equals(secondStudent.getFirstname())) {
         ordered = compareWords(firstStudent.getFirstname(), secondStudent.getFirstname());
-        //ordered = (firstStudent.getFirstname().compareToIgnoreCase(secondStudent.getFirstname()) < 0);
+        // ordered = (firstStudent.getFirstname().compareToIgnoreCase(secondStudent.getFirstname())
+        // < 0);
+      } else {
+        // If first name and last name same, seperate by student number
+        if ((Integer.parseInt(firstStudent.getStudentId()) < Integer.parseInt(secondStudent
+            .getStudentId()))) {
+          ordered = true;
+        } else if ((Integer.parseInt(firstStudent.getStudentId()) > Integer.parseInt(secondStudent
+            .getStudentId()))) {
+          ordered = false;
+        } else {
+          System.err.println("There are two students with the same student number of: "
+              + secondStudent.getStudentId());
+        }
       }
-      else{
-        //If first name and last name same, seperate by student number
-        if ( ( Integer.parseInt(firstStudent.getStudentId()) <  Integer.parseInt(secondStudent.getStudentId()) ) ){ordered = true;}
-        else if ( ( Integer.parseInt(firstStudent.getStudentId()) >  Integer.parseInt(secondStudent.getStudentId()) ) ){ordered = false;}
-        else {System.err.println("There are two students with the same student number of: " + secondStudent.getStudentId());}
-      }
-    } else{
+    } else {
       ordered = compareWords(firstStudent.getLastname(), secondStudent.getLastname());
-      //ordered = (firstStudent.getLastname().compareToIgnoreCase(secondStudent.getLastname()) < 0);
+      // ordered = (firstStudent.getLastname().compareToIgnoreCase(secondStudent.getLastname()) <
+      // 0);
     }
     return ordered;
   }
@@ -334,7 +363,7 @@ public class StudentDataBase {
   public void LanceSorting() {
     System.err.println("Not implemented yet");
   }
-  
+
   public Student[] getStudents() {
     return students;
   }
