@@ -103,7 +103,7 @@ public class StudentDBTest extends TestCase {
   
   @Test
   public void testGetNumFemaleStudentsEntire() throws IOException {
-    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 10);
+    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt");
     assertEquals(1016,testDataBase.getNumFemaleStudents());
     testDataBase.selectSort();
     assertEquals(1016,testDataBase.getNumFemaleStudents());

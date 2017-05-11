@@ -9,6 +9,7 @@ import java.io.LineNumberReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 // ctrl + F11 to compile
@@ -243,8 +244,33 @@ public class StudentDataBase {
     // System.out.println(linearCounter);
     return linearCounter;
   }
+  
+  /**
+   * Outputs the student info of the first student that matches the search string
+   * For the purposes of the class it outputs only the 1st occurance of the student
+   * that matches
+   * @param string: that you want to search for in the database
+   * @return: all info about first student who matches this description
+   */
+  private String lineaerSearch(String string) {
 
-  private int binarySearch(String string, Student[] halvedStudentArray) {
+    //I made two seperate linear search functions
+    //so that they are not interdependant, and that the counter can run much faster
+    List<Student> foundStudents = new ArrayList<Student>(); 
+    
+    //Goes through array and tries to find all students that match string
+    for (int i = 0; i < students.length; i++) {
+      String studentInfoPackage = this.students[i].toString();      
+      if (studentInfoPackage.contains(string)) {
+        foundStudents.add(this.students[i]);
+      }
+    }
+    
+    //He said for the purpose of the class to just output the first occurance
+    return foundStudents.get(0).toString();
+  }
+
+  /*private int binarySearch(String string, Student[] halvedStudentArray) {
     //TODO finish binary search
     int counter = 0;
     Student[] newHalvedArray;
@@ -260,7 +286,7 @@ public class StudentDataBase {
       binarySearchCount(string,newHalvedArray);
     }
     
-  }
+  }*/
 
   public int getNumStudentsByCourse(String course) {
     return 5;
