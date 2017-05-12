@@ -95,20 +95,34 @@ public class StudentDBTest extends TestCase {
     //first 10 elements
     testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 10);
     assertEquals(7,testDataBase.getNumFemaleStudents());
-    //testDataBase.selectSort();
-    //assertEquals(testDataBase.getNumFemaleStudents(), 7);
+
+    //TODO sorting changes value of sort
+    testDataBase.selectSort();
+    assertEquals(7,testDataBase.getNumFemaleStudents());
+
     
   }
   
   @Test
   public void testGetNumFemaleStudentsEntire() throws IOException {
-    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 10);
-    assertEquals( 1016,testDataBase.getNumFemaleStudents());
+
+    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt");
+    assertEquals(1016,testDataBase.getNumFemaleStudents());
     testDataBase.selectSort();
-    assertEquals( 1016,testDataBase.getNumFemaleStudents());
+    assertEquals(1016,testDataBase.getNumFemaleStudents());
+
     //Males are 1088
   }
 
+  @Test
+  public void testGetNumStudentsByCourse() throws IOException {
+    //first 10 elements
+    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 10);
+    assertEquals(3,testDataBase.getNumStudentsByCourse("ENG"));
+    //TODO sorting changes value of sort
+    testDataBase.selectSort();
+    assertEquals(3,testDataBase.getNumStudentsByCourse("ENG"));
+  }
   // TODO Find out what this piece of code does
   /*
    * @Rule public TemporaryFolder folder = new TemporaryFolder();
