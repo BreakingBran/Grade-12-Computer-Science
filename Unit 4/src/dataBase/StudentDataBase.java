@@ -232,7 +232,7 @@ public class StudentDataBase {
     // TODO create this function
     int counter = 0;
     if (this.sorted) {
-      counter = binarySearch(string, this.students);
+      counter = binarySearchLastName(string, this.students);
     } else {
       counter = lineaerSearchCount(string);
     }
@@ -281,20 +281,20 @@ public class StudentDataBase {
     return foundStudents.get(0).toString();
   }
 
-  private String binarySearch(String string, Student[] halvedStudentArray) {
+  private String binarySearchLastName(String string, Student[] halvedStudentArray) {
     //TODO finish binary search
-    int counter = 0;
+    String studentInfo;
     Student[] newHalvedArray;
-    int index = halvedStudentArray.length/2;
+    int index = (int) halvedStudentArray.length/2;
     
     //Check if the search string is greater or less than middle element of halvedStudentArray
-    if ( true){}
+    if (){}
     
     if (halvedStudentArray.length == 1){
-      return counter;
+      return studentInfo;
     }
     else{
-      binarySearch(string,newHalvedArray);
+      binarySearchLastName(string,newHalvedArray);
     }
     
   }
