@@ -43,10 +43,6 @@ public class Student {
     return (lastname + "," + firstname + "," + gender + "," + studentId + "," + dob + "," + courses);
   }
   
-  public String toTestingString() {
-    return (lastname + "," + firstname + "," + gender + "," + studentId + "," + dob + "," + courses + "\n");
-  }
-  
   public String getLastname() {
     return lastname;
   }

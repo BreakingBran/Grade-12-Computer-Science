@@ -228,16 +228,20 @@ public class StudentDataBase {
     return counter;
   }
 
-  private int searchFor(String string) {
+  /**
+   * Searches for the first instance of a search criteria
+   * @param string
+   * @return
+   */
+  private String search(String string) {
     // TODO create this function
-    int counter = 0;
+    String studentInfo;
     if (this.sorted) {
-      counter = binarySearchLastName(string, this.students);
+      studentInfo = binarySearchLastName(string, this.students);
     } else {
-      counter = lineaerSearchCount(string);
+      studentInfo = lineaerSearch(string);
     }
-    System.out.println(counter);
-    return counter;
+    return studentInfo;
   }
 
   private int lineaerSearchCount(String string) {
@@ -281,27 +285,35 @@ public class StudentDataBase {
     return foundStudents.get(0).toString();
   }
 
+  
   private String binarySearchLastName(String string, Student[] halvedStudentArray) {
-    //TODO finish binary search
+    //FIXME Horribly broken, refcctor so that it can be used for anything
     String studentInfo;
     Student[] newHalvedArray;
     int index = (int) halvedStudentArray.length/2;
     
-    //Check if the search string is greater or less than middle element of halvedStudentArray
-    if (){}
+    //Check if equal
+    if (string.equals(students[index].getLastname())){
+      return (halvedStudentArray[index].toString());
+    }
     
-    if (halvedStudentArray.length == 1){
-      return studentInfo;
+    //Check if the search string is greater or less than middle element of halvedStudentArray
+    boolean isLess = compareStudentsByLastName(string, this.students[index].getLastname());
+    
+    if (isLess){
+      newHalvedArray = Arrays.copyOfRange(halvedStudentArray, 0, index);
     }
     else{
-      binarySearchLastName(string,newHalvedArray);
+      newHalvedArray = Arrays.copyOfRange(halvedStudentArray, index, halvedStudentArray.length);
     }
     
-  }
-
-
-  public String search(String value) {
-    return "To Do";
+    if (halvedStudentArray.length == 1){
+      return  halvedStudentArray[0].toString();
+    }
+    else{
+      return binarySearchLastName(string,newHalvedArray);
+    }
+    
   }
 
   public void updateDatabase() {
