@@ -5,8 +5,8 @@ import java.io.IOException;
 
 public class Main {
   
-  public static void main(String[] args) throws IOException {
-    StudentDataBase test = new StudentDataBase();
+  public static void main(String[] args) throws Exception {
+    StudentDataBase test = new StudentDataBase("StudentDataInput/StudentDataSample.txt");
     String outputFile = "StudentDataOutput/SortingOutput.txt";
     //Testing with only 5 elements
     //test.readStudentDataBase("StudentDataInput/StudentData.txt",5);
@@ -16,10 +16,10 @@ public class Main {
     //test.readStudentDataBase("StudentDataInput/StudentData.txt");
     
     //Testing with sample of name
-    test.readStudentDataBase("StudentDataInput/StudentDataSample.txt");
+    //test.readStudentDataBase("StudentDataInput/StudentDataSample.txt");
     
     //test.saveStudentDataBase("StudentDataOutput/SortingOutput.txt");
-    test.selectSort();
+    test.selectSortLastName(outputFile);
     System.out.println(test.getNumFemaleStudents());
   }
   

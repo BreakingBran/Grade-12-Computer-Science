@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Search {
+public class SearchDatabase {
   
   public static int lineaerSearchFrquencyCount(String string, Student[] students) {
 

@@ -29,16 +29,18 @@ public class StudentDataBase {
   private int numOfMales = -1;
   private boolean sorted = false;
   private boolean updated = false;
+  static int numberOfDataBases = 0;
 
   public StudentDataBase(String filename) throws IOException {
     this();
     readStudentDataBase(filename);
   }
 
-  public StudentDataBase() {
-    // Only here so other code doesn't break, that intiailizes with no params
+  public StudentDataBase(){
+    numberOfDataBases += 1;
+    //just here to do nothing
   }
-
+  
   /**
    * Reads database from file and stores each line as an object in students[].
    * 
@@ -107,11 +109,11 @@ public class StudentDataBase {
    * @param filename
    * @throws IOException
    */
-  static public void saveStudentDataBase(String filename, Student[] students) throws IOException {
+  public void saveStudentDataBase(String filename) throws IOException {
     PrintWriter pw = new PrintWriter(new FileWriter(filename));
 
-    for (int j = 0; j < students.length; j++) {
-      String student = students[j].toString();
+    for (int j = 0; j < this.students.length; j++) {
+      String student = this.students[j].toString();
       pw.println(student);
     }
 
@@ -121,28 +123,29 @@ public class StudentDataBase {
 
   /**
    * sorts using bubble sort by last name and stores in desired file
-   * @throws Exception 
+   * 
+   * @throws Exception
    */
   public void bubbleSortLastName(String filename) throws Exception {
     SortingDatabase.bubbleSort(filename, students, "getLastName");
   }
-  
+
   public void bubbleSortFirstName(String filename) throws Exception {
     SortingDatabase.bubbleSort(filename, students, "getFirstName");
   }
-  
+
   public void bubbleSortCourses(String filename) throws Exception {
     SortingDatabase.bubbleSort(filename, students, "getCourses");
   }
-  
+
   public void bubbleSortDob(String filename) throws Exception {
-    SortingDatabase.bubbleSort(filename, students,"getDob");
+    SortingDatabase.bubbleSort(filename, students, "getDob");
   }
-  
+
   public void bubbleSortGender(String filename) throws Exception {
     SortingDatabase.bubbleSort(filename, students, "getGender");
   }
-  
+
   public void bubbleSortStudentId(String filename) throws Exception {
     SortingDatabase.bubbleSort(filename, students, "getStudentId");
   }
@@ -157,23 +160,23 @@ public class StudentDataBase {
   public void selectSortLastName(String filename) throws Exception {
     SortingDatabase.selectSort(filename, students, "getLastName");
   }
-  
+
   public void selectSortFirstName(String filename) throws Exception {
     SortingDatabase.selectSort(filename, students, "getFirstName");
   }
-  
+
   public void selectSortCourses(String filename) throws Exception {
     SortingDatabase.selectSort(filename, students, "getCourses");
   }
-  
+
   public void selectSortDob(String filename) throws Exception {
-    SortingDatabase.selectSort(filename, students,"getDob");
+    SortingDatabase.selectSort(filename, students, "getDob");
   }
-  
+
   public void selectSortGender(String filename) throws Exception {
     SortingDatabase.selectSort(filename, students, "getGender");
   }
-  
+
   public void selectSortStudentId(String filename) throws Exception {
     SortingDatabase.selectSort(filename, students, "getStudentId");
   }
@@ -187,7 +190,7 @@ public class StudentDataBase {
   public int getNumFemaleStudents() {
     // Finds number of females in the student array
     if (updated || this.numOfFemales == -1) {
-      this.numOfFemales = Search.lineaerSearchFrquencyCount(",F,",students);
+      this.numOfFemales = SearchDatabase.lineaerSearchFrquencyCount(",F,", students);
     }
     return this.numOfFemales;
   }
@@ -196,7 +199,7 @@ public class StudentDataBase {
     // Finds number of students in the student array by course
     int counter = 0;
     if (updated) {
-      counter = Search.lineaerSearchFrquencyCount(course,students);
+      counter = SearchDatabase.lineaerSearchFrquencyCount(course, students);
     }
     return counter;
   }
@@ -206,20 +209,21 @@ public class StudentDataBase {
    * 
    * @param string
    * @return
+   * @throws Exception
    */
-  private String search(String string) {
+  public String search(String string, String crtieria) throws Exception {
     // TODO create this function
     String studentInfo;
     if (this.sorted) {
-      studentInfo = Search.binarySearch(string, this.students);
+      studentInfo = SearchDatabase.binarySearch(string, this.students, crtieria);
     } else {
-      studentInfo = Search.lineaerSearch(string);
+      studentInfo = SearchDatabase.lineaerSearch(string, students);
     }
     return studentInfo;
   }
 
-  
- 
+
+
   public void updateDatabase() {
     // TODO create a function that updates values after the database has been updated
     if (this.updated) {

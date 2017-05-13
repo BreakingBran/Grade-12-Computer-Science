@@ -5,8 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
-import junitx.framework.FileAssert;
 
+import junitx.framework.FileAssert;
 import junit.framework.TestCase;
 
 import org.junit.Test;
@@ -20,6 +20,7 @@ public class StudentDBTest extends TestCase {
   String sampleData = "SortedDataSets/CompleteSort.txt";
   String completeDatabase = "SortedDataSets/CompleteSort.txt";
   String sampleDataSorted = "SortedDataSets/CompleteSort.txt";
+  String outputFile = "StudentDataOutput/SortingOutput.txt";
   
 
 
@@ -54,9 +55,9 @@ public class StudentDBTest extends TestCase {
   }
 
   @Test
-  public void testBubbleSortSample() throws IOException {
+  public void testBubbleSortSample() throws Exception {
     testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 5);
-    testDataBase.bubbleSort();
+    testDataBase.bubbleSortLastName(outputFile);
     FileAssert.assertEquals(
         new File("SortedDataSets/StudentDataSorted.txt"), 
         new File("StudentDataOutput/SortingOutput.txt"));
@@ -65,7 +66,12 @@ public class StudentDBTest extends TestCase {
   @Test
   public void testBubbleSortEntire() throws IOException {
     testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt");
-    testDataBase.bubbleSort();
+    try {
+      testDataBase.bubbleSortLastName(outputFile);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     FileAssert.assertEquals(
         new File("StudentDataOutput/SortingOutput.txt"), 
         new File(completeSortFileName));
@@ -74,7 +80,12 @@ public class StudentDBTest extends TestCase {
   @Test
   public void testSelectSort() throws IOException {
     testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 5);
-    testDataBase.selectSort();
+    try {
+      testDataBase.selectSortLastName(outputFile);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     FileAssert.assertEquals(
         new File("SortedDataSets/StudentDataSorted.txt"), 
         new File("StudentDataOutput/SortingOutput.txt"));
@@ -84,7 +95,12 @@ public class StudentDBTest extends TestCase {
   @Test
   public void testSelectSortEntire() throws IOException {
     StudentDataBase selectSorted = new StudentDataBase("StudentDataInput/StudentData.txt");
-    selectSorted.selectSort();
+    try {
+      testDataBase.selectSortLastName(outputFile);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     FileAssert.assertEquals(
         new File("StudentDataOutput/SortingOutput.txt"), 
         new File(completeSortFileName));
@@ -97,7 +113,12 @@ public class StudentDBTest extends TestCase {
     assertEquals(7,testDataBase.getNumFemaleStudents());
 
     //TODO sorting changes value of sort
-    testDataBase.selectSort();
+    try {
+      testDataBase.selectSortLastName(outputFile);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     assertEquals(7,testDataBase.getNumFemaleStudents());
 
     
@@ -108,7 +129,12 @@ public class StudentDBTest extends TestCase {
 
     testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt");
     assertEquals(1016,testDataBase.getNumFemaleStudents());
-    testDataBase.selectSort();
+    try {
+      testDataBase.selectSortLastName(outputFile);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     assertEquals(1016,testDataBase.getNumFemaleStudents());
 
     //Males are 1088
@@ -120,7 +146,12 @@ public class StudentDBTest extends TestCase {
     testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 10);
     assertEquals(3,testDataBase.getNumStudentsByCourse("ENG"));
     //TODO sorting changes value of sort
-    testDataBase.selectSort();
+    try {
+      testDataBase.selectSortLastName(outputFile);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     assertEquals(3,testDataBase.getNumStudentsByCourse("ENG"));
   }
   // TODO Find out what this piece of code does
