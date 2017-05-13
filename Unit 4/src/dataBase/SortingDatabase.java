@@ -83,8 +83,8 @@ public class SortingDatabase {
     return true;
   }
 
-  public void selectSort( Student[] students, String criteria) throws Exception {
-    selectSort("StudentDataOutput/SortingOutput.txt",students,criteria);
+  public void LanceSorting() {
+    System.err.println("Not implemented yet");
   }
 
 }

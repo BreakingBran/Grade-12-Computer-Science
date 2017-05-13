@@ -7,6 +7,7 @@ public class Main {
   
   public static void main(String[] args) throws IOException {
     StudentDataBase test = new StudentDataBase();
+    String outputFile = "StudentDataOutput/SortingOutput.txt";
     //Testing with only 5 elements
     //test.readStudentDataBase("StudentDataInput/StudentData.txt",5);
     
