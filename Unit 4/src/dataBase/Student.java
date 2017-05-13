@@ -1,5 +1,7 @@
 package dataBase;
 
+import java.util.*;
+
 /**
  * Student
  * 
@@ -10,25 +12,27 @@ package dataBase;
 
 
 public class Student {
-  
+
   private String lastname;
   private String firstname;
   private String gender;
   private String studentId;
   private String dob;
   private String courses;
+  private Map<String, String> studentInfoDirectory = new HashMap<String, String>(); 
 
-  public Student( String lastname,String firstname,String gender,String studentId,String dob, String courses) {
+  public Student(String lastname, String firstname, String gender, String studentId, String dob, String courses) {
     this.lastname = lastname;
     this.firstname = firstname;
     this.gender = gender;
     this.studentId = studentId;
     this.dob = dob;
     this.courses = courses;
+    setupstudentInfoDirectory();
   }
-  
-  public Student( String[] params){
-    if (params.length != 6){
+
+  public Student(String[] params) {
+    if (params.length != 6) {
       throw new java.lang.Error("Did not put proper size array when calling new Student(String[] params), params expected to be 6 element array");
     }
     this.lastname = params[0];
@@ -36,11 +40,24 @@ public class Student {
     this.gender = params[2];
     this.studentId = params[3];
     this.dob = params[4];
-    this.courses = params[5];
+    this.courses = params[5];    
+    setupstudentInfoDirectory();   
   }
+  
+  private void setupstudentInfoDirectory(){
+    studentInfoDirectory.put("getLastname", this.lastname);
+    studentInfoDirectory.put("getFirstname", this.firstname);
+    studentInfoDirectory.put("getGender", this.gender);
+    studentInfoDirectory.put("getStudentId", this.studentId);
+    studentInfoDirectory.put("getDob", this.dob);
+    studentInfoDirectory.put("getCourses", this.courses);   }
 
   public String toString() {
     return (lastname + "," + firstname + "," + gender + "," + studentId + "," + dob + "," + courses);
+  }
+
+  public Map<String, String> getstudentInfoDirectory(){
+    return studentInfoDirectory;
   }
   
   public String getLastname() {
@@ -51,6 +68,8 @@ public class Student {
     this.lastname = lastname;
   }
 
+  
+  
   public String getFirstname() {
     return firstname;
   }
@@ -90,4 +109,14 @@ public class Student {
   public void setCourses(String courses) {
     this.courses = courses;
   }
+
+  public static StudentInfo getStudentInfoByCriteria(String criteria) {
+    return (studentInfoDirectory.get(criteria));
+  }
+
+}
+
+interface StudentInfo {
+  
+  String getInfo();
 }
