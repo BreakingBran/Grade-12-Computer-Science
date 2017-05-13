@@ -48,8 +48,8 @@ public class Search {
   }
 
 
-  public static String binarySearch(String searchField, Student[] halvedStudentArray,String criteria) {
-    // FIXME Horribly broken, refcctor so that it can be used for anything
+  public static String binarySearch(String searchField, Student[] halvedStudentArray,String criteria) throws Exception {
+    // FIXME Horribly broken, refcctor so that it can be used for anything or take out recursion
     String studentInfo;
     Student[] newHalvedArray;
     int index = (int) halvedStudentArray.length / 2;
