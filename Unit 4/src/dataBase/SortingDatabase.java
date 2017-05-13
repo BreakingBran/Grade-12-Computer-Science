@@ -44,10 +44,14 @@ public class SortingDatabase {
     // Initializes the two tracking values with the value of the first student in students array
     //String lowestName;
     int indexOfLowestName;
+    
+    //System.out.println(students[0].toString());
 
     // loop that is used to replace elements in sorted list
     for (int i = 0; i < students.length; i++) {
 
+      //System.out.println(students[i].toString());
+      
       //lowestName = students[i].getLastname();
       indexOfLowestName = i;
 

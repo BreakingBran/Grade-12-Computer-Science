@@ -47,8 +47,8 @@ public class Student {
   }
 
   private void setupstudentInfoDirectory() {
-    studentInfoDirectory.put("getLastname", this.lastname);
-    studentInfoDirectory.put("getFirstname", this.firstname);
+    studentInfoDirectory.put("getLastName", this.lastname);
+    studentInfoDirectory.put("getFirstName", this.firstname);
     studentInfoDirectory.put("getGender", this.gender);
     studentInfoDirectory.put("getStudentId", this.studentId);
     studentInfoDirectory.put("getDob", this.dob);

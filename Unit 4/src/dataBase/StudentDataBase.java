@@ -35,6 +35,12 @@ public class StudentDataBase {
     this();
     readStudentDataBase(filename);
   }
+  
+  public StudentDataBase(String filename, int lines) throws IOException {
+    this();
+    readStudentDataBase(filename,lines);
+  }
+
 
   public StudentDataBase(){
     numberOfDataBases += 1;
@@ -120,6 +126,16 @@ public class StudentDataBase {
     pw.close();
   }
 
+  static public void saveStudentDataBase(String filename, Student[] students) throws IOException {
+    PrintWriter pw = new PrintWriter(new FileWriter(filename));
+
+    for (int j = 0; j < students.length; j++) {
+      String student = students[j].toString();
+      pw.println(student);
+    }
+
+    pw.close();
+  }
 
   /**
    * sorts using bubble sort by last name and stores in desired file
@@ -158,7 +174,8 @@ public class StudentDataBase {
    * @throws IOException
    */
   public void selectSortLastName(String filename) throws Exception {
-    SortingDatabase.selectSort(filename, students, "getLastName");
+    
+    SortingDatabase.selectSort(filename, this.students, "getLastName");
   }
 
   public void selectSortFirstName(String filename) throws Exception {
