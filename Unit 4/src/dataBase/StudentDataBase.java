@@ -241,6 +241,9 @@ public class StudentDataBase {
     return studentInfo;
   }
 
+  public String searchByLastName(String string) throws Exception {    
+    return search(string,"getLastName");
+  }
 
 
   public void updateDatabase() {
