@@ -2,6 +2,8 @@ package dataBase;
 
 import java.util.*;
 
+import sun.org.mozilla.javascript.internal.ast.ThrowStatement;
+
 /**
  * Student
  * 
@@ -19,7 +21,7 @@ public class Student {
   private String studentId;
   private String dob;
   private String courses;
-  private Map<String, String> studentInfoDirectory = new HashMap<String, String>(); 
+  private Map<String, String> studentInfoDirectory = new HashMap<String, String>();
 
   public Student(String lastname, String firstname, String gender, String studentId, String dob, String courses) {
     this.lastname = lastname;
@@ -40,26 +42,31 @@ public class Student {
     this.gender = params[2];
     this.studentId = params[3];
     this.dob = params[4];
-    this.courses = params[5];    
-    setupstudentInfoDirectory();   
+    this.courses = params[5];
+    setupstudentInfoDirectory();
   }
-  
-  private void setupstudentInfoDirectory(){
+
+  private void setupstudentInfoDirectory() {
     studentInfoDirectory.put("getLastname", this.lastname);
     studentInfoDirectory.put("getFirstname", this.firstname);
     studentInfoDirectory.put("getGender", this.gender);
     studentInfoDirectory.put("getStudentId", this.studentId);
     studentInfoDirectory.put("getDob", this.dob);
-    studentInfoDirectory.put("getCourses", this.courses);   }
+    studentInfoDirectory.put("getCourses", this.courses);
+  }
 
   public String toString() {
     return (lastname + "," + firstname + "," + gender + "," + studentId + "," + dob + "," + courses);
   }
 
-  public Map<String, String> getstudentInfoDirectory(){
-    return studentInfoDirectory;
+  public String getstudentInfoDirectory(String searchField) throws Exception{
+    String value = studentInfoDirectory.get(searchField);
+    if (value.equals(null)){      
+      throw new Exception("Inputed searchField for getstudentInfoDirectory that does not exist in studentInfoDirectory");
+    }
+   return value;
   }
-  
+
   public String getLastname() {
     return lastname;
   }
@@ -68,8 +75,8 @@ public class Student {
     this.lastname = lastname;
   }
 
-  
-  
+
+
   public String getFirstname() {
     return firstname;
   }
@@ -110,13 +117,4 @@ public class Student {
     this.courses = courses;
   }
 
-  public static StudentInfo getStudentInfoByCriteria(String criteria) {
-    return (studentInfoDirectory.get(criteria));
-  }
-
-}
-
-interface StudentInfo {
-  
-  String getInfo();
 }

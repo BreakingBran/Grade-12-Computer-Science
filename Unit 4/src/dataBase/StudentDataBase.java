@@ -57,8 +57,7 @@ public class StudentDataBase {
    * @param testingCounter
    * @throws FileNotFoundException
    */
-  public void readStudentDataBase(String filename, int numOfLines_Students)
-      throws FileNotFoundException {
+  public void readStudentDataBase(String filename, int numOfLines_Students) throws FileNotFoundException {
     Scanner sc = new Scanner(new FileReader(filename));
     numberOfStudents = numOfLines_Students;
 
@@ -71,8 +70,7 @@ public class StudentDataBase {
 
       // avoids making null variables for
       if (studentInfoPackage == "") {
-        System.err
-            .println("Student Data input has blank lines in file which may crash server during operation");
+        System.err.println("Student Data input has blank lines in file which may crash server during operation");
         continue;
       }
       String[] studentInfoPackageArray = new String[6];
@@ -109,7 +107,7 @@ public class StudentDataBase {
    * @param filename
    * @throws IOException
    */
-  public void saveStudentDataBase(String filename) throws IOException {
+  static public void saveStudentDataBase(String filename, Student[] students) throws IOException {
     PrintWriter pw = new PrintWriter(new FileWriter(filename));
 
     for (int j = 0; j < students.length; j++) {
@@ -123,29 +121,10 @@ public class StudentDataBase {
 
   /**
    * sorts using bubble sort by last name and stores in desired file
-   * 
-   * @throws IOException
+   * @throws Exception 
    */
-  public void bubbleSort(String filename) throws IOException {
-    boolean performedSwap = true;
-    while (performedSwap) {
-      performedSwap = false;
-      for (int i = 1; i < students.length; i++) {
-        Student firstStudent = students[i - 1];
-        Student secondStudent = students[i];
-        // if two names are not ordred switch them
-
-        if (!compareStudentsByLastName(students[i - 1].getLastname(), students[i].getLastname(), firstStudent,
-            secondStudent)) {
-          students[i] = firstStudent;
-          students[i - 1] = secondStudent;
-          performedSwap = true;
-        }
-      }
-    }
-    // System.out.println(Arrays.toString(students));
-    saveStudentDataBase(filename);
-    sorted = true;
+  public void bubbleSortLastName(String filename) throws Exception {
+    SortingDatabase.bubbleSort(filename, students, "getLastName");
   }
 
   // other way of calling bubblesort
@@ -174,8 +153,7 @@ public class StudentDataBase {
       for (int j = i + 1; j < students.length; j++) {
 
         // if students[j] has a lower alphbetical name than students[indexOfLowestName]
-        if (!compareStudentsByLastName(students[indexOfLowestName].getLastname(), students[j].getLastname(),
-            students[indexOfLowestName], students[j])) {
+        if (!compareStudentsByLastName(students[indexOfLowestName].getLastname(), students[j].getLastname(), students[indexOfLowestName], students[j])) {
           lowestName = students[j].getLastname();
           indexOfLowestName = j;
           // System.out.println("I ran again");
@@ -198,7 +176,7 @@ public class StudentDataBase {
 
     }
 
-    saveStudentDataBase(filename);
+    saveStudentDataBase(filename, students);
     sorted = true;
   }
 
@@ -212,17 +190,17 @@ public class StudentDataBase {
   }
 
   public int getNumFemaleStudents() {
-    //Finds number of females in the student array 
-    if (updated || this.numOfFemales == -1){
+    // Finds number of females in the student array
+    if (updated || this.numOfFemales == -1) {
       this.numOfFemales = lineaerSearchCount(",F,");
     }
     return this.numOfFemales;
   }
-  
+
   public int getNumStudentsByCourse(String course) {
-    //Finds number of students in the student array by course
+    // Finds number of students in the student array by course
     int counter = 0;
-    if (updated){
+    if (updated) {
       counter = lineaerSearchCount(course);
     }
     return counter;
@@ -230,6 +208,7 @@ public class StudentDataBase {
 
   /**
    * Searches for the first instance of a search criteria
+   * 
    * @param string
    * @return
    */
@@ -259,61 +238,59 @@ public class StudentDataBase {
     // System.out.println(linearCounter);
     return linearCounter;
   }
-  
+
   /**
-   * Outputs the student info of the first student that matches the search string
-   * For the purposes of the class it outputs only the 1st occurance of the student
-   * that matches
+   * Outputs the student info of the first student that matches the search string For the purposes
+   * of the class it outputs only the 1st occurance of the student that matches
+   * 
    * @param string: that you want to search for in the database
    * @return: all info about first student who matches this description
    */
   private String lineaerSearch(String string) {
 
-    //I made two seperate linear search functions
-    //so that they are not interdependant, and that the counter can run much faster
-    List<Student> foundStudents = new ArrayList<Student>(); 
-    
-    //Goes through array and tries to find all students that match string
+    // I made two seperate linear search functions
+    // so that they are not interdependant, and that the counter can run much faster
+    List<Student> foundStudents = new ArrayList<Student>();
+
+    // Goes through array and tries to find all students that match string
     for (int i = 0; i < students.length; i++) {
-      String studentInfoPackage = this.students[i].toString();      
+      String studentInfoPackage = this.students[i].toString();
       if (studentInfoPackage.contains(string)) {
         foundStudents.add(this.students[i]);
       }
     }
-    
-    //He said for the purpose of the class to just output the first occurance
+
+    // He said for the purpose of the class to just output the first occurance
     return foundStudents.get(0).toString();
   }
 
-  
+
   private String binarySearchLastName(String string, Student[] halvedStudentArray) {
-    //FIXME Horribly broken, refcctor so that it can be used for anything
+    // FIXME Horribly broken, refcctor so that it can be used for anything
     String studentInfo;
     Student[] newHalvedArray;
-    int index = (int) halvedStudentArray.length/2;
-    
-    //Check if equal
-    if (string.equals(students[index].getLastname())){
+    int index = (int) halvedStudentArray.length / 2;
+
+    // Check if equal
+    if (string.equals(students[index].getLastname())) {
       return (halvedStudentArray[index].toString());
     }
-    
-    //Check if the search string is greater or less than middle element of halvedStudentArray
+
+    // Check if the search string is greater or less than middle element of halvedStudentArray
     boolean isLess = compareStudentsByLastName(string, this.students[index].getLastname());
-    
-    if (isLess){
+
+    if (isLess) {
       newHalvedArray = Arrays.copyOfRange(halvedStudentArray, 0, index);
-    }
-    else{
+    } else {
       newHalvedArray = Arrays.copyOfRange(halvedStudentArray, index, halvedStudentArray.length);
     }
-    
-    if (halvedStudentArray.length == 1){
-      return  halvedStudentArray[0].toString();
+
+    if (halvedStudentArray.length == 1) {
+      return halvedStudentArray[0].toString();
+    } else {
+      return binarySearchLastName(string, newHalvedArray);
     }
-    else{
-      return binarySearchLastName(string,newHalvedArray);
-    }
-    
+
   }
 
   public void updateDatabase() {
@@ -327,8 +304,8 @@ public class StudentDataBase {
 
   /**
    * Returns true if the first string is albabetically lower than the second string for example
-   * {compareStudentsByLastName("Aa","Ba") : true, compareStudentsByLastName("Ab","AaC"): false} Note: Turns all strings to
-   * lowercase before comparing
+   * {compareStudentsByLastName("Aa","Ba") : true, compareStudentsByLastName("Ab","AaC"): false}
+   * Note: Turns all strings to lowercase before comparing
    * 
    * @param firstName
    * @param secondName
@@ -376,8 +353,7 @@ public class StudentDataBase {
     return ordred;
   }
 
-  private boolean compareStudentsByLastName(String firstName, String secondName, Student firstStudent,
-      Student secondStudent) {
+  private boolean compareStudentsByLastName(String firstName, String secondName, Student firstStudent, Student secondStudent) {
 
     boolean ordered = true;
     if (firstStudent.getLastname().equals(secondStudent.getLastname())) {
@@ -387,15 +363,12 @@ public class StudentDataBase {
         // < 0);
       } else {
         // If first name and last name same, seperate by student number
-        if ((Integer.parseInt(firstStudent.getStudentId()) < Integer.parseInt(secondStudent
-            .getStudentId()))) {
+        if ((Integer.parseInt(firstStudent.getStudentId()) < Integer.parseInt(secondStudent.getStudentId()))) {
           ordered = true;
-        } else if ((Integer.parseInt(firstStudent.getStudentId()) > Integer.parseInt(secondStudent
-            .getStudentId()))) {
+        } else if ((Integer.parseInt(firstStudent.getStudentId()) > Integer.parseInt(secondStudent.getStudentId()))) {
           ordered = false;
         } else {
-          System.err.println("There are two students with the same student number of: "
-              + secondStudent.getStudentId());
+          System.err.println("There are two students with the same student number of: " + secondStudent.getStudentId());
         }
       }
     } else {

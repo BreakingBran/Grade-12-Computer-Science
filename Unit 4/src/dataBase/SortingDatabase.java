@@ -6,10 +6,9 @@ public class SortingDatabase {
   
   /**
    * sorts using bubble sort by last name and stores in desired file
-   * 
-   * @throws IOException
+   * @throws Exception 
    */
-  public void bubbleSort(String filename, Student[] students) throws IOException {
+  static public boolean bubbleSort(String filename, Student[] students, String criteria) throws Exception {
     boolean performedSwap = true;
     while (performedSwap) {
       performedSwap = false;
@@ -18,8 +17,7 @@ public class SortingDatabase {
         Student secondStudent = students[i];
         // if two names are not ordred switch them
 
-        if (!compareStudentsByLastName(students[i - 1].getLastname(), students[i].getLastname(), firstStudent,
-            secondStudent)) {
+        if (!CompareDatabaseMembers.compareStudents(students[i - 1], students[i], criteria)) {
           students[i] = firstStudent;
           students[i - 1] = secondStudent;
           performedSwap = true;
@@ -27,39 +25,38 @@ public class SortingDatabase {
       }
     }
     // System.out.println(Arrays.toString(students));
-    saveStudentDataBase(filename);
-    sorted = true;
+    StudentDataBase.saveStudentDataBase(filename,students);
+    return true;
   }
 
   // other way of calling bubblesort
-  public void bubbleSort() throws IOException {
-    bubbleSort("StudentDataOutput/SortingOutput.txt");
+  public void bubbleSort(Student[] students, String criteria) throws Exception {
+    bubbleSort("StudentDataOutput/SortingOutput.txt",students, criteria);
   }
 
   /**
-   * Sorts using selection sort by last name
-   * 
-   * @throws IOException
+   * Sorts using selection sort by criteria
+   * returns true, to indicate succesful sort
+   * @throws Exception 
    */
-  public void selectSort(String filename) throws IOException {
+  static public boolean selectSort(String filename, Student[] students, String criteria) throws Exception {
 
     // Initializes the two tracking values with the value of the first student in students array
-    String lowestName;
+    //String lowestName;
     int indexOfLowestName;
 
     // loop that is used to replace elements in sorted list
     for (int i = 0; i < students.length; i++) {
 
-      lowestName = students[i].getLastname();
+      //lowestName = students[i].getLastname();
       indexOfLowestName = i;
 
       // loop that finds the best element in the list from the ith variable to it's end
       for (int j = i + 1; j < students.length; j++) {
 
         // if students[j] has a lower alphbetical name than students[indexOfLowestName]
-        if (!compareStudentsByLastName(students[indexOfLowestName].getLastname(), students[j].getLastname(),
-            students[indexOfLowestName], students[j])) {
-          lowestName = students[j].getLastname();
+        if (!CompareDatabaseMembers.compareStudents(students[indexOfLowestName], students[j],criteria)) {
+          //lowestName = students[j].getLastname();
           indexOfLowestName = j;
           // System.out.println("I ran again");
         }
@@ -81,12 +78,13 @@ public class SortingDatabase {
 
     }
 
-    saveStudentDataBase(filename);
-    sorted = true;
+    StudentDataBase.saveStudentDataBase(filename,students);
+   
+    return true;
   }
 
-  public void selectSort() throws IOException {
-    selectSort("StudentDataOutput/SortingOutput.txt");
+  public void selectSort( Student[] students, String criteria) throws Exception {
+    selectSort("StudentDataOutput/SortingOutput.txt",students,criteria);
   }
 
 }
