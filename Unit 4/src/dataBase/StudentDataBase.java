@@ -34,11 +34,13 @@ public class StudentDataBase {
   public StudentDataBase(String filename) throws IOException {
     this();
     readStudentDataBase(filename);
+    
   }
   
   public StudentDataBase(String filename, int lines) throws IOException {
     this();
     readStudentDataBase(filename,lines);
+   
   }
 
 
@@ -215,9 +217,9 @@ public class StudentDataBase {
   public int getNumStudentsByCourse(String course) {
     // Finds number of students in the student array by course
     int counter = 0;
-    if (updated) {
-      counter = SearchDatabase.lineaerSearchFrquencyCount(course, students);
-    }
+    
+    counter = SearchDatabase.lineaerSearchFrquencyCount(course, students);
+    
     return counter;
   }
 

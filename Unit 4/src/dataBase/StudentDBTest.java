@@ -95,6 +95,7 @@ public class StudentDBTest extends TestCase {
   @Test
   public void testSelectSortEntire() throws IOException {
     StudentDataBase selectSorted = new StudentDataBase("StudentDataInput/StudentData.txt");
+    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt");
     try {
       testDataBase.selectSortLastName(outputFile);
     } catch (Exception e) {
@@ -141,10 +142,10 @@ public class StudentDBTest extends TestCase {
   }
 
   @Test
-  public void testGetNumStudentsByCourse() throws IOException {
+  public void testGetNumStudentsByCourseSample() throws IOException {
     //first 10 elements
     testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 10);
-    assertEquals(3,testDataBase.getNumStudentsByCourse("ENG"));
+    assertEquals(7,testDataBase.getNumStudentsByCourse("ENG"));
     //TODO sorting changes value of sort
     try {
       testDataBase.selectSortLastName(outputFile);
@@ -152,10 +153,31 @@ public class StudentDBTest extends TestCase {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    assertEquals(3,testDataBase.getNumStudentsByCourse("ENG"));
+    assertEquals(7,testDataBase.getNumStudentsByCourse("ENG"));
+  }
+  
+  @Test
+  public void testGetNumStudentsByCourseEntire() throws IOException {
+    //first 10 elements
+    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt");
+    assertEquals(31,testDataBase.getNumStudentsByCourse("ENG2D108"));
+    //TODO sorting changes value of sort
+    try {
+      testDataBase.selectSortLastName(outputFile);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    assertEquals(31,testDataBase.getNumStudentsByCourse("ENG2D108"));
   }
   // TODO Find out what this piece of code does
   /*
    * @Rule public TemporaryFolder folder = new TemporaryFolder();
    */
+  
+  
+  @Test
+  public void testSearchFunction() throws IOException {
+    
+  }
 }

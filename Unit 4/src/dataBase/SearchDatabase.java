@@ -5,14 +5,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SearchDatabase {
-  
+
   public static int lineaerSearchFrquencyCount(String string, Student[] students) {
 
     int linearCounter = 0;
 
     for (int i = 0; i < students.length; i++) {
       String studentInfoPackage = students[i].toString();
-      // System.out.println(studentInfoPackage);
+      
       if (studentInfoPackage.contains(string)) {
         // System.out.println("True");
         linearCounter += 1;
@@ -29,7 +29,7 @@ public class SearchDatabase {
    * @param string: that you want to search for in the database
    * @return: all info about first student who matches this description
    */
-  public static String lineaerSearch(String string,Student[] students) {
+  public static String lineaerSearch(String string, Student[] students) {
 
     // I made two seperate linear search functions
     // so that they are not interdependant, and that the counter can run much faster
@@ -48,7 +48,7 @@ public class SearchDatabase {
   }
 
 
-  public static String binarySearch(String searchField, Student[] halvedStudentArray,String criteria) throws Exception {
+  public static String binarySearch(String searchField, Student[] halvedStudentArray, String criteria) throws Exception {
     // FIXME Horribly broken, refcctor so that it can be used for anything or take out recursion
     String studentInfo;
     Student[] newHalvedArray;
@@ -71,7 +71,7 @@ public class SearchDatabase {
     if (halvedStudentArray.length == 1) {
       return halvedStudentArray[0].toString();
     } else {
-      return binarySearch(searchField, newHalvedArray ,criteria);
+      return binarySearch(searchField, newHalvedArray, criteria);
     }
 
   }
