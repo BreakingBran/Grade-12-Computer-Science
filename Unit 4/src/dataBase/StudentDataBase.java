@@ -146,14 +146,17 @@ public class StudentDataBase {
    */
   public void bubbleSortLastName(String filename) throws Exception {
     SortingDatabase.bubbleSort(filename, students, "getLastName");
+    StudentDataBase.saveStudentDataBase(filename,students);
   }
 
   public void bubbleSortFirstName(String filename) throws Exception {
     SortingDatabase.bubbleSort(filename, students, "getFirstName");
+    StudentDataBase.saveStudentDataBase(filename,students);
   }
 
   public void bubbleSortCourses(String filename) throws Exception {
     SortingDatabase.bubbleSort(filename, students, "getCourses");
+    StudentDataBase.saveStudentDataBase(filename,students);
   }
 
   public void bubbleSortDob(String filename) throws Exception {
@@ -177,27 +180,33 @@ public class StudentDataBase {
    */
   public void selectSortLastName(String filename) throws Exception {
     
-    SortingDatabase.selectSort(filename, this.students, "getLastName");
+    SortingDatabase.selectSort( this.students, "getLastName");
+    StudentDataBase.saveStudentDataBase(filename,students);
   }
 
   public void selectSortFirstName(String filename) throws Exception {
-    SortingDatabase.selectSort(filename, students, "getFirstName");
+    SortingDatabase.selectSort( students, "getFirstName");
+    StudentDataBase.saveStudentDataBase(filename,students);
   }
 
   public void selectSortCourses(String filename) throws Exception {
-    SortingDatabase.selectSort(filename, students, "getCourses");
+    SortingDatabase.selectSort( students, "getCourses");
+    StudentDataBase.saveStudentDataBase(filename,students);
   }
 
   public void selectSortDob(String filename) throws Exception {
-    SortingDatabase.selectSort(filename, students, "getDob");
+    SortingDatabase.selectSort( students, "getDob");
+    StudentDataBase.saveStudentDataBase(filename,students);
   }
 
   public void selectSortGender(String filename) throws Exception {
-    SortingDatabase.selectSort(filename, students, "getGender");
+    SortingDatabase.selectSort(students, "getGender");
+    StudentDataBase.saveStudentDataBase(filename,students);
   }
 
   public void selectSortStudentId(String filename) throws Exception {
-    SortingDatabase.selectSort(filename, students, "getStudentId");
+    SortingDatabase.selectSort( students, "getStudentId");
+    StudentDataBase.saveStudentDataBase(filename,students);
   }
 
 
@@ -235,6 +244,7 @@ public class StudentDataBase {
     String studentInfo;
     if (this.sorted) {
       studentInfo = SearchDatabase.binarySearch(string, this.students, crtieria);
+      if (studentInfo == null){studentInfo = SearchDatabase.lineaerSearch(string, students);}
     } else {
       studentInfo = SearchDatabase.lineaerSearch(string, students);
     }

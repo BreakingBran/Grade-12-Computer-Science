@@ -39,7 +39,7 @@ public class SortingDatabase {
    * returns true, to indicate succesful sort
    * @throws Exception 
    */
-  static public boolean selectSort(String filename, Student[] students, String criteria) throws Exception {
+  static public boolean selectSort(Student[] students, String criteria) throws Exception {
 
     // Initializes the two tracking values with the value of the first student in students array
     //String lowestName;
@@ -82,7 +82,6 @@ public class SortingDatabase {
 
     }
 
-    StudentDataBase.saveStudentDataBase(filename,students);
    
     return true;
   }

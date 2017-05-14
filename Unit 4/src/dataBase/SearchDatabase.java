@@ -44,13 +44,14 @@ public class SearchDatabase {
     }
 
     // He said for the purpose of the class to just output the first occurance
-    return foundStudents.get(0).toString();
+    if (foundStudents.size() > 0){return foundStudents.get(0).toString();}
+    else {return null;}
   }
 
 
   public static String binarySearch(String searchField, Student[] halvedStudentArray, String criteria) throws Exception {
     // FIXME Horribly broken, refcctor so that it can be used for anything or take out recursion
-    String studentInfo;
+    
     Student[] newHalvedArray;
     int index = (int) halvedStudentArray.length / 2;
 
@@ -68,8 +69,8 @@ public class SearchDatabase {
       newHalvedArray = Arrays.copyOfRange(halvedStudentArray, index, halvedStudentArray.length);
     }
 
-    if (halvedStudentArray.length == 1) {
-      return halvedStudentArray[0].toString();
+    if (halvedStudentArray.length == 1 && !searchField.equals(halvedStudentArray[0].getstudentInfoDirectory(criteria))) {
+      return null;
     } else {
       return binarySearch(searchField, newHalvedArray, criteria);
     }
