@@ -185,8 +185,15 @@ public class StudentDBTest extends TestCase {
     assertEquals("Bhise,Aniron,F,732077,19890424,ADA4M101 CLN4U102 ENG4U111 IDC4U101", testDataBase.search("19890424", "getDob"));
     assertEquals("Giansante,Samira,F,731447,19910403,CHC2D109 HRE2O118 MPM2D107 SNC2D111", testDataBase.search("731447", "getStudentId"));
     assertEquals("Basara,Arash,M,730575,19900906,FSF1D107 HRE1O118 MPM1D112 SNC1D110", testDataBase.search("HRE1O118", "getCourses"));
-    testDataBase.selectSortCourses(outputFile);
-    
+    testDataBase.selectSortLastName(outputFile);
+    assertEquals("Vera,Sufian,M,731435,19920424,BTT1O108 CGC1D110 ENG1D111 HRE1O116", testDataBase.search("Sufian", "getFirstName"));
+    assertEquals("Aysola,Cesar,F,731076,19920413,CGC1D107 ENG1D108 HRE1O112 MPM1D109", testDataBase.search("Aysola", "getLastName"));
+    //assertEquals("Aleung,Britney,M,731163,19911126,ENG1D110 HRE1O116 PPL1OM08 SNC1D109",SearchDatabase.lineaerSearch(",M,", testDataBase.getStudents()));
+    assertEquals("Aleung,Britney,M,731163,19911126,ENG1D110 HRE1O116 PPL1OM08 SNC1D109", testDataBase.search("M", "getGender"));
+    assertEquals("Bhise,Aniron,F,732077,19890424,ADA4M101 CLN4U102 ENG4U111 IDC4U101", testDataBase.search("19890424", "getDob"));
+    assertEquals("Giansante,Samira,F,731447,19910403,CHC2D109 HRE2O118 MPM2D107 SNC2D111", testDataBase.search("731447", "getStudentId"));
+    assertEquals("Basara,Arash,M,730575,19900906,FSF1D107 HRE1O118 MPM1D112 SNC1D110", testDataBase.search("HRE1O118", "getCourses"));
+    //731391 student Id is missing
   }
   
   @Test

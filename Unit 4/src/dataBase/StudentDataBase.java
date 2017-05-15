@@ -28,6 +28,13 @@ public class StudentDataBase {
   private int numOfFemales = -1;
   private int numOfMales = -1;
   private boolean sorted = false;
+  private boolean sortedLastName = false;
+  private boolean sortedFirstName = false;
+  private boolean sortedCourses = false;
+  private boolean sortedDOB = false;
+  private boolean sortedStudentID = false;
+  private boolean sortedGender = false;
+  
   private boolean updated = false;
   static int numberOfDataBases = 0;
 

@@ -12,7 +12,7 @@ public class Main {
     
     
     //Testing with only 5 elements
-    //test.readStudentDataBase("StudentDataInput/StudentData.txt",5);
+    //test.readStudentDataBase("StudentDataInput/StudentData.txt",100);
     
     
     //Testing with entire file
@@ -21,8 +21,8 @@ public class Main {
     //Testing with sample of name
     //test.readStudentDataBase("StudentDataInput/StudentDataSample.txt");
     
-    test.selectSortLastName(outputFile);
-    System.out.println(test.getNumFemaleStudents());
+    test.selectSortStudentId(outputFile);
+    
   }
   
 }
