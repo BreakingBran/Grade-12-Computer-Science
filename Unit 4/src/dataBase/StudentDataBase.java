@@ -145,6 +145,10 @@ public class StudentDataBase {
 
     pw.close();
   }
+  
+  private void switchSortedBooleans(boolean switchedBoolean){
+    
+  }
 
   /**
    * sorts using bubble sort by last name and stores in desired file
