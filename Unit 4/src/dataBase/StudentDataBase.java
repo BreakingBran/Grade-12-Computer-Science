@@ -27,13 +27,14 @@ public class StudentDataBase {
   private int numberOfStudents;
   private int numOfFemales = -1;
   private int numOfMales = -1;
-  private boolean sorted = false;
-  private boolean sortedLastName = false;
-  private boolean sortedFirstName = false;
-  private boolean sortedCourses = false;
-  private boolean sortedDOB = false;
-  private boolean sortedStudentID = false;
-  private boolean sortedGender = false;
+  private Boolean sorted = false;
+  private Boolean sortedLastName = false;
+  private Boolean sortedFirstName = false;
+  private Boolean sortedCourses = false;
+  private Boolean sortedDOB = false;
+  private Boolean sortedStudentID = false;
+  private Boolean sortedGender = false;
+  private Boolean[] sortedBooleanArray = {sortedLastName,sortedFirstName,sortedCourses,sortedDOB,sortedStudentID,sortedGender};
   
   private boolean updated = false;
   static int numberOfDataBases = 0;
@@ -146,8 +147,12 @@ public class StudentDataBase {
     pw.close();
   }
   
-  private void switchSortedBooleans(boolean switchedBoolean){
-    
+  private void switchSortedBooleans(Boolean switchedBoolean){
+    for (int i = 0; i < sortedBooleanArray.length; i++) {
+      if (sortedBooleanArray[i] != switchedBoolean){
+        sortedBooleanArray[i] = false;
+      }
+    }
   }
 
   /**
@@ -157,29 +162,32 @@ public class StudentDataBase {
    */
   public void bubbleSortLastName(String filename) throws Exception {
     SortingDatabase.bubbleSort(filename, students, "getLastName");
-    StudentDataBase.saveStudentDataBase(filename,students);
+    updateDatabase(0,filename);
   }
 
   public void bubbleSortFirstName(String filename) throws Exception {
     SortingDatabase.bubbleSort(filename, students, "getFirstName");
-    StudentDataBase.saveStudentDataBase(filename,students);
+    updateDatabase(1,filename);
   }
 
   public void bubbleSortCourses(String filename) throws Exception {
     SortingDatabase.bubbleSort(filename, students, "getCourses");
-    StudentDataBase.saveStudentDataBase(filename,students);
+    updateDatabase(2,filename);
   }
 
   public void bubbleSortDob(String filename) throws Exception {
     SortingDatabase.bubbleSort(filename, students, "getDob");
+    updateDatabase(3,filename);
   }
 
   public void bubbleSortGender(String filename) throws Exception {
     SortingDatabase.bubbleSort(filename, students, "getGender");
+    updateDatabase(4,filename);
   }
 
   public void bubbleSortStudentId(String filename) throws Exception {
     SortingDatabase.bubbleSort(filename, students, "getStudentId");
+    updateDatabase(5,filename);
   }
 
 
@@ -192,32 +200,32 @@ public class StudentDataBase {
   public void selectSortLastName(String filename) throws Exception {
     
     SortingDatabase.selectSort( this.students, "getLastName");
-    StudentDataBase.saveStudentDataBase(filename,students);
+    updateDatabase(0,filename);
   }
 
   public void selectSortFirstName(String filename) throws Exception {
     SortingDatabase.selectSort( students, "getFirstName");
-    StudentDataBase.saveStudentDataBase(filename,students);
+    updateDatabase(1,filename);
   }
 
   public void selectSortCourses(String filename) throws Exception {
     SortingDatabase.selectSort( students, "getCourses");
-    StudentDataBase.saveStudentDataBase(filename,students);
+    updateDatabase(2,filename);
   }
 
   public void selectSortDob(String filename) throws Exception {
     SortingDatabase.selectSort( students, "getDob");
-    StudentDataBase.saveStudentDataBase(filename,students);
+    updateDatabase(3,filename);
   }
 
   public void selectSortGender(String filename) throws Exception {
     SortingDatabase.selectSort(students, "getGender");
-    StudentDataBase.saveStudentDataBase(filename,students);
+    updateDatabase(4,filename);
   }
 
   public void selectSortStudentId(String filename) throws Exception {
     SortingDatabase.selectSort( students, "getStudentId");
-    StudentDataBase.saveStudentDataBase(filename,students);
+    updateDatabase(5,filename);
   }
 
 
@@ -267,12 +275,11 @@ public class StudentDataBase {
   }
 
 
-  public void updateDatabase() {
-    // TODO create a function that updates values after the database has been updated
-    if (this.updated) {
-      System.err.println("Still need to implement");
-    }
-    this.updated = false;
+  public void updateDatabase(int i, String filename) throws IOException {
+    StudentDataBase.saveStudentDataBase(filename,students);
+    sortedBooleanArray[i] = true;
+    switchSortedBooleans(sortedLastName);
+    
   }
 
 
