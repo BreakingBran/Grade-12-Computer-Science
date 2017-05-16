@@ -36,6 +36,22 @@ public class StudentDataBase {
   private Boolean sortedGender = false;
   private Boolean[] sortedBooleanArray = {sortedLastName,sortedFirstName,sortedCourses,sortedDOB,sortedStudentID,sortedGender};
   
+  
+  /**
+   *  private Boolean sortedLastName = false;
+   *  private Boolean sortedFirstName = false;
+   *  private Boolean sortedCourses = false;
+   *  private Boolean sortedDOB = false;
+   *  private Boolean sortedStudentID = false;
+   *  private Boolean sortedGender = false;
+   *  private Boolean[] sortedBooleanArray = {sortedLastName,sortedFirstName,sortedCourses,sortedDOB,sortedStudentID,sortedGender};
+   * @param i
+   * @return
+   */
+  public Boolean getSortedBooleanArrayElement(int i) {
+    return sortedBooleanArray[i];
+  }
+
   private boolean updated = false;
   static int numberOfDataBases = 0;
 
@@ -147,9 +163,9 @@ public class StudentDataBase {
     pw.close();
   }
   
-  private void switchSortedBooleans(Boolean switchedBoolean){
+  private void switchSortedBooleans(int j){
     for (int i = 0; i < sortedBooleanArray.length; i++) {
-      if (sortedBooleanArray[i] != switchedBoolean){
+      if (i != j){
         sortedBooleanArray[i] = false;
       }
     }
@@ -278,7 +294,7 @@ public class StudentDataBase {
   public void updateDatabase(int i, String filename) throws IOException {
     StudentDataBase.saveStudentDataBase(filename,students);
     sortedBooleanArray[i] = true;
-    switchSortedBooleans(sortedLastName);
+    switchSortedBooleans(i);
     
   }
 

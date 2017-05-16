@@ -9,7 +9,7 @@ interface Command {
 public class testing {
 
     public static void main(String[] args) throws Exception {
-        Map<Character, Command> methodMap = new HashMap<Character, Command>();
+       /* Map<Character, Command> methodMap = new HashMap<Character, Command>();
 
         methodMap.put('h', new Command() {
             public String runCommand() { return "Hello"; };
@@ -24,6 +24,11 @@ public class testing {
 
         cmd = 't';
         methodMap.get(cmd).runCommand();  // prints "teleport"
-
+*/
+      
+      Boolean yellow = true;
+      if (yellow.booleanValue() == true){
+        System.out.println(yellow.booleanValue());
+      }
     }
 }

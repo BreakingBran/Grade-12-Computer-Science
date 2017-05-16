@@ -208,7 +208,22 @@ public class StudentDBTest extends TestCase {
   }
   
   @Test
-  public void testUpdateDatabase() throws IOException {
+  public void testUpdateDatabase() throws Exception {
     
+    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 100);
+    testDataBase.selectSortLastName(outputFile);
+    assertEquals(true, testDataBase.getSortedBooleanArrayElement(0).booleanValue());
+    assertEquals(false, testDataBase.getSortedBooleanArrayElement(1).booleanValue());
+    assertEquals(false, testDataBase.getSortedBooleanArrayElement(2).booleanValue());
+    assertEquals(false, testDataBase.getSortedBooleanArrayElement(3).booleanValue());
+    assertEquals(false, testDataBase.getSortedBooleanArrayElement(4).booleanValue());
+    assertEquals(false, testDataBase.getSortedBooleanArrayElement(5).booleanValue());
+    testDataBase.bubbleSortDob(outputFile);
+    assertEquals(false, testDataBase.getSortedBooleanArrayElement(0).booleanValue());
+    assertEquals(false, testDataBase.getSortedBooleanArrayElement(1).booleanValue());
+    assertEquals(false, testDataBase.getSortedBooleanArrayElement(2).booleanValue());
+    assertEquals(true, testDataBase.getSortedBooleanArrayElement(3).booleanValue());
+    assertEquals(false, testDataBase.getSortedBooleanArrayElement(4).booleanValue());
+    assertEquals(false, testDataBase.getSortedBooleanArrayElement(5).booleanValue());
   }
 }
