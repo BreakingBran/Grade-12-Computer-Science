@@ -47,6 +47,25 @@ public class SearchDatabase {
     if (foundStudents.size() > 0){return foundStudents.get(0).toString();}
     else {return null;}
   }
+  
+  public static String lineaerSearch(String string, Student[] students, String criteria) throws Exception {
+
+    // I made two seperate linear search functions
+    // so that they are not interdependant, and that the counter can run much faster
+    List<Student> foundStudents = new ArrayList<Student>();
+
+    // Goes through array and tries to find all students that match string
+    for (int i = 0; i < students.length; i++) {
+      String studentInfoPackage = students[i].getstudentInfoDirectory(criteria);
+      if (studentInfoPackage.contains(string)) {
+        foundStudents.add(students[i]);
+      }
+    }
+
+    // He said for the purpose of the class to just output the first occurance
+    if (foundStudents.size() > 0){return foundStudents.get(0).toString();}
+    else {return null;}
+  }
 
 
   public static String binarySearch(String searchField, Student[] halvedStudentArray, String criteria) throws Exception {
