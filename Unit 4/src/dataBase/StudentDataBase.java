@@ -294,7 +294,9 @@ public class StudentDataBase {
       
       //This one exception exists just b/c of how the data for courses is stored
       if (!crtieria.equalsIgnoreCase("getCourses")){
+        //FIXME change these statements
         studentInfo = SearchDatabase.binarySearch(string, this.students, crtieria);
+        //studentInfo = SearchDatabase.binarySearchWithoutRecursion(string, this.students, crtieria);
       }
       
       if (studentInfo == null){studentInfo = SearchDatabase.lineaerSearch(string, students,crtieria);}
