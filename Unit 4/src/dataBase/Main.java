@@ -12,16 +12,21 @@ public class Main {
     
     
     //Testing with only 5 elements
-    //test.readStudentDataBase("StudentDataInput/StudentData.txt",100);
+    test.readStudentDataBase("StudentDataInput/StudentData.txt",100);
     
     
     //Testing with entire file
-    test.readStudentDataBase("StudentDataInput/StudentData.txt");
+    //test.readStudentDataBase("StudentDataInput/StudentData.txt");
     
     //Testing with sample of name
     //test.readStudentDataBase("StudentDataInput/StudentDataSample.txt");
     
-    test.selectSortStudentId(outputFile);
+    test.selectSortCourses(outputFile);
+    //test.selectSortDob(outputFile);
+    //test.selectSortFirstName(outputFile);
+    //test.selectSortGender(outputFile);
+    //test.selectSortLastName(outputFile);
+    //test.selectSortStudentId(outputFile);
     
   }
   

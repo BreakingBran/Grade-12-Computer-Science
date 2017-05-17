@@ -233,4 +233,13 @@ public class StudentDBTest extends TestCase {
     assertEquals(false, testDataBase.getSortedBooleanArrayElement(4).booleanValue());
     assertEquals(false, testDataBase.getSortedBooleanArrayElement(5).booleanValue());
   }
+  
+  @Test
+  public void testBinarySearchExclusivley() throws Exception {
+    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 100);
+    testDataBase.selectSortLastName(outputFile);
+    assertEquals("Nguyen,Mariam,F,730227,19910716,HHS4M103 PSE4U103 TPJ2O103", SearchDatabase.binarySearch("Nguyen", testDataBase.getStudents(), "getLastName"));
+    testDataBase.selectSortCourses(outputFile);
+    assertEquals("Nguyen,Mariam,F,730227,19910716,HHS4M103 PSE4U103 TPJ2O103", SearchDatabase.binarySearch("ENG3U109", testDataBase.getStudents(), "getCourses"));
+  }
 }
