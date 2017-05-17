@@ -206,16 +206,17 @@ public class StudentDataBase {
     SortingDatabase.bubbleSort(filename, students, "getDob");
     updateDatabase(3,filename);
   }
-
-  public void bubbleSortGender(String filename) throws Exception {
-    SortingDatabase.bubbleSort(filename, students, "getGender");
+  
+  public void bubbleSortStudentId(String filename) throws Exception {
+    SortingDatabase.bubbleSort(filename, students, "getStudentId");
     updateDatabase(4,filename);
   }
 
-  public void bubbleSortStudentId(String filename) throws Exception {
-    SortingDatabase.bubbleSort(filename, students, "getStudentId");
+  public void bubbleSortGender(String filename) throws Exception {
+    SortingDatabase.bubbleSort(filename, students, "getGender");
     updateDatabase(5,filename);
   }
+
 
 
 
@@ -245,15 +246,16 @@ public class StudentDataBase {
     updateDatabase(3,filename);
   }
 
-  public void selectSortGender(String filename) throws Exception {
-    SortingDatabase.selectSort(students, "getGender");
+  public void selectSortStudentId(String filename) throws Exception {
+    SortingDatabase.selectSort( students, "getStudentId");
     updateDatabase(4,filename);
   }
 
-  public void selectSortStudentId(String filename) throws Exception {
-    SortingDatabase.selectSort( students, "getStudentId");
+  public void selectSortGender(String filename) throws Exception {
+    SortingDatabase.selectSort(students, "getGender");
     updateDatabase(5,filename);
   }
+
 
 
   // TODO fix returns of functions in StudentDataBase
@@ -287,10 +289,14 @@ public class StudentDataBase {
    */
   public String search(String string, String crtieria) throws Exception {
     // TODO create this function
-    String studentInfo;
+    String studentInfo = null;
     if (sortedBooleanArray[sortedArrayIndexMapping.get(crtieria)]) {
-      studentInfo = SearchDatabase.binarySearch(string, this.students, crtieria);
-      if (studentInfo == null){studentInfo = SearchDatabase.lineaerSearch(string, students);}
+      
+      //This one exception exists just b/c of how the data for courses is stored
+      if (!crtieria.equalsIgnoreCase("getCourses")){
+        studentInfo = SearchDatabase.binarySearch(string, this.students, crtieria);
+      }
+      if (studentInfo == null){studentInfo = SearchDatabase.lineaerSearch(string, students,crtieria);}
     } else {
       studentInfo = SearchDatabase.lineaerSearch(string, students,crtieria);
     }

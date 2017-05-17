@@ -203,8 +203,15 @@ public class StudentDBTest extends TestCase {
   
   
   @Test
-  public void testSearchFunctionEntire() throws IOException {
-    
+  public void testSearchFunctionEntire() throws Exception {
+    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt");
+    testDataBase.selectSortStudentId(outputFile);
+    assertEquals("Mathyaparanam,Muzammal,F,730020,19900911,GWL3O101 HPC3O102 MPM2D108 PPL3O101", testDataBase.search("Muzammal", "getFirstName"));
+    assertEquals("Da Silva,Natasha,F,730031,19900629,HRE3M108 HSP3M105 SCH3U105 SPH3U103", testDataBase.search("Da Silva", "getLastName"));
+    assertEquals("Bautista,Kaniel,M,730001,19920202,ENG2DB03 HRE2O114 MCR3UB02 SNC2DB03", testDataBase.search("M", "getGender"));
+    assertEquals("Rubanthraraja,Nicole,M,730843,19890424,CHV2O515 ENG2D111 TEE2O101 SNC2P105", testDataBase.search("19890424", "getDob"));
+    assertEquals("Giansante,Samira,F,731447,19910403,CHC2D109 HRE2O118 MPM2D107 SNC2D111", testDataBase.search("731447", "getStudentId"));
+    assertEquals("De Vera,Stephen,F,730071,19910704,BTT1O109 ENG1D110 HRE1O118 SNC1D114", testDataBase.search("HRE1O118", "getCourses"));
   }
   
   @Test
