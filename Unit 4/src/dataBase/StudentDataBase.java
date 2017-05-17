@@ -9,7 +9,9 @@ import java.io.LineNumberReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 // ctrl + F11 to compile
@@ -35,7 +37,16 @@ public class StudentDataBase {
   private Boolean sortedStudentID = false;
   private Boolean sortedGender = false;
   private Boolean[] sortedBooleanArray = {sortedLastName,sortedFirstName,sortedCourses,sortedDOB,sortedStudentID,sortedGender};
-  
+  private static Map<String, Integer> sortedArrayIndexMapping = new HashMap<String, Integer>();
+  static {    
+    sortedArrayIndexMapping.put("getLastName", 0);
+    sortedArrayIndexMapping.put("getFirstName", 1);
+    sortedArrayIndexMapping.put("getCourses", 2);
+    sortedArrayIndexMapping.put("getDob", 3);
+    sortedArrayIndexMapping.put("getStudentId", 4); //Really this one should throw an error
+    sortedArrayIndexMapping.put("getGender", 5);
+    
+  }
   
   /**
    *  private Boolean sortedLastName = false;
@@ -277,11 +288,11 @@ public class StudentDataBase {
   public String search(String string, String crtieria) throws Exception {
     // TODO create this function
     String studentInfo;
-    if (this.sorted) {
+    if (sortedBooleanArray[sortedArrayIndexMapping.get(crtieria)]) {
       studentInfo = SearchDatabase.binarySearch(string, this.students, crtieria);
       if (studentInfo == null){studentInfo = SearchDatabase.lineaerSearch(string, students);}
     } else {
-      studentInfo = SearchDatabase.lineaerSearch(string, students);
+      studentInfo = SearchDatabase.lineaerSearch(string, students,crtieria);
     }
     return studentInfo;
   }
