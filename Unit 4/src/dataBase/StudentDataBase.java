@@ -274,7 +274,7 @@ public class StudentDataBase {
    * @return
    * @throws Exception
    */
-  public String search(String string, String crtieria) throws Exception {
+  public String  ch(String string, String crtieria) throws Exception {
     // TODO create this function
     String studentInfo;
     if (this.sorted) {
