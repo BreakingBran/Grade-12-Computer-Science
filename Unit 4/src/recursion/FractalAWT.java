@@ -19,6 +19,7 @@ public class FractalAWT extends JComponent
   JFrame frame = new JFrame();
   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // exit program when you close it
   frame.setSize(1400,800);  // set the size of the window to whatever width and height you like
+  //frame.setSize(800,800);
   frame.add(this); // put an object we can draw on in the centre of the window
   frame.setVisible(true); //show the window
  } 
@@ -97,16 +98,17 @@ public class FractalAWT extends JComponent
   {
    this.g = g;
    
-   this.drawBoxRecursively (0, 0, 800, 800, Color.BLUE);
-   //this.drawSpiral (100, 500, 1200, 10);
-   
+   this.drawBoxRecursively (0, 0, 800, 800, Color.GREEN);
+   //this.drawSpiral (100, 500, 2000, 10);
+  
    //this.drawCrosses(300, 400, 900, 400);
    
   }
   
   public static void main (String[] args) 
   {
-   new FractalAWT();    
+   FractalAWT a = new FractalAWT();    
+   
   } // main method
 } // Fractal class
 
