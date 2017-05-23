@@ -93,15 +93,30 @@ public class FractalAWT extends JComponent
       drawSpiral (x + 10, y, length * 9 / 10, angle + 3);
     }
   }
+  
+  public void drawTriangles (int x, int y, int length){
+    
+    int xTop = x + length/2;
+    int xRight = x+length;
+    int yTop = y + (int) (Math.sqrt(3) * length/2);
+
+    
+    System.out.println(xTop + " "+xRight +   " "+ yTop);
+    this.g.drawLine (x, y, xRight, y);
+    this.g.drawLine (x, y, xTop, yTop);
+    this.g.drawLine (xTop, yTop, xRight, y);
+  }
 
   public void paint(Graphics g)
   {
    this.g = g;
    
-   this.drawBoxRecursively (0, 0, 800, 800, Color.GREEN);
+   //this.drawBoxRecursively (0, 0, 800, 800, Color.RED);
    //this.drawSpiral (100, 500, 2000, 10);
   
    //this.drawCrosses(300, 400, 900, 400);
+   
+   drawTriangles(100,100,400);
    
   }
   
