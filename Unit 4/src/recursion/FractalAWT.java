@@ -94,17 +94,21 @@ public class FractalAWT extends JComponent
     }
   }
   
-  public void drawTriangles (int x, int y, int length){
+  public void drawTriangles (int x, int y, int length, boolean inverted){
     
     int xTop = x + length/2;
     int xRight = x+length;
     int yTop = y + (int) (Math.sqrt(3) * length/2);
 
     
-    System.out.println(xTop + " "+xRight +   " "+ yTop);
+    //System.out.println(xTop + " "+xRight +   " "+ yTop);
     this.g.drawLine (x, y, xRight, y);
     this.g.drawLine (x, y, xTop, yTop);
     this.g.drawLine (xTop, yTop, xRight, y);
+    
+    if (length > 1){
+      drawTriangles
+    }
   }
 
   public void paint(Graphics g)
