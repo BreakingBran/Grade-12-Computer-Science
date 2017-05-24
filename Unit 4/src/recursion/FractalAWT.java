@@ -107,7 +107,7 @@ public class FractalAWT extends JComponent
     this.g.drawLine (xTop, yTop, xRight, y);
     
     if (length > 1){
-      drawTriangles
+      drawTriangles(x+length/3,y+length/3,length/3,!inverted);
     }
   }
 
@@ -120,7 +120,7 @@ public class FractalAWT extends JComponent
   
    //this.drawCrosses(300, 400, 900, 400);
    
-   drawTriangles(100,100,400);
+   drawTriangles(100,100,400,false);
    
   }
   
