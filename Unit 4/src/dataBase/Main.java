@@ -21,7 +21,7 @@ public class Main {
     //Testing with sample of name
     //test.readStudentDataBase("StudentDataInput/StudentDataSample.txt");
     
-    test.selectSortCourses(outputFile);
+    test.selectSortGender(outputFile);
     //test.selectSortDob(outputFile);
     //test.selectSortFirstName(outputFile);
     //test.selectSortGender(outputFile);

@@ -98,11 +98,12 @@ public class SearchDatabase {
       newHalvedArray = Arrays.copyOfRange(halvedStudentArray, index+1, halvedStudentArray.length);
     }
 
+    //I use contains because the courses functions are fucky 
     if (halvedStudentArray.length == 2) {
-      if (searchField.equals(halvedStudentArray[0].getstudentInfoDirectory(criteria))){
+      if (searchField.contains(halvedStudentArray[0].getstudentInfoDirectory(criteria))){
         student =  halvedStudentArray[0].toString();
       }
-      else if (searchField.equals(halvedStudentArray[1].getstudentInfoDirectory(criteria))){
+      else if (searchField.contains(halvedStudentArray[1].getstudentInfoDirectory(criteria))){
         student =  halvedStudentArray[1].toString();
       }
       else{
