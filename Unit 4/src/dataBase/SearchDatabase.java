@@ -68,11 +68,20 @@ public class SearchDatabase {
   }
 
 
+  /**
+   * Searches for the specified searchfield in a certain colunm of the database
+   * @param searchField: String of word you are looking for
+   * @param halvedStudentArray
+   * @param criteria
+   * @return
+   * @throws Exception
+   */
   public static String binarySearch(String searchField, Student[] halvedStudentArray, String criteria) throws Exception {
     // FIXME Horribly broken, refcctor so that it can be used for anything or take out recursion
     
     Student[] newHalvedArray;
     int index = (int) halvedStudentArray.length / 2;
+    String student;
 
     // Check if equal
     if (searchField.equals(halvedStudentArray[index].getstudentInfoDirectory(criteria))) {
@@ -85,15 +94,73 @@ public class SearchDatabase {
     if (isLess) {
       newHalvedArray = Arrays.copyOfRange(halvedStudentArray, 0, index);
     } else {
-      newHalvedArray = Arrays.copyOfRange(halvedStudentArray, index, halvedStudentArray.length);
+      //the +1 is because the first index is inclusive 
+      newHalvedArray = Arrays.copyOfRange(halvedStudentArray, index+1, halvedStudentArray.length);
     }
 
-    if (halvedStudentArray.length == 1 && !searchField.equals(halvedStudentArray[0].getstudentInfoDirectory(criteria))) {
-      return null;
+    //I use contains because the courses functions are fucky 
+    if (halvedStudentArray.length == 2) {
+      if (searchField.contains(halvedStudentArray[0].getstudentInfoDirectory(criteria))){
+        student =  halvedStudentArray[0].toString();
+      }
+      else if (searchField.contains(halvedStudentArray[1].getstudentInfoDirectory(criteria))){
+        student =  halvedStudentArray[1].toString();
+      }
+      else{
+        student = null;
+      }
+      
+      return student;
+      
     } else {
       return binarySearch(searchField, newHalvedArray, criteria);
     }
 
   }
+  
+  public static String binarySearchWithoutRecursion(String searchField, Student[] halvedStudentArray, String criteria) throws Exception {
+    //FIXME need to finish implementing this
+    Student[] newHalvedArray = halvedStudentArray;
+    //this always takes the whole digit, 5/2 -> 2
+    int index = (int) halvedStudentArray.length / 2;
+    String output = null;
+    
+    while (newHalvedArray.length > 2 && output == null){
+      
+      if (searchField.equals(newHalvedArray[index].getstudentInfoDirectory(criteria))) {
+        output = (newHalvedArray[index].toString());
+        break;
+      }
+
+      // Check if the search string is greater or less than middle element of halvedStudentArray
+      boolean isLess = (searchField.compareToIgnoreCase(newHalvedArray[index].getstudentInfoDirectory(criteria)) < 0);
+
+      //reinitialize with new index #
+      index = (int)newHalvedArray.length/2;
+
+      
+      if (isLess) {
+        newHalvedArray = Arrays.copyOfRange(newHalvedArray, 0, index);
+      } else {
+        //the +1 is because the first index is inclusive 
+        newHalvedArray = Arrays.copyOfRange(newHalvedArray, index+1, halvedStudentArray.length);
+      }
+      
+    }
+    
+    if (output == null){
+      if (searchField.equals(newHalvedArray[0].getstudentInfoDirectory(criteria))) { 
+        output = (newHalvedArray[index].toString());   
+      }
+      
+      if (newHalvedArray.length == 2){
+        if (searchField.equals(newHalvedArray[0].getstudentInfoDirectory(criteria))) { 
+          output = (newHalvedArray[1].toString());  
+        }
+      }
+    }
+          
+    return output;
+    }
 
 }

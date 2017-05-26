@@ -233,4 +233,36 @@ public class StudentDBTest extends TestCase {
     assertEquals(false, testDataBase.getSortedBooleanArrayElement(4).booleanValue());
     assertEquals(false, testDataBase.getSortedBooleanArrayElement(5).booleanValue());
   }
+  
+  @Test
+  public void testBinarySearchExclusivley() throws Exception {
+    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt", 100);
+    //Last Name
+    testDataBase.selectSortLastName(outputFile);
+    assertEquals("Nguyen,Mariam,F,730227,19910716,HHS4M103 PSE4U103 TPJ2O103", SearchDatabase.binarySearch("Nguyen", testDataBase.getStudents(), "getLastName"));
+    /* Don't test this because the courses are appended in a weird way that doesn't lend it'self well to binary seearches
+    testDataBase.selectSortCourses(outputFile);
+    assertEquals("Huszar,Christa,M,730053,19910209,ENG3U109 HPC3O102 HRE3M107 SBI3U104", SearchDatabase.binarySearch("ENG3U109", testDataBase.getStudents(), "getCourses"));*/
+    
+    //DOB
+    testDataBase.selectSortDob(outputFile);
+    assertEquals("Alves,Pilar,F,730023,19920112,AVI1O104 ENG2D110 MCR3U108 PPL2OM03", SearchDatabase.binarySearch("19920112", testDataBase.getStudents(), "getDob"));
+    
+    //First Name
+    testDataBase.selectSortFirstName(outputFile);
+    assertEquals("Vera,Sufian,M,731435,19920424,BTT1O108 CGC1D110 ENG1D111 HRE1O116", SearchDatabase.binarySearch("Sufian", testDataBase.getStudents(), "getFirstName"));
+    
+    
+    //Hard to test this one as M and F are shared by all students
+   /* //Gender
+    testDataBase.selectSortGender(outputFile);
+    assertEquals("Zaid,Wajya,F,730014,19920228,BTT1O109 CGC1D111 ENG1D109 HRE1O117", SearchDatabase.binarySearch("F", testDataBase.getStudents(), "getGender"));
+    assertEquals("Huszar,Christa,M,730053,19910209,ENG3U109 HPC3O102 HRE3M107 SBI3U104", SearchDatabase.binarySearch("M", testDataBase.getStudents(), "getGender"));*/
+    
+    //Student ID
+    testDataBase.selectSortStudentId(outputFile);
+    assertEquals("Nguyen,Mariam,F,730227,19910716,HHS4M103 PSE4U103 TPJ2O103", SearchDatabase.binarySearch("730227,19910716", testDataBase.getStudents(), "getStudentId"));
+  
+  
+  }
 }

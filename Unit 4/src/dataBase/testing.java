@@ -25,10 +25,9 @@ public class testing {
         cmd = 't';
         methodMap.get(cmd).runCommand();  // prints "teleport"
 */
+      int[] intarray = new int[10];
+      System.out.println(intarray.length  );
+     
       
-      Boolean yellow = true;
-      if (yellow.booleanValue() == true){
-        System.out.println(yellow.booleanValue());
-      }
     }
 }

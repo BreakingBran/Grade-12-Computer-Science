@@ -280,22 +280,25 @@ public class StudentDataBase {
     return counter;
   }
 
-  /**
-   * Searches for the first instance of a search criteria
-   * 
-   * @param string
-   * @return
-   * @throws Exception
-   */
-  public String search(String string, String crtieria) throws Exception {
+ /**
+  * Looks for desired string in entire database in specified criteria slot
+  * @param string: thing you want to search for 
+  * @param crtieria: getLastName, getFirstName, getCourses, getStudentId, getGender, getDob
+  * @return Returns first instance of found match
+  * @throws Exception
+  */
+  public String  search(String string, String crtieria) throws Exception {
     // TODO create this function
     String studentInfo = null;
     if (sortedBooleanArray[sortedArrayIndexMapping.get(crtieria)]) {
       
       //This one exception exists just b/c of how the data for courses is stored
       if (!crtieria.equalsIgnoreCase("getCourses")){
+        //FIXME change these statements
         studentInfo = SearchDatabase.binarySearch(string, this.students, crtieria);
+        //studentInfo = SearchDatabase.binarySearchWithoutRecursion(string, this.students, crtieria);
       }
+      
       if (studentInfo == null){studentInfo = SearchDatabase.lineaerSearch(string, students,crtieria);}
     } else {
       studentInfo = SearchDatabase.lineaerSearch(string, students,crtieria);
@@ -326,7 +329,10 @@ public class StudentDataBase {
 
 
   public int getNumOfMales() {
-    return numOfMales;
+    if (this.numOfFemales == -1 || this.updated){
+      this.numOfFemales = getNumFemaleStudents();
+    }
+    return this.numberOfStudents - this.numOfFemales;
   }
 
   public boolean isSorted() {
