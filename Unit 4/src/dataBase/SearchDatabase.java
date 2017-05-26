@@ -68,11 +68,20 @@ public class SearchDatabase {
   }
 
 
+  /**
+   * Searches for the specified searchfield in a certain colunm of the database
+   * @param searchField: String of word you are looking for
+   * @param halvedStudentArray
+   * @param criteria
+   * @return
+   * @throws Exception
+   */
   public static String binarySearch(String searchField, Student[] halvedStudentArray, String criteria) throws Exception {
     // FIXME Horribly broken, refcctor so that it can be used for anything or take out recursion
     
     Student[] newHalvedArray;
     int index = (int) halvedStudentArray.length / 2;
+    String student;
 
     // Check if equal
     if (searchField.equals(halvedStudentArray[index].getstudentInfoDirectory(criteria))) {
@@ -89,8 +98,19 @@ public class SearchDatabase {
       newHalvedArray = Arrays.copyOfRange(halvedStudentArray, index+1, halvedStudentArray.length);
     }
 
-    if (halvedStudentArray.length == 1 && !searchField.equals(halvedStudentArray[0].getstudentInfoDirectory(criteria))) {
-      return null;
+    if (halvedStudentArray.length == 2) {
+      if (searchField.equals(halvedStudentArray[0].getstudentInfoDirectory(criteria))){
+        student =  halvedStudentArray[0].toString();
+      }
+      else if (searchField.equals(halvedStudentArray[1].getstudentInfoDirectory(criteria))){
+        student =  halvedStudentArray[1].toString();
+      }
+      else{
+        student = null;
+      }
+      
+      return student;
+      
     } else {
       return binarySearch(searchField, newHalvedArray, criteria);
     }
