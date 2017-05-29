@@ -9,7 +9,7 @@ public class Palindrome {
     boolean isPalindrome = false;
     word = word.toLowerCase();
     word = word.replace(" ", "");
-    //System.out.println(word);
+    System.out.println(word);
 
     if (word.length() <= 2) {
 
