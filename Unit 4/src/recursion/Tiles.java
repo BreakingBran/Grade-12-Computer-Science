@@ -47,6 +47,8 @@ public class Tiles {
   }
 
   public static int solveTiles(int rows, int cols) throws IOException {
+    //New branch fun stuff
+    
     int numberOfTiles = 0;
     int rowsMaxSquare;
     int colsMaxSquare;
