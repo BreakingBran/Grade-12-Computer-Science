@@ -10,7 +10,7 @@ public class SortingDatabase {
    * 
    * @throws Exception
    */
-  static public boolean bubbleSort(String filename, Student[] students, String criteria) throws Exception {
+  static public boolean bubbleSort(Student[] students, String criteria) throws Exception {
     boolean performedSwap = true;
     while (performedSwap) {
       performedSwap = false;
@@ -27,14 +27,15 @@ public class SortingDatabase {
       }
     }
     // System.out.println(Arrays.toString(students));
-    StudentDataBase.saveStudentDataBase(filename, students);
+
+
     return true;
   }
 
-  // other way of calling bubblesort
+  /*// other way of calling bubblesort
   public void bubbleSort(Student[] students, String criteria) throws Exception {
     bubbleSort("StudentDataOutput/SortingOutput.txt", students, criteria);
-  }
+  }*/
 
   /**
    * Sorts using selection sort by criteria returns true, to indicate succesful sort
@@ -126,8 +127,6 @@ public class SortingDatabase {
         }
       }
     }
-
-
     return halvedStudentArray;
   }
 
