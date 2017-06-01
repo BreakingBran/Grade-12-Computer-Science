@@ -94,6 +94,8 @@ public class SortingDatabase {
 
 
   public static Student[] mergeSort(String criteria, Student[] halvedStudentArray) throws Exception {
+    
+    //Hello
 
     if (halvedStudentArray.length > 1) {
       int j = 0;
