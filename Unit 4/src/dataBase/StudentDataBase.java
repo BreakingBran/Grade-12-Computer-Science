@@ -188,36 +188,40 @@ public class StudentDataBase {
    * @throws Exception
    */
   public void bubbleSortLastName(String filename) throws Exception {
-    SortingDatabase.bubbleSort(filename, students, "getLastName");
+    SortingDatabase.bubbleSort( students, "getLastName");
     updateDatabase(0,filename);
   }
 
   public void bubbleSortFirstName(String filename) throws Exception {
-    SortingDatabase.bubbleSort(filename, students, "getFirstName");
+    SortingDatabase.bubbleSort( students, "getFirstName");
     updateDatabase(1,filename);
   }
 
   public void bubbleSortCourses(String filename) throws Exception {
-    SortingDatabase.bubbleSort(filename, students, "getCourses");
+    SortingDatabase.bubbleSort( students, "getCourses");
     updateDatabase(2,filename);
   }
 
   public void bubbleSortDob(String filename) throws Exception {
-    SortingDatabase.bubbleSort(filename, students, "getDob");
+    SortingDatabase.bubbleSort(students, "getDob");
     updateDatabase(3,filename);
   }
   
   public void bubbleSortStudentId(String filename) throws Exception {
-    SortingDatabase.bubbleSort(filename, students, "getStudentId");
+    SortingDatabase.bubbleSort( students, "getStudentId");
     updateDatabase(4,filename);
   }
 
   public void bubbleSortGender(String filename) throws Exception {
-    SortingDatabase.bubbleSort(filename, students, "getGender");
+    SortingDatabase.bubbleSort(students, "getGender");
     updateDatabase(5,filename);
   }
 
 
+  public void mergeSortLastName(String filename) throws Exception {
+    this.students = SortingDatabase.mergeSort("getLastName",students);
+    updateDatabase(0,filename);
+  }
 
 
   /**

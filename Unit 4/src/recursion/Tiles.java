@@ -24,10 +24,10 @@ public class Tiles {
       Scanner sc = new Scanner(new FileReader("RecursionInput/DATA3.txt"));
       PrintWriter pw = new PrintWriter(new FileWriter("RecursionOutput/OUT3.txt"));
 
-      for (int i = 0; i < 4; i++) {
+      for (int i = 0; i < 6; i++) {
         int rows = sc.nextInt();
         int cols = sc.nextInt();
-        int totalSquares = solveTiles(cols, rows);
+        int totalSquares = solveTiles(rows, cols);
         System.out.println(totalSquares);
         // pw.println(totalSquares);
       }
@@ -47,6 +47,8 @@ public class Tiles {
   }
 
   public static int solveTiles(int rows, int cols) throws IOException {
+    
+    
     int numberOfTiles = 0;
     int rowsMaxSquare;
     int colsMaxSquare;
@@ -58,15 +60,15 @@ public class Tiles {
       numberOfTiles = rows * cols;
       // System.out.println("The number of Tiles is " + numberOfTiles);
     } else if (rows > 1 && cols > 1) {
-      rowsMaxSquare = 2 * (int) (Math.log(rows) / Math.log(2));
-      colsMaxSquare = 2 * (int) (Math.log(cols) / Math.log(2));
+      rowsMaxSquare = (int) Math.pow(2, (int) (Math.log(rows) / Math.log(2)));
+      colsMaxSquare = (int) Math.pow(2,(int) (Math.log(cols) / Math.log(2)));
       maxSquare = Math.min(rowsMaxSquare, colsMaxSquare);
       // System.out.println("The max square is " + maxSquare);
       numberOfTiles += 1;
 
 
-      numberOfTiles += solveTiles(cols - maxSquare, rows - 1);
-      numberOfTiles += solveTiles(cols, rows - maxSquare);
+      numberOfTiles += solveTiles( maxSquare, cols - maxSquare);
+      numberOfTiles += solveTiles(rows - maxSquare,cols);
     }
 
     return numberOfTiles;

@@ -265,4 +265,21 @@ public class StudentDBTest extends TestCase {
   
   
   }
+  
+  @Test
+  public void testMergeSort() throws Exception {
+    StudentDataBase selectSorted = new StudentDataBase("StudentDataInput/StudentData.txt");
+    testDataBase.readStudentDataBase("StudentDataInput/StudentData.txt");
+    try {
+      testDataBase.mergeSortLastName(outputFile);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    FileAssert.assertEquals(
+        new File("StudentDataOutput/SortingOutput.txt"), 
+        new File(completeSortFileName));
+
+  }
+  
 }
