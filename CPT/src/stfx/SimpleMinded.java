@@ -10,7 +10,7 @@ import java.awt.Color;
  * @date Jan 2013
  * @version 1.2
  */
-public class SimpleMinded extends Robot
+public class SimpleMinded extends AdvancedRobot
 {
   /** 
    * run: SimpleMinded's default behavior
