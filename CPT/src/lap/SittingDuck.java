@@ -1,4 +1,4 @@
-package sample1;
+package lap;
 
 
 import robocode.*;

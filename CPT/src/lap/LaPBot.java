@@ -3,6 +3,8 @@
  * @author: Lance Pereira
  * @course: ICS4U1
  * @date: Jun 3, 2017
+ * 
+ * Source: http://www.dinbedstemedarbejder.dk/Dat3.pdf
  */
 
 package lap;
@@ -18,7 +20,7 @@ public class LaPBot extends AdvancedRobot{
   public void run() 
   {
     // Decorate your Robot
-    this.setColors(Color.blue,Color.red,Color.red);
+    this.setColors(Color.blue,Color.blue,Color.red);
     
     // Main loop (infinite - game controls when it's over)
     while (true) 
