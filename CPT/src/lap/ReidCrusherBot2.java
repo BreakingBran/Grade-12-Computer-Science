@@ -1,3 +1,5 @@
+package lap;
+
 /**
  * LaPBot: A robot by LancePereira Industries
  * 
@@ -9,14 +11,12 @@
  *check if there is something better than event driven gaming
  */
 
-package lap;
-
 import robocode.*;
 
 import java.awt.Color;
 
 
-public class LaPBot extends AdvancedRobot {
+public class ReidCrusherBot2 extends AdvancedRobot {
   /**
    * run: SimpleMind ed's default behavior
    */
@@ -117,7 +117,7 @@ public class LaPBot extends AdvancedRobot {
      * I think they are stored as strings so you need to use regexes
      * USE REGEXES to match previous movement
      * Maybe split up the velocity into a horizintal and vertical velcoty fot more info
-     * Have a switch to detect random noise movement and to turn of pattern amtching for that bot
+     * 
      */
     
     
