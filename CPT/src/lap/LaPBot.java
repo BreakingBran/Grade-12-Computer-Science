@@ -118,6 +118,8 @@ public class LaPBot extends AdvancedRobot {
      * USE REGEXES to match previous movement
      * Maybe split up the velocity into a horizintal and vertical velcoty fot more info
      * Have a switch to detect random noise movement and to turn of pattern amtching for that bot
+     * If taking damage, move closer to open space and start doing random movement
+     * 
      */
     
     
