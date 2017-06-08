@@ -122,6 +122,13 @@ public class LaPBot extends AdvancedRobot {
      * 
      */
     
+    /*
+     * Create a hiegharchy of decision making based on danger, wvs good shot oppurtunity
+     * Danger overides output overides good shot output Pg.27 Reactive architecture
+     * BAD FOR FINDING COMMON DECIISION'
+     * 
+     * pG 28, wIGHTED ARCHITECTURE, like a decision matrix
+     */
     
     // Code will never reach here -- and that okay for a change ;)
   }
