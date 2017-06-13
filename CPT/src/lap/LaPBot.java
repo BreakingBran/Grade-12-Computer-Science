@@ -20,13 +20,31 @@ public class LaPBot extends AdvancedRobot {
   /**
    * run: SimpleMind ed's default behavior
    */
+  private boolean enemyFound = false;
+  private 
+  
   public void run() {
     // Decorate your Robot
     this.setColors(Color.blue, Color.blue, Color.red);
 
     // Main loop (infinite - game controls when it's over)
     while (true) {
-      // Walk around in a box
+      
+      //All this code works for 1 on 1
+      if (enemyFound){
+        //do scanning within a certain arc
+        setTurnRadarLeft(5);
+        scan();
+        setTurnRadarRight(10);
+        scan();
+      }
+      else if (!enemyFound){
+        //Do a 360 sweep until the enemy is found
+        setTurnRadarLeft(5);
+        scan();
+      }
+     
+     /* // Walk around in a box
       if (this.getEnergy() > 50) {
         this.ahead(100);
         this.turnRight(90);
@@ -38,7 +56,7 @@ public class LaPBot extends AdvancedRobot {
       } else {
         // Always have an else
         this.scan();
-      }
+      }*/
     }
 
 
@@ -137,17 +155,20 @@ public class LaPBot extends AdvancedRobot {
    * onScannedRobot: What to do when you see another robot
    */
   public void onScannedRobot(ScannedRobotEvent e) {
-    // You get information on the other robots when you see them
-    System.out.println("I just saw " + e.getName());
-    System.out.println("Bearing:" + e.getBearing() + "  Heading:" + e.getHeading() + "  Energy:"
-        + e.getEnergy());
-
-    // Take a shot
-    if (this.getEnergy() > 50 && e.getDistance() < 100) {
+    
+    //On scanned robot, add the robots movement, velocitty, and heading
+    //to the list of past movements from the robot
+    /*if (this.getEnergy() > 50 && e.getDistance() < 100) {
       this.fire(3);
     } else {
       // Take a quick shot
       this.fire(1);
+    }*/
+    if (!enemyFound){
+      enemyFound = true;
+    }
+    else{
+      
     }
   }
 
