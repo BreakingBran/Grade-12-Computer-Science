@@ -1,3 +1,5 @@
+package lap;
+
 /**
  * LaPBot: A robot by LancePereira Industries
  * 
@@ -9,42 +11,22 @@
  *check if there is something better than event driven gaming
  */
 
-package lap;
-
 import robocode.*;
 
 import java.awt.Color;
 
 
-public class LaPBot extends AdvancedRobot {
+public class ReidCrusherBot2 extends AdvancedRobot {
   /**
    * run: SimpleMind ed's default behavior
    */
-  private boolean enemyFound = false;
-  private 
-  
   public void run() {
     // Decorate your Robot
     this.setColors(Color.blue, Color.blue, Color.red);
 
     // Main loop (infinite - game controls when it's over)
     while (true) {
-      
-      //All this code works for 1 on 1
-      if (enemyFound){
-        //do scanning within a certain arc
-        setTurnRadarLeft(5);
-        scan();
-        setTurnRadarRight(10);
-        scan();
-      }
-      else if (!enemyFound){
-        //Do a 360 sweep until the enemy is found
-        setTurnRadarLeft(5);
-        scan();
-      }
-     
-     /* // Walk around in a box
+      // Walk around in a box
       if (this.getEnergy() > 50) {
         this.ahead(100);
         this.turnRight(90);
@@ -56,7 +38,7 @@ public class LaPBot extends AdvancedRobot {
       } else {
         // Always have an else
         this.scan();
-      }*/
+      }
     }
 
 
@@ -135,18 +117,9 @@ public class LaPBot extends AdvancedRobot {
      * I think they are stored as strings so you need to use regexes
      * USE REGEXES to match previous movement
      * Maybe split up the velocity into a horizintal and vertical velcoty fot more info
-     * Have a switch to detect random noise movement and to turn of pattern amtching for that bot
-     * If taking damage, move closer to open space and start doing random movement
      * 
      */
     
-    /*
-     * Create a hiegharchy of decision making based on danger, wvs good shot oppurtunity
-     * Danger overides output overides good shot output Pg.27 Reactive architecture
-     * BAD FOR FINDING COMMON DECIISION'
-     * 
-     * pG 28, wIGHTED ARCHITECTURE, like a decision matrix
-     */
     
     // Code will never reach here -- and that okay for a change ;)
   }
@@ -155,20 +128,17 @@ public class LaPBot extends AdvancedRobot {
    * onScannedRobot: What to do when you see another robot
    */
   public void onScannedRobot(ScannedRobotEvent e) {
-    
-    //On scanned robot, add the robots movement, velocitty, and heading
-    //to the list of past movements from the robot
-    /*if (this.getEnergy() > 50 && e.getDistance() < 100) {
+    // You get information on the other robots when you see them
+    System.out.println("I just saw " + e.getName());
+    System.out.println("Bearing:" + e.getBearing() + "  Heading:" + e.getHeading() + "  Energy:"
+        + e.getEnergy());
+
+    // Take a shot
+    if (this.getEnergy() > 50 && e.getDistance() < 100) {
       this.fire(3);
     } else {
       // Take a quick shot
       this.fire(1);
-    }*/
-    if (!enemyFound){
-      enemyFound = true;
-    }
-    else{
-      
     }
   }
 
