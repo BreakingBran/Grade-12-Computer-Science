@@ -9,7 +9,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Shopping {
+public class Shopping2 {
 
   public static void main(String args[]) throws FileNotFoundException {
 
