@@ -60,6 +60,7 @@ public class Tiles {
       numberOfTiles = rows * cols;
       // System.out.println("The number of Tiles is " + numberOfTiles);
     } else if (rows > 1 && cols > 1) {
+      //2 to the power of
       rowsMaxSquare = (int) Math.pow(2, (int) (Math.log(rows) / Math.log(2)));
       colsMaxSquare = (int) Math.pow(2,(int) (Math.log(cols) / Math.log(2)));
       maxSquare = Math.min(rowsMaxSquare, colsMaxSquare);

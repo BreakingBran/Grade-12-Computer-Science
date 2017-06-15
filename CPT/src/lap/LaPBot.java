@@ -48,7 +48,7 @@ public class LaPBot extends AdvancedRobot {
       else if (!enemyFound){
         //System.out.println("No enemy found yet");
         //Do a 360 sweep until the enemy is found
-        setTurnRadarLeft(2);
+        setTurnRadarLeft(10);
         scan();
        
       }
@@ -119,15 +119,20 @@ public class LaPBot extends AdvancedRobot {
    * onHitByBullet: What to do when you're hit by a bullet
    */
   public void onHitByBullet(HitByBulletEvent e) {
-    if (this.getGunHeat() <= 0) {
+    /*if (this.getGunHeat() <= 0) {
       // Take a shot
       this.turnGunRight(e.getBearing());
+      this.turnRadarLeft(e.getBearing());
+      //this.
       this.fire(1);
       this.turnGunLeft(e.getBearing());
-    }
+      this.turnRadarRight(e.getBearing());
+    }*/
+    this.turnRadarLeft(2);
+    scan();
     // Get out of the way
-    this.turnLeft(90 - e.getBearing());
-    this.ahead(40);
+    //this.turnLeft(90 - e.getBearing());
+    //this.ahead(40);
   }
 }
   
