@@ -25,6 +25,7 @@ public class Shopping {
     // get initial money
     System.out.print("Money from Mom: ");
     float totalMoney = sc.nextFloat();
+    sc.close(); 
 
     // Setup initial variables and data types
     Scanner shoppingListFile = new Scanner(new FileReader("shopData.txt"));

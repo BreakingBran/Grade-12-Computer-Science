@@ -43,6 +43,7 @@ public class LaPBot extends AdvancedRobot {
         //setTurnRadarLeft(1);
         swivel();
         scan();
+        //enemyFound = false;
        
       }
       else if (!enemyFound){
@@ -58,8 +59,8 @@ public class LaPBot extends AdvancedRobot {
 
   private void swivel() {
     // TODO Auto-generated method stub
-    setTurnRadarLeft(2);
-    setTurnRadarRight(2);
+    setTurnRadarLeft(4);
+    setTurnRadarRight(4);
     scan();
     
   }
@@ -92,7 +93,8 @@ public class LaPBot extends AdvancedRobot {
         enemyMovements.add(e);
       }
       //turnAmount = normalRelativeAngle(e.getBearing() + (getHeading() - getRadarHeading()));
-      setTurnRadarLeft((-getHeading()+getRadarHeading())-e.getBearing());
+      setTurnRadarLeft(((-getHeading()+getRadarHeading())-e.getBearing())%360);
+      System.out.println(this.getRadarHeading());
       scan();
     }
   }
