@@ -1,0 +1,8 @@
+7
+Milk  6  3.99
+Jellybeans  6  0.25
+Juice  10  4.25
+Bread  4  2.49
+Carrots  3  0.99
+Hotdogs  2  1.99
+Apples  5  3.49

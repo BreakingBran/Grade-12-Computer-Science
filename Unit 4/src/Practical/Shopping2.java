@@ -6,8 +6,11 @@
  * @date: May 1, 2017
  */
 
+package Practical;
+
 import java.util.*;
 import java.io.*;
+
 
 public class Shopping2 {
 
@@ -20,6 +23,7 @@ public class Shopping2 {
 
     // Initial variables
     int numItemsBought = 0;
+    //Hello
     List<ShoppingItem> listOfItemsBought = new ArrayList<ShoppingItem>();
 
     // gets number of items in shopping mall
