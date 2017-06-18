@@ -12,13 +12,14 @@
 package lap;
 
 import robocode.*;
+import robocode.util.Utils;
 
 import java.awt.Color;
 import java.util.LinkedList;
 import java.util.Queue;
 
 
-public class LaPBot extends AdvancedRobot {
+public class LapBot2 extends AdvancedRobot {
   /**
    * run: SimpleMind ed's default behavior
    */
@@ -33,58 +34,27 @@ public class LaPBot extends AdvancedRobot {
   private int debugginggCounter = 0;
 
   public void run() {
-    
-    //TODO try to make the robot aim it's gun sideways and make the entire robot turn
-    
+
+    // TODO try to make the robot aim it's gun sideways and make the entire robot turn
+
     setTurnGunRight(90);
-    
+
     // Decorate your Robot
     this.setColors(Color.blue, Color.blue, Color.red);
+
     turnRadarRight(360);
-
     // Main loop (infinite - game controls when it's over)
-    while (true) {
-      
-      // System.out.println("Main");
-      // All this code works for 1 on 1
-      if (enemyFound) {
-        
-        // do scanning within a certain arc
-        // swivel();
-        // setTurnRadarLeft(1);
-        if (shotFired){
-          System.out.println("He shot and I reacted");
-          ahead(15);
-          back(15);
-          shotFired = false;
-
-        }
-        enemyFound = false;
-        swivel();
-        scan();
-        // enemyFound = false;
-
-      } else if (!enemyFound) {
-        // System.out.println("No enemy found yet");
-        // Do a 360 sweep until the enemy is found
-        //setTurnRadarLeft(10);
-        setTurnLeft(10);
-        scan();
-
-      }
-      
-    }
+    do{
+      //setAhead(1);
+      //setBack(1);
+      scan();
+    }while(true);
   }
 
   private void swivel() {
-    // TODO Auto-generated method stub
-    
-    System.out.println("Svivel Wivel");
-    setTurnRadarLeft(22);
-    //setTurnLeft(22);
-    //setTurnRight(22);
-    setTurnRadarRight(22);
-    scan();
+
+    turnRadarLeft(2);
+    turnRadarRight(2);
 
   }
 
@@ -95,21 +65,16 @@ public class LaPBot extends AdvancedRobot {
 
     // On scanned robot, add the robots movement, velocitty, and heading
     // to the list of past movements from the robot
-    /*
-     * if (this.getEnergy() > 50 && e.getDistance() < 100) { this.fire(3); } else { // Take a quick
-     * shot this.fire(1); }
-     */
-    
-    debugginggCounter+=1;
-    System.out.println("Found one "+debugginggCounter);
-    
-    
+
+    // takes the heading of my robot, adds the difference to the enemy, and subtracts the diffirence
+    // between my robot and radar
+    double radarTurn = getHeadingRadians() + e.getBearingRadians() - getRadarHeadingRadians();
+
     if (!enemyFound) {
       enemyFound = true;
       enemyEnergy = e.getEnergy();
-      // System.out.println("found");
     } else {
-      
+
       if (counter100 < 100) {
         // Adds the first intial movements
         enemyMovements.add(e);
@@ -118,43 +83,26 @@ public class LaPBot extends AdvancedRobot {
         enemyMovements.remove();
         enemyMovements.add(e);
       }
-      
-      
-    //They shot something
-      if (e.getEnergy() < enemyEnergy){
-        System.out.println("He shot"); 
+
+      // They shot something
+      if (e.getEnergy() < enemyEnergy) {
+        System.out.println("He shot");
         shotFired = true;
         enemyEnergy = e.getEnergy();
       }
-      
-      // turnAmount = normalRelativeAngle(e.getBearing() + (getHeading() - getRadarHeading()));
-      setTurnLeft(((-getHeading() + getRadarHeading()) - e.getBearing()) % 360);
-      // System.out.println(this.getRadarHeading());
-      // enemyFound = false;
-      
-      
-      
-      
-      scan();
-      //FIXME enemyFound = false;
     }
+    
+    // The normal relative angle forces the answer to be -180 to +180 degrees
+    setTurnRightRadians(Utils.normalRelativeAngle(radarTurn));
+
   }
 
   /**
    * onHitByBullet: What to do when you're hit by a bullet
    */
   public void onHitByBullet(HitByBulletEvent e) {
-    /*
-     * if (this.getGunHeat() <= 0) { // Take a shot this.turnGunRight(e.getBearing());
-     * this.turnRadarLeft(e.getBearing()); //this. this.fire(1); this.turnGunLeft(e.getBearing());
-     * this.turnRadarRight(e.getBearing()); }
-     */
-    //this.setTurnLeft(2);
-    shotFired = true;
-    scan();
-    // Get out of the way
-    // this.turnLeft(90 - e.getBearing());
-    // this.ahead(40);
+    // account for the extra energy that the enemy attained
+    enemyEnergy = e.getPower() * 3;
   }
 }
 
