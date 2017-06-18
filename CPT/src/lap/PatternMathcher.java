@@ -15,8 +15,8 @@ public class PatternMathcher extends AdvancedRobot {
   boolean isRoundOver = false;
   int moveDirection = 20;
 
-  StringBuilder pastEnemyHeadings = new StringBuilder("");
-  StringBuilder pastEnemyVelocities = new StringBuilder("");
+  StringBuilder pastEnemyMovements = new StringBuilder("");
+  
   long counter = 0;
 
 
@@ -76,15 +76,16 @@ public class PatternMathcher extends AdvancedRobot {
 
     // pastEnemyHeadings.append("Hello");
 
-    pastEnemyHeadings.append(formatedStringHeading);
-    pastEnemyVelocities.append(formatedStringVelocity);
+    pastEnemyMovements.append(formatedStringHeading);
+    pastEnemyMovements.append(formatedStringVelocity);
+    pastEnemyMovements.append(";");
 
     //Allows you to know that 100  turns have passed,
     //Change to allow more or less data to be pattern matched
-    if (counter > 100) {
-      pastEnemyHeadings.delete(0, 3);
-      pastEnemyVelocities.delete(0, 2);
+    if (counter > 10) {
+      pastEnemyMovements.delete(0, 6);
     }
+    System.out.println(pastEnemyMovements.toString());
     setTurnRadarRightRadians(1 * Utils.normalRelativeAngle(radarTurn));
 
 
