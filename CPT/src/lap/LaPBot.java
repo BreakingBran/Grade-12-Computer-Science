@@ -108,8 +108,10 @@ public class LaPBot extends AdvancedRobot {
       pastEnemyMovements.delete(0, 6);
     }
 
-    // To stop them from suspecting that were pattern matching them
-    if (counter % 80 == 0 && counter > 100) {
+    //pattern matching is semi-expensive compared to normal movement
+    //moves, do it every 80 turns after a full data set to stop
+    //robot from freezing
+    if (counter % 80 == 0 && counter > 100) {//the && counter > 100 seems repetitive but is necessary
 
       double radarTurn =
       // Absolute bearing to target
