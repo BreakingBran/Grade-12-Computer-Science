@@ -1,248 +1,288 @@
 /**
- * LaPBot: A robot by LancePereira Industries
+ * LaPBot: Formerly known as ReidCrusherBor2
  * 
  * @author: Lance Pereira
  * @course: ICS4U1
- * @date: Jun 3, 2017
+ * @date: Jun 2, 2017
  * 
- *        Source: http://www.dinbedstemedarbejder.dk/Dat3.pdf check if there is something better
- *        than event driven gaming
+ * Credit/Sources: 
+ * http://robowiki.net/wiki/Robocode/My_First_Robot
+ * http://robowiki.net/wiki/Pattern_Matching
+ * https://www.tutorialspoint.com/java/lang/stringbuilder_indexof_str.htm
+ * http://robowiki.net/wiki/SuperTracker
+ * http://www.javaranch.com/drive/modulo.html
  */
 
 package lap;
 
-import robocode.*;
 
 import java.awt.Color;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.awt.Point;
 
+import robocode.AdvancedRobot;
+import robocode.GunTurnCompleteCondition;
+import robocode.HitWallEvent;
+import robocode.ScannedRobotEvent;
+import robocode.WinEvent;
+import robocode.util.Utils;
 
 public class LaPBot extends AdvancedRobot {
+
+  boolean isRoundOver = false;
+  int moveDirection = 1;
+
+  StringBuilder pastEnemyMovements = new StringBuilder("");
+  boolean turnStarted = false;
+  long counter = 0;
+
+  double xPos;
+  double yPos;
+
+  double diffX;
+  double diffY;
+
+  double widthMap;
+  double heighMap;
+
+  int wallBarrier = 30;
+
   /**
-   * run: SimpleMind ed's default behavior
+   * This is the main Run class
    */
-  private boolean enemyFound = false;
-  private int counter100 = 0;
-  private Queue<ScannedRobotEvent> enemyMovements = new LinkedList<ScannedRobotEvent>();
-  private int[] enemyVelocities = new int[100];
-  private int[] enemyHeadings = new int[100];
-  private double turnAmount = 0;
-  private boolean shotFired = false;
-  private double enemyEnergy;
-  private int debugginggCounter = 0;
-
   public void run() {
-    
-    //TODO try to make the robot aim it's gun sideways and make the entire robot turn
-    
-    setTurnGunRight(90);
-    
-    // Decorate your Robot
-    this.setColors(Color.blue, Color.blue, Color.red);
-    turnRadarRight(360);
+    // ...
+    setBodyColor(Color.black);
+    setGunColor(Color.black);
+    setRadarColor(Color.orange);
 
-    // Main loop (infinite - game controls when it's over)
-    while (true) {
-      
-      // System.out.println("Main");
-      // All this code works for 1 on 1
-      if (enemyFound) {
-        
-        // do scanning within a certain arc
-        // swivel();
-        // setTurnRadarLeft(1);
-        if (shotFired){
-          System.out.println("He shot and I reacted");
-          ahead(15);
-          back(15);
-          shotFired = false;
+    widthMap = getBattleFieldWidth();
+    heighMap = getBattleFieldHeight();
 
-        }
-        enemyFound = false;
-        swivel();
-        scan();
-        // enemyFound = false;
+    // sets the position variables
+    xPos = getX();
+    yPos = getY();
 
-      } else if (!enemyFound) {
-        // System.out.println("No enemy found yet");
-        // Do a 360 sweep until the enemy is found
-        //setTurnRadarLeft(10);
-        setTurnLeft(10);
-        scan();
+    // Stops us from repositioning the radar for every change in
+    // robot direction
+    setAdjustRadarForRobotTurn(true);
+    setAdjustRadarForGunTurn(true);
 
-      }
-      
-    }
+    turnRadarRightRadians(Double.POSITIVE_INFINITY);
+
+
+
+    System.out.println("Initial gun heading is: " + getGunHeading());
+
+    do {
+      /*
+       * Need to put scan in here because
+       * turning right for infinity doesn't guarantee a scan
+       * event to occur
+       */
+      scan();
+
+    } while (true);
   }
 
-  private void swivel() {
-    // TODO Auto-generated method stub
-    
-    System.out.println("Svivel Wivel");
-    setTurnRadarLeft(22);
-    //setTurnLeft(22);
-    //setTurnRight(22);
-    setTurnRadarRight(22);
-    scan();
-
-  }
-
+  
+  
   /**
-   * onScannedRobot: What to do when you see another robot
+   * This does literally everything for the robot and is only called when a enemy is scanned
    */
   public void onScannedRobot(ScannedRobotEvent e) {
 
-    // On scanned robot, add the robots movement, velocitty, and heading
-    // to the list of past movements from the robot
-    /*
-     * if (this.getEnergy() > 50 && e.getDistance() < 100) { this.fire(3); } else { // Take a quick
-     * shot this.fire(1); }
-     */
-    
-    debugginggCounter+=1;
-    System.out.println("Found one "+debugginggCounter);
-    
-    
-    if (!enemyFound) {
-      enemyFound = true;
-      enemyEnergy = e.getEnergy();
-      // System.out.println("found");
-    } else {
-      
-      if (counter100 < 100) {
-        // Adds the first intial movements
-        enemyMovements.add(e);
-      } else if (counter100 > 100) {
-        // Adds new movmement to back of Queue, removes the oldest movement
-        enemyMovements.remove();
-        enemyMovements.add(e);
-      }
-      
-      
-    //They shot something
-      if (e.getEnergy() < enemyEnergy){
-        System.out.println("He shot"); 
-        shotFired = true;
-        enemyEnergy = e.getEnergy();
-      }
-      
-      // turnAmount = normalRelativeAngle(e.getBearing() + (getHeading() - getRadarHeading()));
-      setTurnLeft(((-getHeading() + getRadarHeading()) - e.getBearing()) % 360);
-      // System.out.println(this.getRadarHeading());
-      // enemyFound = false;
-      
-      
-      
-      
-      scan();
-      //FIXME enemyFound = false;
+    counter += 1;
+
+
+    // String versions of the enemey heading and velicoty with padded 0's on the left
+    String formatedStringHeading = String.format("%03d", (int) e.getHeading());
+    String formatedStringVelocity = formatVelocty(e.getVelocity());
+
+    // System.out.println("Heading: " + formatedStringHeading + " Velocity: " +
+    // formatedStringVelocity);
+
+    // pastEnemyHeadings.append("Hello");
+
+    pastEnemyMovements.append(formatedStringHeading);
+    pastEnemyMovements.append(formatedStringVelocity);
+    pastEnemyMovements.append(";");
+
+    if (counter > 100) {
+      pastEnemyMovements.delete(0, 6);
     }
+
+
+    // To stop them from suspecting that were pattern matching them
+    if (counter % 80 == 0 && counter > 100) {
+
+      double radarTurn =
+      // Absolute bearing to target
+          getHeadingRadians() + e.getBearingRadians()
+          // Subtract current radar heading to get turn required
+              - getRadarHeadingRadians();
+
+      // System.out.println("Heading: " + e.getHeading() + "Velocity: " + e.getVelocity());
+
+      // Allows you to know that 100 turns have passed,
+      // Change to allow more or less data to be pattern matched
+      // controls how many past moves to pattern match against large move set
+      // controls how much data to store and pattern match
+
+
+
+      // Find a movement in the 0 to 95 elements of pastEnemyMovements that matches the last 5
+      // movements
+      // Use that to get a x2 and y2
+      // We want to get the last 5 elements, and the pastEnemyMovements is 100*6 characters long
+      String lastFiveEnemyMovements = pastEnemyMovements.substring(95 * 6, 100 * 6);
+
+      // finds index of first substring that matches this
+      int indexOfMatchedMovement = pastEnemyMovements.indexOf(lastFiveEnemyMovements);
+
+      // If a match is found that occured before the string that we gave in
+
+      // FIXME CHANGED FROM 95 TO 90
+      if (indexOfMatchedMovement <= 90 * 6 && !turnStarted && e.getDistance() < 400) {
+
+        // System.out.println("A pattern has been matched");
+
+        // This will tryy to predict where the enemy will go next
+        double xMe = getX();
+        double yMe = getY();
+
+        // Gets the element after the matched movement
+        String nextMovement = pastEnemyMovements.substring(indexOfMatchedMovement + 9 * 6, indexOfMatchedMovement + 10 * 6);
+        int enemyHeading = Integer.parseInt(nextMovement.substring(0, 3));
+        int enemyVelocity = Integer.parseInt(nextMovement.substring(3, 5));
+
+        // This get the predicted difference in the enemy movements
+        // the sin and cos are switched for x and y as the angle is from North instead of + x axis
+        double xEnemyDiffirence = Math.sin(Math.toRadians(enemyHeading)) * enemyVelocity;
+        double yEnemyDiffirence = Math.cos(Math.toRadians(enemyHeading)) * enemyVelocity;
+
+        double xEnemyOriginal = xMe + Math.sin(getRadarHeadingRadians()) * e.getDistance();
+        double yEnemyOriginal = yMe + Math.cos(getRadarHeadingRadians()) * e.getDistance();
+
+        double xEnemyNew = xEnemyOriginal + xEnemyDiffirence;
+        double yEnemyNew = yEnemyOriginal + yEnemyDiffirence; // FIXME MADE THAT A NEGATIVE
+        // Are you feeling it now Mr.Krabs!!
+
+        double difX = xEnemyNew - xMe;
+        double difY = yEnemyNew - yMe;
+        double rotAng = -Math.toDegrees(Math.atan2(-difX, difY));
+
+        // System.out.println("Rotang: " + rotAng);
+
+        // If rotAng is negative turn into + heading
+        if (rotAng < 0) {
+          rotAng = 360 + rotAng;
+        }
+
+        // Get the rotational now in terms of how much the gun has to move from the current
+        // position
+        rotAng = (rotAng - getGunHeading());
+
+        if (rotAng > 180) {
+          rotAng -= 360;
+        } else if (rotAng < -180) {
+          rotAng += 360;
+        }
+
+        /*
+         * System.out.println("Rotang after: " + rotAng);
+         * System.out.println("Detected at Radar Heading: " + getRadarHeading());
+         * System.out.println("Gun currently at (Degrees): " + getGunHeading());
+         * System.out.println("Gun rotation set at (Degrees): " + rotAng);
+         * System.out.printf("Enemy currently at: (%s, %s) \n", xEnemyOriginal,yEnemyOriginal);
+         * System.out.printf("Enemy predicted at: (%s, %s) \n", xEnemyNew,yEnemyNew);
+         */
+
+        // Try using Right
+        // setTurnGunRight(rotAng);
+        turnGunRight(rotAng);
+        turnStarted = true;
+        System.out.println("Hello");
+
+
+      }
+
+
+      // setAhead(moveDirection);
+
+
+      if (getGunTurnRemaining() <= 2 && turnStarted) {
+        if (e.getDistance() > 150) {
+          fire(1);
+        } else {
+          fire(3);
+        }
+        turnStarted = false;
+        // System.out.println("Activated: " + getGunTurnRemaining());
+      }
+
+    } else {
+
+      // double absBearing = e.getHeadingRadians();
+      double absBearing = e.getBearingRadians() + getHeadingRadians();// enemies absolute bearing
+      double latVel = e.getVelocity() * Math.sin(e.getHeadingRadians() - absBearing);// enemies
+                                                                                     // later
+                                                                                     // velocity
+      double gunRotationAmt;// amount to turn our gun
+
+      // lock on the radar
+      setTurnRadarLeftRadians(getRadarTurnRemainingRadians());
+      if (Math.random() > .9) {
+        setMaxVelocity((12 * Math.random()) + 12);// randomly change speed
+      }
+      // if they are far away be more conservative
+      if (e.getDistance() > 150) {
+        // add gun lead
+        gunRotationAmt = robocode.util.Utils.normalRelativeAngle(absBearing - getGunHeadingRadians() + latVel / 22);
+        setTurnGunRightRadians(gunRotationAmt); // turn our gun
+        // drive towards predicted location
+        setTurnRightRadians(robocode.util.Utils.normalRelativeAngle(absBearing - getHeadingRadians() + latVel / getVelocity()));
+
+        setAhead((e.getDistance() - 140) * moveDirection);// move forward
+        setFire(3);// fire
+        // If close be more agressive
+      } else {
+        // add a lead amount to aim
+        gunRotationAmt = robocode.util.Utils.normalRelativeAngle(absBearing - getGunHeadingRadians() + latVel / 15);
+        setTurnGunRightRadians(gunRotationAmt);
+        setTurnLeft(-90 - e.getBearing());
+        setAhead((e.getDistance() - 140) * moveDirection);
+        setFire(3);// fire
+      }
+
+
+    }
+    // ...
   }
 
+  
   /**
-   * onHitByBullet: What to do when you're hit by a bullet
+   * Just a nice way to format the velocities in the enemyMovement  Database
+   * it padds the velocity with a + if > 0
+   * @param velocity
+   * @return
    */
-  public void onHitByBullet(HitByBulletEvent e) {
-    /*
-     * if (this.getGunHeat() <= 0) { // Take a shot this.turnGunRight(e.getBearing());
-     * this.turnRadarLeft(e.getBearing()); //this. this.fire(1); this.turnGunLeft(e.getBearing());
-     * this.turnRadarRight(e.getBearing()); }
-     */
-    //this.setTurnLeft(2);
-    shotFired = true;
-    scan();
-    // Get out of the way
-    // this.turnLeft(90 - e.getBearing());
-    // this.ahead(40);
+  private String formatVelocty(double velocity) {
+    String formatedVelocity = Integer.toString((int) velocity);
+    if (velocity >= 0) {
+      String sign = "+";
+      formatedVelocity = sign + formatedVelocity.charAt(formatedVelocity.length() - 1);
+    }
+    return formatedVelocity;
+  }
+
+  public void onRoundWinEvent(WinEvent e) {
+    System.out.println("We’re going to win so much, you’re going to be so sick and tired of winning");
+  }
+
+  public void onHitWall(HitWallEvent e) {
+    moveDirection = -moveDirection;// reverse direction upon hitting a wall
+
+    // setBack(wallBarrier);
+
   }
 }
-
-/*
- * // Walk around in a box if (this.getEnergy() > 50) { this.ahead(100); this.turnRight(90); } //
- * Plan B else if (this.getEnergy() < 50) { this.ahead(200); this.turnLeft(120); } else { // Always
- * have an else this.scan(); }
- */
-
-
-
-/*
- * Scanning Strategies:
- * 
- * - Do not scan in 360 field, it is waste of time- In arena battles, move to corner, scan left till
- * all enemies found, then revenre directionof scanning and scan the other way- For one on one
- * battles use a targeting strategy,1) do 360, find target2) keep scanning in little arc, to
- * maintain position of robot- IMPORTANT: If an enemy has lost energy in some time of scanning,
- * assume a shot has been fired
- * 
- * • scan. Scans the arena using the radar at its current setting. This is only rarely needed to be
- * called explicitly, as Robocode calls this for each robot at each turn. • setTurnRadarLeft and
- * turnRadarLeft. Turns the radar left. • setTurnRadarRight and turnRadarRight. Turns the radar
- * right. • setAdjustRadarForRobotTurn. Enable or disable the locking of the radar to the base of
- * the robot. • setAdjustRadarForGunTurn. Enable or disable the locking of the radar to the gun
- * turret.
- */
-
-
-/*
- * Planning:
- * 
- * In meles, plan who you want to kill, in one on ones decide when to attack and dodge Need to make
- * something that evaluated health and closeness
- */
-
-/*
- * http://old.robowiki.net/robowiki?MicroAspid heard its good for moving
- * 
- * Moving BAD: Sitting still, straight lines,circular, Average: Random-but cons are harder tracking
- * and more ramming Anti Gravity: Always move away from danger to the most optimal position decided
- * from scanning Bullet Dodging: Determine energy loss from enemy, draw circle of death around them
- * that has varying speed based on energy loss, use this to ignore bullet until its close enough
- * that you have to make a random move In one on one battles, ramm the fuck out of the other robots
- * ass as they will loose first
- * 
- * 
- * 
- * • setBack and back. Move a given distance back.• setAhead and ahead. Move a given distance ahead.
- * • setMaxTurnRate. Limit the rate at which the robot turns.• setMaxVelocity. Limit the speed at
- * which the robot moves.• setStop and stop. Stop any movement and remember what the robotwas doing.
- * • setResume and resume. Resume the movement stopped with setStopor stop.• setTurnLeft and
- * turnLeft. Turn the robot left.• setTurnRight and turnRight. Turn the robot right.
- */
-
-
-/*
- * Attack Strategies; http://old.robowiki.net/robowiki?ScruchiPu Neural Nework pattern matching
- * http://old.robowiki.net/robowiki?NeuralTargeting
- * 
- * Ram in and out: For 1v1 find the enemy, shotting small ones, move in close enough to ram, and
- * then keep firing big shots
- * 
- * Can also use pattern mathcing, gather info on ehading and velcoty and use that to match that
- * robot to a certain type of movement Based on that movement make a confidence calculation and
- * based on that decide if you want to shoot
- * 
- * • fire and fireBullet. Shoots a bullet if the gun is cold. fireBullet returns aBullet object for
- * the fired bullet.• setTurnGunLeft and turnGunLeft. Turns the gun left.• setTurnGunRight and
- * turnGunRight. Turns the gun right.• setAdjustGunForRobotTurn. Enable or disable the locking of
- * the gun tothe base of the robot.
- */
-
-
-/*
- * Advanced strategies, detect turning by seeing if thheir speed falls from the original I think
- * they are stored as strings so you need to use regexes USE REGEXES to match previous movement
- * Maybe split up the velocity into a horizintal and vertical velcoty fot more info Have a switch to
- * detect random noise movement and to turn of pattern amtching for that bot If taking damage, move
- * closer to open space and start doing random movement
- */
-
-/*
- * Create a hiegharchy of decision making based on danger, wvs good shot oppurtunity Danger overides
- * output overides good shot output Pg.27 Reactive architecture BAD FOR FINDING COMMON DECIISION'
- * 
- * pG 28, wIGHTED ARCHITECTURE, like a decision matrix
- */
-
-// Code will never reach here -- and that okay for a change ;)
-

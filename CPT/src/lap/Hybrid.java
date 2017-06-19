@@ -1,3 +1,18 @@
+/**
+ * Hybrid: Testing New stuff for LapBot
+ * 
+ * @author: Lance Pereira
+ * @course: ICS4U1
+ * @date: Jun 2, 2017
+ * 
+ * Credit: 
+ * http://robowiki.net/wiki/Robocode/My_First_Robot
+ * http://robowiki.net/wiki/Pattern_Matching
+ * https://www.tutorialspoint.com/java/lang/stringbuilder_indexof_str.htm
+ * http://robowiki.net/wiki/SuperTracker
+ * http://www.javaranch.com/drive/modulo.html
+ */
+
 package lap;
 
 
@@ -11,13 +26,11 @@ import robocode.ScannedRobotEvent;
 import robocode.WinEvent;
 import robocode.util.Utils;
 
-public class PatternMathcher extends AdvancedRobot {
+public class Hybrid extends AdvancedRobot {
 
   boolean isRoundOver = false;
-  int moveDirection = 20;
+  int moveDirection = 1;
 
-  int moveFromBorderCounter = 0;
-  
   StringBuilder pastEnemyMovements = new StringBuilder("");
   boolean turnStarted = false;
   long counter = 0;
@@ -32,7 +45,7 @@ public class PatternMathcher extends AdvancedRobot {
   double width;
   double height;
 
-  int wallBarrier;
+  int wallBarrier = 30;
 
   public void run() {
     // ...
@@ -42,8 +55,6 @@ public class PatternMathcher extends AdvancedRobot {
 
     width = getBattleFieldWidth();
     height = getBattleFieldHeight();
-    
-    wallBarrier = (int) getHeight()*2;
 
     // sets the position variables
     X = getX();
@@ -69,9 +80,7 @@ public class PatternMathcher extends AdvancedRobot {
 
       // setAhead(moveDirection);
       // execute();
-      if (moveFromBorderCounter > 0){
-        moveFromBorderCounter -= 1;
-      }
+
       scan();
 
     } while (true);
@@ -81,13 +90,6 @@ public class PatternMathcher extends AdvancedRobot {
 
     counter += 1;
 
-    double radarTurn =
-    // Absolute bearing to target
-        getHeadingRadians() + e.getBearingRadians()
-        // Subtract current radar heading to get turn required
-            - getRadarHeadingRadians();
-
-    // System.out.println("Heading: " + e.getHeading() + "Velocity: " + e.getVelocity());
 
     // String versions of the enemey heading and velicoty with padded 0's on the left
     String formatedStringHeading = String.format("%03d", (int) e.getHeading());
@@ -102,13 +104,28 @@ public class PatternMathcher extends AdvancedRobot {
     pastEnemyMovements.append(formatedStringVelocity);
     pastEnemyMovements.append(";");
 
-
-    // Allows you to know that 100 turns have passed,
-    // Change to allow more or less data to be pattern matched
-    // controls how many past moves to pattern match against large move set
-    // controls how much data to store and pattern match
     if (counter > 100) {
       pastEnemyMovements.delete(0, 6);
+    }
+
+
+    // To stop them from suspecting that were pattern matching them
+    if (counter % 80 == 0 && counter > 100) {
+
+      double radarTurn =
+      // Absolute bearing to target
+          getHeadingRadians() + e.getBearingRadians()
+          // Subtract current radar heading to get turn required
+              - getRadarHeadingRadians();
+
+      // System.out.println("Heading: " + e.getHeading() + "Velocity: " + e.getVelocity());
+
+      // Allows you to know that 100 turns have passed,
+      // Change to allow more or less data to be pattern matched
+      // controls how many past moves to pattern match against large move set
+      // controls how much data to store and pattern match
+
+
 
       // Find a movement in the 0 to 95 elements of pastEnemyMovements that matches the last 5
       // movements
@@ -122,16 +139,16 @@ public class PatternMathcher extends AdvancedRobot {
       // If a match is found that occured before the string that we gave in
 
       // FIXME CHANGED FROM 95 TO 90
-      if (indexOfMatchedMovement <= 60 * 6 && !turnStarted && e.getDistance() < 400) {
+      if (indexOfMatchedMovement <= 90 * 6 && !turnStarted && e.getDistance() < 400) {
 
-        System.out.println("A pattern has been matched");
+        // System.out.println("A pattern has been matched");
 
         // This will tryy to predict where the enemy will go next
         double xMe = getX();
         double yMe = getY();
 
         // Gets the element after the matched movement
-        String nextMovement = pastEnemyMovements.substring(indexOfMatchedMovement + 39 * 6, indexOfMatchedMovement + 40 * 6);
+        String nextMovement = pastEnemyMovements.substring(indexOfMatchedMovement + 9 * 6, indexOfMatchedMovement + 10 * 6);
         int enemyHeading = Integer.parseInt(nextMovement.substring(0, 3));
         int enemyVelocity = Integer.parseInt(nextMovement.substring(3, 5));
 
@@ -151,14 +168,15 @@ public class PatternMathcher extends AdvancedRobot {
         double difY = yEnemyNew - yMe;
         double rotAng = -Math.toDegrees(Math.atan2(-difX, difY));
 
-        System.out.println("Rotang: " + rotAng);
+        // System.out.println("Rotang: " + rotAng);
 
         // If rotAng is negative turn into + heading
         if (rotAng < 0) {
           rotAng = 360 + rotAng;
         }
 
-        // Get the rotational now in terms of how much the gun has to move from the current position
+        // Get the rotational now in terms of how much the gun has to move from the current
+        // position
         rotAng = (rotAng - getGunHeading());
 
         if (rotAng > 180) {
@@ -166,7 +184,6 @@ public class PatternMathcher extends AdvancedRobot {
         } else if (rotAng < -180) {
           rotAng += 360;
         }
-
 
         /*
          * System.out.println("Rotang after: " + rotAng);
@@ -177,47 +194,65 @@ public class PatternMathcher extends AdvancedRobot {
          * System.out.printf("Enemy predicted at: (%s, %s) \n", xEnemyNew,yEnemyNew);
          */
 
-
-
         // Try using Right
-        setTurnGunRight(rotAng*1.3);
+        // setTurnGunRight(rotAng);
+        turnGunRight(rotAng);
         turnStarted = true;
+        System.out.println("Hello");
+
+
       }
 
-    }
+
+      // setAhead(moveDirection);
 
 
-    // setAhead(moveDirection);
+      if (getGunTurnRemaining() <= 2 && turnStarted) {
+        if (e.getDistance() > 150) {
+          fire(1);
+        } else {
+          fire(3);
+        }
+        turnStarted = false;
+        // System.out.println("Activated: " + getGunTurnRemaining());
+      }
 
-
-    if (getGunTurnRemaining() <= 2 && turnStarted) {
-      setFire(1);
-      turnStarted = false;
-      System.out.println("Activated: " + getGunTurnRemaining());
     } else {
-      System.out.println(getGunTurnRemaining());
+
+      // double absBearing = e.getHeadingRadians();
+      double absBearing = e.getBearingRadians() + getHeadingRadians();// enemies absolute bearing
+      double latVel = e.getVelocity() * Math.sin(e.getHeadingRadians() - absBearing);// enemies
+                                                                                     // later
+                                                                                     // velocity
+      double gunRotationAmt;// amount to turn our gun
+
+      // lock on the radar
+      setTurnRadarLeftRadians(getRadarTurnRemainingRadians());
+      if (Math.random() > .9) {
+        setMaxVelocity((12 * Math.random()) + 12);// randomly change speed
+      }
+      // if they are far away be more conservative
+      if (e.getDistance() > 150) {
+        // add gun lead
+        gunRotationAmt = robocode.util.Utils.normalRelativeAngle(absBearing - getGunHeadingRadians() + latVel / 22);
+        setTurnGunRightRadians(gunRotationAmt); // turn our gun
+        // drive towards predicted location
+        setTurnRightRadians(robocode.util.Utils.normalRelativeAngle(absBearing - getHeadingRadians() + latVel / getVelocity()));
+
+        setAhead((e.getDistance() - 140) * moveDirection);// move forward
+        setFire(3);// fire
+        // If close be more agressive
+      } else {
+        // add a lead amount to aim
+        gunRotationAmt = robocode.util.Utils.normalRelativeAngle(absBearing - getGunHeadingRadians() + latVel / 15);
+        setTurnGunRightRadians(gunRotationAmt);
+        setTurnLeft(-90 - e.getBearing());
+        setAhead((e.getDistance() - 140) * moveDirection);
+        setFire(3);// fire
+      }
+
+
     }
-
-    // System.out.println(pastEnemyMovements.toString());
-    X = getX();
-    Y = getY();
-
-    // Find diffirence in self movement
-    diffX = Math.cos(getHeadingRadians()) * moveDirection;
-    diffY = Math.sin(getHeadingRadians()) * moveDirection;
-    
-    System.out.println(diffX + " " + diffY);
-
-    if (moveFromBorderCounter == 0 && ((X + diffX) < wallBarrier || (X + diffX) > (width - wallBarrier) || (Y + diffY) < (wallBarrier) || (Y + diffY) > (height - wallBarrier))) {
-      //System.out.println(width + " " + height);
-      moveDirection = -moveDirection;
-      moveFromBorderCounter = 30;
-    }
-    setAhead(moveDirection);
-    setTurnRadarRightRadians(1 * Utils.normalRelativeAngle(radarTurn));
-
-
-
     // ...
   }
 
@@ -235,9 +270,9 @@ public class PatternMathcher extends AdvancedRobot {
   }
 
   public void onHitWall(HitWallEvent e) {
-    System.out.println("WTF");
+    moveDirection = -moveDirection;// reverse direction upon hitting a wall
 
-    
+    // setBack(wallBarrier);
 
   }
 }
