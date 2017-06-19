@@ -5,12 +5,10 @@
  * @course: ICS4U1
  * @date: Jun 2, 2017
  * 
- * Credit/Sources: 
- * http://robowiki.net/wiki/Robocode/My_First_Robot
- * http://robowiki.net/wiki/Pattern_Matching
- * https://www.tutorialspoint.com/java/lang/stringbuilder_indexof_str.htm
- * http://robowiki.net/wiki/SuperTracker
- * http://www.javaranch.com/drive/modulo.html
+ *        Credit/Sources: http://robowiki.net/wiki/Robocode/My_First_Robot
+ *        http://robowiki.net/wiki/Pattern_Matching
+ *        https://www.tutorialspoint.com/java/lang/stringbuilder_indexof_str.htm
+ *        http://robowiki.net/wiki/SuperTracker http://www.javaranch.com/drive/modulo.html
  */
 
 package lap;
@@ -75,17 +73,16 @@ public class LaPBot extends AdvancedRobot {
 
     do {
       /*
-       * Need to put scan in here because
-       * turning right for infinity doesn't guarantee a scan
-       * event to occur
+       * Need to put scan in here because turning right for infinity doesn't guarantee a scan event
+       * to occur
        */
       scan();
 
     } while (true);
   }
 
-  
-  
+
+
   /**
    * This does literally everything for the robot and is only called when a enemy is scanned
    */
@@ -110,7 +107,6 @@ public class LaPBot extends AdvancedRobot {
     if (counter > 100) {
       pastEnemyMovements.delete(0, 6);
     }
-
 
     // To stop them from suspecting that were pattern matching them
     if (counter % 80 == 0 && counter > 100) {
@@ -259,10 +255,11 @@ public class LaPBot extends AdvancedRobot {
     // ...
   }
 
-  
+
   /**
-   * Just a nice way to format the velocities in the enemyMovement  Database
-   * it padds the velocity with a + if > 0
+   * Just a nice way to format the velocities in the enemyMovement Database it padds the velocity
+   * with a + if > 0
+   * 
    * @param velocity
    * @return
    */
