@@ -15,20 +15,16 @@ package lap;
 
 
 import java.awt.Color;
-import java.awt.Point;
 
 import robocode.AdvancedRobot;
-import robocode.GunTurnCompleteCondition;
 import robocode.HitWallEvent;
 import robocode.ScannedRobotEvent;
 import robocode.WinEvent;
-import robocode.util.Utils;
 
 public class LaPBot extends AdvancedRobot {
 
   boolean isRoundOver = false;
   int moveDirection = 1;
-
   StringBuilder pastEnemyMovements = new StringBuilder("");
   boolean turnStarted = false;
   long counter = 0;
@@ -45,7 +41,8 @@ public class LaPBot extends AdvancedRobot {
   int wallBarrier = 30;
 
   /**
-   * This is the main Run class
+   * This is the main Run class, it is the
+   * first program run for the robot
    */
   public void run() {
     // ...
@@ -56,7 +53,7 @@ public class LaPBot extends AdvancedRobot {
     widthMap = getBattleFieldWidth();
     heighMap = getBattleFieldHeight();
 
-    // sets the position variables
+    // gets the position variables
     xPos = getX();
     yPos = getY();
 
@@ -65,11 +62,10 @@ public class LaPBot extends AdvancedRobot {
     setAdjustRadarForRobotTurn(true);
     setAdjustRadarForGunTurn(true);
 
+    
+    //Super important, this basically scans everything
+    //with an infinte amount of right turns
     turnRadarRightRadians(Double.POSITIVE_INFINITY);
-
-
-
-    System.out.println("Initial gun heading is: " + getGunHeading());
 
     do {
       /*
@@ -88,22 +84,19 @@ public class LaPBot extends AdvancedRobot {
    */
   public void onScannedRobot(ScannedRobotEvent e) {
 
+    //turn counter tells how many times this functions been called
     counter += 1;
-
 
     // String versions of the enemey heading and velicoty with padded 0's on the left
     String formatedStringHeading = String.format("%03d", (int) e.getHeading());
     String formatedStringVelocity = formatVelocty(e.getVelocity());
 
-    // System.out.println("Heading: " + formatedStringHeading + " Velocity: " +
-    // formatedStringVelocity);
-
-    // pastEnemyHeadings.append("Hello");
-
+    //Appends latest enemy movement to enemy movement data structure
     pastEnemyMovements.append(formatedStringHeading);
     pastEnemyMovements.append(formatedStringVelocity);
     pastEnemyMovements.append(";");
 
+    //if more than 100 movies in the database, delete the first move
     if (counter > 100) {
       pastEnemyMovements.delete(0, 6);
     }
@@ -119,15 +112,7 @@ public class LaPBot extends AdvancedRobot {
           // Subtract current radar heading to get turn required
               - getRadarHeadingRadians();
 
-      // System.out.println("Heading: " + e.getHeading() + "Velocity: " + e.getVelocity());
-
-      // Allows you to know that 100 turns have passed,
-      // Change to allow more or less data to be pattern matched
-      // controls how many past moves to pattern match against large move set
-      // controls how much data to store and pattern match
-
-
-
+     
       // Find a movement in the 0 to 95 elements of pastEnemyMovements that matches the last 5
       // movements
       // Use that to get a x2 and y2
@@ -138,13 +123,9 @@ public class LaPBot extends AdvancedRobot {
       int indexOfMatchedMovement = pastEnemyMovements.indexOf(lastFiveEnemyMovements);
 
       // If a match is found that occured before the string that we gave in
-
-      // FIXME CHANGED FROM 95 TO 90
       if (indexOfMatchedMovement <= 90 * 6 && !turnStarted && e.getDistance() < 400) {
 
-        // System.out.println("A pattern has been matched");
-
-        // This will tryy to predict where the enemy will go next
+        // This will try to predict where the enemy will go next
         double xMe = getX();
         double yMe = getY();
 
@@ -153,23 +134,24 @@ public class LaPBot extends AdvancedRobot {
         int enemyHeading = Integer.parseInt(nextMovement.substring(0, 3));
         int enemyVelocity = Integer.parseInt(nextMovement.substring(3, 5));
 
-        // This get the predicted difference in the enemy movements
+        // This get the predicted difference in the enemy movements (using basic trig)
         // the sin and cos are switched for x and y as the angle is from North instead of + x axis
         double xEnemyDiffirence = Math.sin(Math.toRadians(enemyHeading)) * enemyVelocity;
         double yEnemyDiffirence = Math.cos(Math.toRadians(enemyHeading)) * enemyVelocity;
 
+        //enemies original position
         double xEnemyOriginal = xMe + Math.sin(getRadarHeadingRadians()) * e.getDistance();
         double yEnemyOriginal = yMe + Math.cos(getRadarHeadingRadians()) * e.getDistance();
 
+        //enemies new position
         double xEnemyNew = xEnemyOriginal + xEnemyDiffirence;
         double yEnemyNew = yEnemyOriginal + yEnemyDiffirence; // FIXME MADE THAT A NEGATIVE
         // Are you feeling it now Mr.Krabs!!
 
+        //gets diffirence in two points
         double difX = xEnemyNew - xMe;
         double difY = yEnemyNew - yMe;
         double rotAng = -Math.toDegrees(Math.atan2(-difX, difY));
-
-        // System.out.println("Rotang: " + rotAng);
 
         // If rotAng is negative turn into + heading
         if (rotAng < 0) {
@@ -180,51 +162,34 @@ public class LaPBot extends AdvancedRobot {
         // position
         rotAng = (rotAng - getGunHeading());
 
+        //stops gun from overturning and gives it shortest path to turn
         if (rotAng > 180) {
           rotAng -= 360;
         } else if (rotAng < -180) {
           rotAng += 360;
         }
 
-        /*
-         * System.out.println("Rotang after: " + rotAng);
-         * System.out.println("Detected at Radar Heading: " + getRadarHeading());
-         * System.out.println("Gun currently at (Degrees): " + getGunHeading());
-         * System.out.println("Gun rotation set at (Degrees): " + rotAng);
-         * System.out.printf("Enemy currently at: (%s, %s) \n", xEnemyOriginal,yEnemyOriginal);
-         * System.out.printf("Enemy predicted at: (%s, %s) \n", xEnemyNew,yEnemyNew);
-         */
-
-        // Try using Right
-        // setTurnGunRight(rotAng);
+        //tells gun to turn and sets the flag not to come here until done turning
         turnGunRight(rotAng);
         turnStarted = true;
-        System.out.println("Hello");
-
-
       }
 
-
-      // setAhead(moveDirection);
-
-
+      //Decides if to shoot or not depending on angle of turn left
       if (getGunTurnRemaining() <= 2 && turnStarted) {
-        if (e.getDistance() > 150) {
+        if (e.getDistance() > 150) {//if far don't risk it
           fire(1);
-        } else {
+        } else {//if close shoot to go home
           fire(3);
         }
+        //signifies that a new turn can be made
         turnStarted = false;
-        // System.out.println("Activated: " + getGunTurnRemaining());
       }
 
     } else {
 
-      // double absBearing = e.getHeadingRadians();
+      //gets needed data to calculate trajecteries
       double absBearing = e.getBearingRadians() + getHeadingRadians();// enemies absolute bearing
-      double latVel = e.getVelocity() * Math.sin(e.getHeadingRadians() - absBearing);// enemies
-                                                                                     // later
-                                                                                     // velocity
+      double latVel = e.getVelocity() * Math.sin(e.getHeadingRadians() - absBearing);// enemies later velocity
       double gunRotationAmt;// amount to turn our gun
 
       // lock on the radar
@@ -248,6 +213,7 @@ public class LaPBot extends AdvancedRobot {
         gunRotationAmt = robocode.util.Utils.normalRelativeAngle(absBearing - getGunHeadingRadians() + latVel / 15);
         setTurnGunRightRadians(gunRotationAmt);
         setTurnLeft(-90 - e.getBearing());
+        //drive towards predicted area
         setAhead((e.getDistance() - 140) * moveDirection);
         setFire(3);// fire
       }
@@ -268,16 +234,24 @@ public class LaPBot extends AdvancedRobot {
   private String formatVelocty(double velocity) {
     String formatedVelocity = Integer.toString((int) velocity);
     if (velocity >= 0) {
+      //adds + sign so that all data is length 2 for velocity
       String sign = "+";
       formatedVelocity = sign + formatedVelocity.charAt(formatedVelocity.length() - 1);
     }
     return formatedVelocity;
   }
 
+  /**
+   * Does this really need explaing?
+   * @param e
+   */
   public void onRoundWinEvent(WinEvent e) {
     System.out.println("We’re going to win so much, you’re going to be so sick and tired of winning");
   }
 
+  /**
+   * reverse movement if wall hit
+   */
   public void onHitWall(HitWallEvent e) {
     moveDirection = -moveDirection;// reverse direction upon hitting a wall
 
