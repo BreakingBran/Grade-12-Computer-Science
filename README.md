@@ -8,3 +8,8 @@ Contents:
 4) Unit 4: Databases and Data Structures
 5) CPT: My Robot for the Robocode Competition
 
+Quick Summary:
+- The most noteworthy assignment in this project would most likley be my 
+Unit 4 Database project, the intresting code can be found under Unit 4/src/databases.
+The database package has files to establish a database for a school project that is fully 
+functional and that can be used to store Student info.
