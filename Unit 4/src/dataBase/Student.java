@@ -1,8 +1,7 @@
 package dataBase;
 
-import java.util.*;
-
-import sun.org.mozilla.javascript.internal.ast.ThrowStatement;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Student
